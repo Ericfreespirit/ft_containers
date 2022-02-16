@@ -7,6 +7,23 @@
         "vector": "cpp",
         "string_view": "cpp",
         "initializer_list": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "system_error": "cpp",
+        "typeinfo": "cpp",
+        "atomic": "cpp",
+        "*.tcc": "cpp",
+        "iterator": "cpp",
+        "memory_resource": "cpp",
+        "optional": "cpp",
+        "fstream": "cpp",
+        "functional": "cpp",
+        "istream": "cpp",
+        "new": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp",
+        "stdexcept": "cpp",
+        "streambuf": "cpp",
+        "tuple": "cpp",
+        "random": "cpp"
     }
 }

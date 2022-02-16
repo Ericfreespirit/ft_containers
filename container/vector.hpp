@@ -1,8 +1,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <iostream>
-#include "random.hpp"
 #include "iterator_traits.hpp"
+#include "iterator_vector.hpp"
 namespace ft {
 
     template <class T, class A = std::allocator<T> >
@@ -16,7 +16,7 @@ namespace ft {
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
 
-        typedef ft::random_access_iterator_tag<T> iterator;
+        typedef ft::iterator_vector<T> iterator;
         // typedef const_iterator const_iterator;
         // typedef reverse_iterator reverse_iterator;
         // typedef const_reverse_iterator const_reverse_iterator;
@@ -34,15 +34,6 @@ namespace ft {
         // vector (const vector& x);
         ~vector();
 
-    /*=============
-    |   ITERATOR  |
-    ===============*/
-
-    iterator begin() {
-        return (_start);}
-
-    iterator end() {
-        return (_end);}
 
     private:
         T *_array;
@@ -51,29 +42,40 @@ namespace ft {
         pointer _end;
         pointer _size;
 
+    public:
+    /*=============
+    |   ITERATOR  |
+    ===============*/
+
+    iterator begin() {
+        return ((iterator)this->_start);}
+
+    iterator end() {
+        return (this->_end);}
+
     };
 
-    /*================
+    /*================this->
     |   CONSTRUCTOR   |
     ==================*/
     template <class T, class A>
     vector<T, A>::vector(const A &alloc):
     _alloc(alloc){
         this->array = this->_alloc.allocate(0);
-        _start = NULL;
-        _end = NULL;
+        this->_start = NULL;
+        this->_end = NULL;
     }
 
     template <class T, class A>
     vector<T, A>::vector (size_type n, const value_type& val,
         const allocator_type& alloc):
     _alloc(alloc){
-        _start = _alloc.allocate(n);
-        _end = _start;
-        _size = _start + n;
+        this->_start = this->_alloc.allocate(n);
+        this->_end = this->_start;
+        this->_size = this->_start + n;
         while (n--) {
-            _alloc.construct(_end, val);
-            _end++;
+            this->_alloc.construct(this->_end, val);
+            this->_end++;
         }
     }
 
