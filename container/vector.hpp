@@ -1,6 +1,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <iostream>
+#include "random.hpp"
+#include "iterator_traits.hpp"
 namespace ft {
 
     template <class T, class A = std::allocator<T> >
@@ -14,7 +16,7 @@ namespace ft {
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
 
-        typedef ft::random_access_iterator<T> iterator;
+        typedef ft::random_access_iterator_tag<T> iterator;
         // typedef const_iterator const_iterator;
         // typedef reverse_iterator reverse_iterator;
         // typedef const_reverse_iterator const_reverse_iterator;
