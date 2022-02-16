@@ -34,13 +34,6 @@ namespace ft {
         // vector (const vector& x);
         ~vector();
 
-    private:
-        T *_array;
-        A _alloc;
-        pointer _start;
-        pointer _end;
-        pointer _size;
-
     /*=============
     |   ITERATOR  |
     ===============*/
@@ -50,8 +43,15 @@ namespace ft {
 
     iterator end() {
         return (_end);}
-    }; //end of vector class
 
+    private:
+        T *_array;
+        A _alloc;
+        pointer _start;
+        pointer _end;
+        pointer _size;
+
+    };
 
     /*================
     |   CONSTRUCTOR   |
@@ -60,8 +60,8 @@ namespace ft {
     vector<T, A>::vector(const A &alloc):
     _alloc(alloc){
         this->array = this->_alloc.allocate(0);
-        _start = u_nullptr;
-        _end = u_nullptr;
+        _start = NULL;
+        _end = NULL;
     }
 
     template <class T, class A>
