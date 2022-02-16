@@ -1,7 +1,8 @@
 NAME = ft_container
 CC = clang++
 CONTAINER = container/vector.hpp
-INCLUDE = include/iterator.hpp
+INCLUDE = include/iterator_traits.hpp \
+		  include/random.hpp \
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude
 

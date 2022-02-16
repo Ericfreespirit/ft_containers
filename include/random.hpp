@@ -35,8 +35,10 @@ struct random_access_iterator_tag : public iterator_traits{
 
     }; //end of class definition 
 
-        iterator &operator++();
-    
+        template <class T>
+        iterator &iterator::operator++(){
+
+        }
 
 } //end of namespace ft
 #endif

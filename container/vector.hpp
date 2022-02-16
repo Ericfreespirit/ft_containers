@@ -1,6 +1,8 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <iostream>
+#include "random.hpp"
+#include "iterator_traits.hpp"
 namespace ft {
 
     template <class T, class A = std::allocator<T> >
