@@ -56,8 +56,12 @@ int main() {
 	// const int seed = atoi(argv[1]);
 	// srand(seed);
 
-//   ft::vector<int> myvector(10,100);
-// //   for (int i=1; i<=5; i++) myvector.push_back(i);
+  ft::vector<int> myvector(10,100);
+
+  ft::vector<int>::iterator it = myvector.begin();
+
+  for (ft::vector<int>::iterator ite = myvector.end(); it != ite; it++)
+		std::cout << *it << std::endl;
 
 //   std::cout << "myvector contains:";
 //   for (ft::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
