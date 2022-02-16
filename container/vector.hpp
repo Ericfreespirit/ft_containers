@@ -43,25 +43,26 @@ namespace ft {
         pointer _size;
 
     public:
-    /*=============
+    /*============
     |   ITERATOR  |
     ===============*/
 
-    iterator begin() {
-        return ((iterator)this->_start);}
+    // iterator begin() {
+    //     return (iterator* this->array);
+    // }
 
     iterator end() {
         return (this->_end);}
 
     };
 
-    /*================this->
+    /*================
     |   CONSTRUCTOR   |
     ==================*/
     template <class T, class A>
     vector<T, A>::vector(const A &alloc):
     _alloc(alloc){
-        this->array = this->_alloc.allocate(0);
+        this->_array = this->_alloc.allocate(0);
         this->_start = NULL;
         this->_end = NULL;
     }
@@ -70,13 +71,13 @@ namespace ft {
     vector<T, A>::vector (size_type n, const value_type& val,
         const allocator_type& alloc):
     _alloc(alloc){
-        this->_start = this->_alloc.allocate(n);
-        this->_end = this->_start;
-        this->_size = this->_start + n;
-        while (n--) {
-            this->_alloc.construct(this->_end, val);
-            this->_end++;
-        }
+        // this->_start = this->_alloc.allocate(n);
+        // this->_end = this->_start;
+        // this->_size = this->_start + n;
+        // while (n--) {
+        //     this->_alloc.construct(this->_end, val);
+        //     this->_end++;
+        // }
     }
 
     // template <class T, class A>
