@@ -26,11 +26,12 @@ namespace ft {
 
 
         explicit vector (const allocator_type& alloc = allocator_type());
-        explicit vector (size_type n, const value_type& val = value_type(),
+        explicit vector (size_type n, const value_type &val = value_type(),
                  const allocator_type& alloc = allocator_type());
-        template <class InputIterator>
-         vector (InputIterator first, InputIterator last,
-                 const allocator_type& alloc = allocator_type());
+
+        // template <class InputIterator>
+        //  vector (InputIterator first, InputIterator last,
+        //          const allocator_type& alloc = allocator_type());
         // vector (const vector& x);
         ~vector();
 
@@ -69,14 +70,15 @@ namespace ft {
 
 		//? this->_start / this->_begin 
     template <class T, class A>
-    vector<T, A>::vector (size_type n, const value_type& val,
-        const allocator_type& alloc):
+    vector<T, A>::vector (size_type n, const T &val,
+        const A &alloc):
     _alloc(alloc),
 		_size(n)
 		{
 			this->_array = this->_alloc.allocate(n);
         while (n--)
             this->_alloc.construct(this->_array, val);
+						std::cout << "hello"<< std::endl;
     }
 
     // template <class T, class A>
