@@ -56,7 +56,7 @@ int main() {
 	// const int seed = atoi(argv[1]);
 	// srand(seed);
 
-  ft::vector<int> myvector(10, 100);
+  ft::vector<int> myvector(10,100);
 
   // ft::vector<int>::iterator it = myvector.begin();
 
