@@ -15,10 +15,26 @@ struct iterator_traits {
     typedef Iter value_type;
     typedef Iter* pointer;
     typedef Iter& reference;
+    typedef const Iter& const_reference;
     typedef random_access_iterator_tag iterator_category;
+    /*
+    typedef const T					value_type;
+	typedef value_type&				reference;
+	typedef const value_type&		const_reference;
+	typedef value_type*				pointer;
+	typedef typename std::ptrdiff_t difference_type; //is the signed integer type of the result of subtracting
+    */
 };
 }
 
+
+/*typedef Iter::difference_type difference_type;
+    typedef Iter::value_type value_type;
+    typedef Iter::pointer pointer;
+    typedef Iter::reference reference;
+    typedef const Iter& const_reference;
+    typedef random_access_iterator_tag iterator_category;
+*/
 
 
 #endif
