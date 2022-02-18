@@ -15,7 +15,7 @@ struct iterator_traits {
     typedef Iter value_type;
     typedef Iter* pointer;
     typedef Iter& reference;
-    typedef ft::random_access_iterator_tag iterator_category;
+    typedef random_access_iterator_tag iterator_category;
 };
 }
 

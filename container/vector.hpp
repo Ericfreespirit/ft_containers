@@ -35,6 +35,7 @@ namespace ft {
         // vector (const vector& x);
         ~vector();
 
+
     private:
         T *_array;
         A _alloc;
@@ -46,10 +47,9 @@ namespace ft {
     /*============
     |   ITERATOR  |
     ===============*/
-
-    // iterator begin() {
-    //     return (iterator* this->array);
-    // }
+    iterator begin() {
+        return (this->_start);
+    }
 
     iterator end() {
         return (this->_end);}
@@ -59,7 +59,7 @@ namespace ft {
     /*================
     |   CONSTRUCTOR   |
     ==================*/
-		//? this->_start / this->_begin 
+		//? this->_start / this->_end
     template <class T, class A>
     vector<T, A>::vector(const A &alloc):
     _alloc(alloc){
@@ -68,7 +68,7 @@ namespace ft {
         this->_end = NULL;
     }
 
-		//? this->_start / this->_begin 
+		//? this->_start / this->_end
     template <class T, class A>
     vector<T, A>::vector (size_type n, const T &val,
         const A &alloc):
@@ -76,9 +76,10 @@ namespace ft {
 		_size(n)
 		{
 			this->_array = this->_alloc.allocate(n);
-        while (n--)
-            this->_alloc.construct(this->_array, val);
-						std::cout << "hello"<< std::endl;
+        for(size_type i = 0;i < n; i++)
+            this->_alloc.construct(&this->_array[i], val);
+			this->_start = this->_array;
+			this->_end = &this->_array[n];
     }
 
     // template <class T, class A>

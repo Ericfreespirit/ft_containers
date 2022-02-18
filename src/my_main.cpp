@@ -58,10 +58,11 @@ int main() {
 
   ft::vector<int> myvector(10,100);
 
-  // ft::vector<int>::iterator it = myvector.begin();
+  ft::vector<int>::iterator it = myvector.begin();
 
-  // for (ft::vector<int>::iterator ite = myvector.end(); it != ite; it++)
-	// 	std::cout << *it << std::endl;
+
+  for (ft::vector<int>::iterator ite = myvector.end(); it != ite; it++)
+		std::cout << *it << std::endl;
 
 //   std::cout << "myvector contains:";
 //   for (ft::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
