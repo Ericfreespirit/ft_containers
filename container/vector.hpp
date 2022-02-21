@@ -3,6 +3,28 @@
 #include <iostream>
 #include "iterator_traits.hpp"
 #include "iterator_vector.hpp"
+#include "const_iterator_vector.hpp"
+#include <type_traits>
+
+struct enable_if<bool, T=void> {
+}
+
+struct enable_if<true, T=void> {
+    typedef type T;
+}
+
+struct is_iterator<class T>
+{
+    static bool value = false;
+}
+
+struct is_iterator<input_iterator> {
+    static bool value = true;
+}
+
+
+
+
 namespace ft {
 
     template <class T, class A = std::allocator<T> >
@@ -15,24 +37,24 @@ namespace ft {
         typedef typename allocator_type::const_reference const_reference;
         typedef typename allocator_type::pointer pointer;
         typedef typename allocator_type::const_pointer const_pointer;
-
-        typedef ft::iterator_vector<T> iterator;
-        // typedef const_iterator const_iterator;
-        // typedef reverse_iterator reverse_iterator;
-        // typedef const_reverse_iterator const_reverse_iterator;
-
         typedef std::ptrdiff_t difference_type;
         typedef size_t size_type;
 
+        typedef ft::iterator_vector<T> iterator;
+        // typedef ft::const_iterator_vector<T> const_iterator;
+        // typedef reverse_iterator reverse_iterator;
+        // typedef const_reverse_iterator const_reverse_iterator;
 
         explicit vector (const allocator_type& alloc = allocator_type());
         explicit vector (size_type n, const value_type &val = value_type(),
-                 const allocator_type& alloc = allocator_type());
-
-        // template <class InputIterator>
-        //  vector (InputIterator first, InputIterator last,
-        //          const allocator_type& alloc = allocator_type());
-        // vector (const vector& x);
+            const allocator_type& alloc = allocator_type());
+        
+        template <class InputIterator>
+        vector(InputIterator first,
+            InputIterator last,
+            const allocator_type& alloc = allocator_type(), 
+            typename std::enable_if<std::is_inte>::type = 0);
+        vector (const vector& x);
         ~vector();
 
 
@@ -82,17 +104,17 @@ namespace ft {
 			this->_end = &this->_array[n];
     }
 
-    // template <class T, class A>
-    // template <class InputIterator>
-    // vector<T, A>::vector (InputIterator first, 
-    //     InputIterator last, const allocator_type& alloc):
-    // _alloc(alloc){
-
-    // }
+    template <class T, class A>
+    template <class InputIterator>
+    vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc):
+    _alloc(alloc){
+            (void)first;
+            (void)last;
+    }
 
     /*================
     |   DESTRUCTOR   |
-    ==================*/
+    ================*/
     template <class T, class A>
     vector<T, A>::~vector(){
         // this->*clear();
@@ -100,7 +122,7 @@ namespace ft {
 
     /*====================
     |   MEMBER FUNCTION   |
-    ======================*/
+    =====================*/
 
 
 } //end of ft namespace

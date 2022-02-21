@@ -1,10 +1,12 @@
 NAME = ft_container
 CC = clang++ 
-CONTAINER = container/vector.hpp
-INCLUDE = include/iterator_traits.hpp \
-			include/iterator_vector.hpp \
+FILE_HPP = container/vector.hpp \
+	include/iterator_traits.hpp \
+	include/iterator_vector.hpp \
+	# utils/enable_if.hpp \
 
-CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude
+CPPFLAGS = -Wall -Wextra  -MMD -MP -Icontainer -Iinclude 
+# CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils
 
 FILES = my_main.cpp 
 
@@ -17,7 +19,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(FILES:%.cpp=%.o))
 
 all :   $(NAME) 
 
-$(NAME) :  $(OBJ_PATH) $(OBJ_PATH) $(OBJ) $(CONTAINER) $(INCLUDE)
+$(NAME) :  $(OBJ_PATH) $(OBJ_PATH) $(OBJ) $(FILE_HPP) 
 	@$(CC) $(CPPFLAGS) $(OBJ) -o ${NAME}
 
 $(OBJ_PATH):

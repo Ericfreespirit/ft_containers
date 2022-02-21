@@ -56,18 +56,14 @@ int main() {
 	// const int seed = atoi(argv[1]);
 	// srand(seed);
 
-  ft::vector<int> myvector(10,100);
+  ft::vector<int> vector1(10,100);
+  ft::vector<int>::iterator it = vector1.begin();
+  ft::vector<int>::iterator ite = vector1.end();
+  ft::vector<int>vector2(it, ite);
 
-  ft::vector<int>::iterator it = myvector.begin();
-
-
-  for (ft::vector<int>::iterator ite = myvector.end(); it != ite; it++)
-		std::cout << *it << std::endl;
-
-//   std::cout << "myvector contains:";
-//   for (ft::vector<int>::iterator it = myvector.begin() ; it != myvector.end(); ++it)
-//     std::cout << ' ' << *it;
-//   std::cout << std::endl;
+	// int i = 1;
+	// for (ft::vector<int>::iterator it = vector2.begin() ; it != vector2.end(); ++it)
+	// 	std::cout << "#" << i++ << " " << *it << std::endl;
 
 	return (0);
 }
