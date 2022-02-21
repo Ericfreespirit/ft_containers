@@ -6,24 +6,6 @@
 #include "const_iterator_vector.hpp"
 #include <type_traits>
 
-// struct enable_if<bool, T=void> {
-// }
-
-// struct enable_if<true, T=void> {
-//     typedef type T;
-// }
-
-// struct is_iterator<class T>
-// {
-//     static bool value = false;
-// }
-
-// struct is_iterator<input_iterator> {
-//     static bool value = true;
-// }
-
-
-
 
 namespace ft {
 
@@ -48,12 +30,10 @@ namespace ft {
         explicit vector (const allocator_type& alloc = allocator_type());
         explicit vector (size_type n, const value_type &val = value_type(),
             const allocator_type& alloc = allocator_type());
-        
         template <class InputIterator>
-        // vector(InputIterator first,
-        //     InputIterator last,
-        //     const allocator_type& alloc = allocator_type(), 
-        //     typename std::enable_if<std::is_inte>::type = 0);
+        vector(InputIterator first,InputIterator last,
+            const allocator_type& alloc = allocator_type(),
+            typename std::enable_if<std::is_floating_point<InputIterator>::value>::type = 0);
         vector (const vector& x);
         ~vector();
 
@@ -81,7 +61,6 @@ namespace ft {
     /*================
     |   CONSTRUCTOR   |
     ==================*/
-		//? this->_start / this->_end
     template <class T, class A>
     vector<T, A>::vector(const A &alloc):
     _alloc(alloc){
@@ -90,7 +69,6 @@ namespace ft {
         this->_end = NULL;
     }
 
-		//? this->_start / this->_end
     template <class T, class A>
     vector<T, A>::vector (size_type n, const T &val,
         const A &alloc):
@@ -102,15 +80,18 @@ namespace ft {
             this->_alloc.construct(&this->_array[i], val);
 			this->_start = this->_array;
 			this->_end = &this->_array[n];
+            std::cout << "here 1" << std::endl;
     }
 
-    // template <class T, class A>
-    // template <class InputIterator>
-    // vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc):
-    // _alloc(alloc){
-    //         (void)first;
-    //         (void)last;
-    // }
+    template <class T, class A>
+    template <class InputIterator>
+    vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc,
+     typename std::enable_if<std::is_floating_point<InputIterator>::value>::type):
+    _alloc(alloc){
+            (void)first;
+            (void)last;
+            std::cout << "here 2" << std::endl;
+    }
 
     /*================
     |   DESTRUCTOR   |
@@ -125,6 +106,6 @@ namespace ft {
     =====================*/
 
 
-} //end of ft namespace
+}; //end of ft namespace
 
 #endif
