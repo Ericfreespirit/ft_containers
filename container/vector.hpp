@@ -6,21 +6,21 @@
 #include "const_iterator_vector.hpp"
 #include <type_traits>
 
-struct enable_if<bool, T=void> {
-}
+// struct enable_if<bool, T=void> {
+// }
 
-struct enable_if<true, T=void> {
-    typedef type T;
-}
+// struct enable_if<true, T=void> {
+//     typedef type T;
+// }
 
-struct is_iterator<class T>
-{
-    static bool value = false;
-}
+// struct is_iterator<class T>
+// {
+//     static bool value = false;
+// }
 
-struct is_iterator<input_iterator> {
-    static bool value = true;
-}
+// struct is_iterator<input_iterator> {
+//     static bool value = true;
+// }
 
 
 
@@ -50,10 +50,10 @@ namespace ft {
             const allocator_type& alloc = allocator_type());
         
         template <class InputIterator>
-        vector(InputIterator first,
-            InputIterator last,
-            const allocator_type& alloc = allocator_type(), 
-            typename std::enable_if<std::is_inte>::type = 0);
+        // vector(InputIterator first,
+        //     InputIterator last,
+        //     const allocator_type& alloc = allocator_type(), 
+        //     typename std::enable_if<std::is_inte>::type = 0);
         vector (const vector& x);
         ~vector();
 
@@ -104,13 +104,13 @@ namespace ft {
 			this->_end = &this->_array[n];
     }
 
-    template <class T, class A>
-    template <class InputIterator>
-    vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc):
-    _alloc(alloc){
-            (void)first;
-            (void)last;
-    }
+    // template <class T, class A>
+    // template <class InputIterator>
+    // vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc):
+    // _alloc(alloc){
+    //         (void)first;
+    //         (void)last;
+    // }
 
     /*================
     |   DESTRUCTOR   |
