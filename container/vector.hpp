@@ -5,6 +5,7 @@
 #include "iterator_vector.hpp"
 #include "const_iterator_vector.hpp"
 #include <type_traits>
+#include "is_.hpp"
 
 
 namespace ft {
@@ -33,7 +34,7 @@ namespace ft {
         template <class InputIterator>
         vector(InputIterator first,InputIterator last,
             const allocator_type& alloc = allocator_type(),
-            typename std::enable_if<std::is_floating_point<InputIterator>::value>::type = 0);
+            typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr);
         vector (const vector& x);
         ~vector();
 
@@ -86,8 +87,8 @@ namespace ft {
     template <class T, class A>
     template <class InputIterator>
     vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc,
-     typename std::enable_if<std::is_floating_point<InputIterator>::value>::type):
-    _alloc(alloc){
+            typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*): _alloc(alloc)
+    {
             (void)first;
             (void)last;
             std::cout << "here 2" << std::endl;

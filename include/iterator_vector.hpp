@@ -18,7 +18,7 @@ namespace ft{
 
         iterator_vector(pointer ptr) : _ptr(ptr){};
         ~iterator_vector(){};
-        iterator_vector(const _it &ref);
+        // iterator_vector(const _it &ref);
 
 	    _it &operator=(_it const &src) { this->_ptr = src.operator->(); return (*this); };
 
