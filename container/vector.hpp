@@ -37,6 +37,16 @@ namespace ft {
             typename std::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr);
         vector (const vector& x);
         ~vector();
+        /*==============================
+        |   MEMBER FUNCTION PROTOTYPE  |
+        ==============================*/
+        void reserve (size_type n);
+        size_type max_size() const;
+        iterator insert (iterator position, const value_type& val);	
+        void insert (iterator position, size_type n, const value_type& val);
+        template <class InputIterator>
+        void insert (iterator position, InputIterator first, InputIterator last);
+
 
 
     private:
@@ -45,6 +55,7 @@ namespace ft {
         pointer _start;
         pointer _end;
         size_type _size;
+        size_t  _allocSize;
 
     public:
     /*============
@@ -76,6 +87,7 @@ namespace ft {
     _alloc(alloc),
 		_size(n)
 		{
+            _allocSize = val;
 			this->_array = this->_alloc.allocate(n);
         for(size_type i = 0;i < n; i++)
             this->_alloc.construct(&this->_array[i], val);
@@ -105,6 +117,43 @@ namespace ft {
     /*====================
     |   MEMBER FUNCTION   |
     =====================*/
+    template <class T, class A>
+	void vector<T, A>::reserve(size_t new_cap) {
+        if (this->_allocSize < new_cap) {
+            T* newArr = T[new_cap];
+            for (size_type y = 0; y < new_cap; y++) {
+                newArr[y] = this->_array[y];
+            }
+            this->_allocSize = new_cap;
+            delete [] this->_array;
+            this->_array = newArr;
+        }
+    }
+
+    template <class T, class A>
+	ft::vector_iterator<T> vector<T, A>::insert(ft::vector_iterator<T> pos, const T &value)
+	{
+		difference_type delta = pos - this->begin();
+
+		this->insert(pos, 1, value);
+		return (this->begin() + delta);
+	}
+
+	template <class T, class A>
+	void ft::vector<T, A>::insert(ft::vector_iterator<T> pos, size_t count, const T &value)
+	{
+		if (this->_allocSize < this->_size + count)
+				this->reserve(this->_size + count);
+		_size += count;
+		// for (iterator it = ft::prev(this->end()); it != ft::next(pos, count - 1); --it) //ajouter ft::prev ft::next
+		// 	*it = *ft::prev(it, count);
+		// for (iterator it = pos; it != pos + count; ++it)
+		// 	*it = value;
+	}
+
+    template <class T, class A>
+    size_t vector<T, A>::max_size() const {
+    };
 
 
 }; //end of ft namespace

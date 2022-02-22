@@ -64,6 +64,5 @@ int main() {
 	// int i = 1;
 	// for (ft::vector<int>::iterator it = vector2.begin() ; it != vector2.end(); ++it)
 	// 	std::cout << "#" << i++ << " " << *it << std::endl;
-
 	return (0);
 }
