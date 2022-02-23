@@ -29,7 +29,7 @@ struct enable_if<true, T>{};
             };
 
     template <typename>
-        struct is_integral_type : public is_integral_res<true, bool> {};
+        struct is_integral_type : public is_integral_res<false, bool> {};
     template <>
         struct is_integral_type<bool> : public is_integral_res<true, bool> {};
     template <>
@@ -102,7 +102,7 @@ struct is_same<A, A> {
     static const bool value = true;
 };
 
-template <bool is_iterator, class Iter>
+template <bool is_integral, bool is_iterator, class Iter>
 struct is_iterator_res{
     typedef Iter type;
     static const bool value = is_iterator;
@@ -111,7 +111,7 @@ struct is_iterator_res{
 
 template<class Iter>
 struct is_iterator {
-    static const bool value = is_same<typename iterator_traits<Iter>::iterator_category, input_iterator_tag>::value;
+    // static const bool value = !ft::is_integral<InputIterator>::value && is_same<typename iterator_traits<Iter>::iterator_category, input_iterator_tag>::value;
 };
 
 

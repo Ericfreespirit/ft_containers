@@ -57,9 +57,10 @@ int main() {
 	// srand(seed);
 
   ft::vector<int> vector1(10,100);
-  ft::vector<int>::iterator it = vector1.begin();
-  ft::vector<int>::iterator ite = vector1.end();
-  ft::vector<int>vector2(it, ite);
+	std::cout << vector1[9] << std::endl;
+//   ft::vector<int>::iterator it = vector1.begin();
+//   ft::vector<int>::iterator ite = vector1.end();
+//   ft::vector<int>vector2(it, ite);
 
 	// int i = 1;
 	// for (ft::vector<int>::iterator it = vector2.begin() ; it != vector2.end(); ++it)
