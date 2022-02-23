@@ -1,20 +1,21 @@
 #ifndef ITERATOR_VECTOR_H
 #define ITERATOR_VECTOR_H
 
-#include "iterator_traits.hpp"
+#include "traits.hpp"
 
 namespace ft{
 
     template <class T>
-    class iterator_vector : ft::random_access_iterator_tag{
+    class iterator_vector {
     public:
         typedef iterator_vector<T> _it;
 		
+        typedef std::ptrdiff_t difference_type; 
+	    typedef T value_type;
+	    typedef	T*  pointer;
 	    typedef T& reference;
         typedef const T& const_reference;
-	    typedef	T*  pointer;
-	    typedef T value_type;
-        typedef std::ptrdiff_t difference_type; //is the signed integer type of the result of subtracting two pointers. 
+		typedef ft::random_access_iterator_tag iterator_category;
 
         iterator_vector(pointer ptr) : _ptr(ptr){};
         ~iterator_vector(){};

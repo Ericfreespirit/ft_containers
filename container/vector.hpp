@@ -1,12 +1,10 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <iostream>
-#include "iterator_traits.hpp"
 #include "iterator_vector.hpp"
-#include "const_iterator_vector.hpp"
+// #include "const_iterator_vector.hpp"
 #include <type_traits>
-#include "is_.hpp"
-#include "enable_if.hpp"
+#include "traits.hpp"
 
 
 namespace ft {
@@ -35,7 +33,9 @@ namespace ft {
         template <class InputIterator>
         vector(InputIterator first,InputIterator last,
             const allocator_type& alloc = allocator_type(),
-            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr);
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0,
+            typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0
+            );
         vector (const vector& x);
         ~vector();
 
@@ -88,11 +88,15 @@ namespace ft {
     template <class T, class A>
     template <class InputIterator>
     vector<T, A>::vector(InputIterator first, InputIterator last, const A& alloc,
-            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*): _alloc(alloc)
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type*
+           typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type*): _alloc(alloc)
     {
             (void)first;
             (void)last;
             std::cout << "here 2" << std::endl;
+            std::cout << typeid(first).name()<< std::endl;
+            std::cout << typeid(last).name()<< std::endl;
+            std::cout << ft::is_integral<InputIterator>::value << std::endl;
     }
 
     /*================

@@ -1,10 +1,9 @@
 NAME = ft_container
 CC = clang++ 
 FILE_HPP = container/vector.hpp \
-	include/iterator_traits.hpp \
 	include/iterator_vector.hpp \
-	utils/is_.hpp \
-	utils/enable_if.hpp \
+	utils/traits.hpp \
+
 
 CPPFLAGS = -Wall -Wextra  -MMD -MP -Icontainer -Iinclude -Iutils
 # CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils

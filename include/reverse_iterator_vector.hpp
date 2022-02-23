@@ -1,7 +1,7 @@
 #ifndef REVERSE_ITERATOR_VECTOR_H
 #define REVERSE_ITERATOR_VECTOR_H
 
-#include "iterator_traits.hpp"
+#include "traits.hpp"
 
 namespace ft{
 
