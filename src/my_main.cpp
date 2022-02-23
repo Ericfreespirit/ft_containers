@@ -57,14 +57,21 @@ int main() {
 	// srand(seed);
 
   ft::vector<int> vector1(10,100);
-	std::cout << vector1[9] << std::endl;
-//   ft::vector<int>::iterator it = vector1.begin();
-//   ft::vector<int>::iterator ite = vector1.end();
+  ft::vector<int>::iterator it = vector1.begin();
+  ft::vector<int>::iterator ite = vector1.end();
+  int i = 1;
+  for (ft::vector<int>::iterator it = vector1.begin() ; it != vector1.end(); ++it)
+		std::cout << "#" << i++ << " " << *it << std::endl;
+  vector1.reserve(5);
+  i = 1;
+  for (ft::vector<int>::iterator it3 = vector1.begin() ; it3 != vector1.end(); ++it3)
+		std::cout << "#" << i++ << " " << *it3 << std::endl;
+  std::cout << "vector.size 1: " << vector1.size() << " vector capacity: " << vector1.capacity() << " vector1.max_size: " << vector1.max_size() << std::endl; 
 //   ft::vector<int>vector2(it, ite);
+  
 
 	// int i = 1;
 	// for (ft::vector<int>::iterator it = vector2.begin() ; it != vector2.end(); ++it)
 	// 	std::cout << "#" << i++ << " " << *it << std::endl;
-
 	return (0);
 }

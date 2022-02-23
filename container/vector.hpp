@@ -33,6 +33,25 @@ private:
     size_type _size;
 
 public:
+
+        /*==============================
+        |   MEMBER FUNCTION PROTOTYPE  |
+        ==============================*/
+        void reserve (size_type n);
+        size_type max_size() const;
+        size_type size() const;
+        size_type capacity() const;
+        iterator insert (iterator position, const value_type& val);
+        void insert (iterator position, size_type n, const value_type& val);
+        template <class InputIterator>
+        void insert (iterator position, InputIterator first, InputIterator last);
+
+        // iterator insert (iterator position, const value_type& val);	
+        // void insert (iterator position, size_type n, const value_type& val);
+        // template <class InputIterator>
+        // void insert (iterator position, InputIterator first, InputIterator last);
+
+
     /*================
     |   CONSTRUCTOR   |
     ==================*/
@@ -86,11 +105,9 @@ public:
     }
 
     /* operator= */
-    vector& operator= (const vector& x){
+    // vector& operator= (const vector& x){
 
-    }
-
-
+    // }
 
     /*============
     |   ITERATOR  |
@@ -107,7 +124,57 @@ public:
     /*====================
     |   MEMBER FUNCTION   |
     =====================*/
+    template <class T, class A>
+	void vector<T, A>::reserve(size_t new_cap) {
+		if (new_cap > this->max_size())
+			throw std::length_error("vector::reserve");
+        size_type y = -1;
+        if (this->_allocSize < new_cap) {
+            T *newArr = _alloc.allocate(new_cap);
+            while (++y <= new_cap && y < _size) {
+                this->_alloc.construct(&newArr[y], this->_array[y]);
+            }
+            this->_allocSize = new_cap;
+            delete [] this->_array;
+            this->_array = newArr;
+            this->_start = this->_array;
+            this->_end = &this->_array[y];
+        }
+    }
 
+    template <class T, class A>
+    size_t ft::vector<T, A>::size() const {
+        return (this->_size);
+    }
+
+    template <class T, class A>
+    size_t ft::vector<T, A>::max_size() const {
+        return (allocator_type().max_size());
+    }
+
+    template <class T, class A>
+    size_t ft::vector<T, A>::capacity() const {
+        return (this->_allocSize);
+    }
+
+    template <class T, class A>
+    ft::iterator_vector<T> ft::vector<T, A>::insert(ft::iterator_vector<T> pos, const T &value)
+	{
+		difference_type delta = pos - this->begin();
+
+		this->insert(pos, 1, value);
+		return (this->begin() + delta);
+	}
+
+	template <class T, class A>
+    void ft::vector<T, A>::insert(ft::iterator_vector<T> pos, size_t count, const T &value)
+	{
+		if (this->_allocSize < this->_size + count)
+				this->reserve(this->_size + count);
+		_size += count;
+		for (iterator it = pos; it != pos + count; ++it)
+			*it = value;
+	}
 
 }; //end of ft namespace
 
