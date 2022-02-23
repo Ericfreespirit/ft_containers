@@ -19,7 +19,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(FILES:%.cpp=%.o))
 
 all :   $(NAME) 
 
-$(NAME) :  $(OBJ_PATH) $(OBJ_PATH) $(OBJ) $(FILE_HPP) 
+$(NAME) :  $(OBJ_PATH) $(OBJ) $(FILE_HPP) 
 	@$(CC) $(CPPFLAGS) $(OBJ) -o ${NAME}
 
 $(OBJ_PATH):

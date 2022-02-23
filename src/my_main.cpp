@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 0 //CREATE A REAL STL EXAMPLE
+#if 1 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -46,32 +46,18 @@ struct Buffer
 
 // int main(int argc, char** argv) {
 int main() {
-	// if (argc != 2)
-	// {
-	// 	std::cerr << "Usage: ./test seed" << std::endl;
-	// 	std::cerr << "Provide a seed please" << std::endl;
-	// 	std::cerr << "Count value:" << COUNT << std::endl;
-	// 	return 1;
-	// }
-	// const int seed = atoi(argv[1]);
-	// srand(seed);
+ std::vector<int> myvector;
 
-  ft::vector<int> vector1(10,100);
-  ft::vector<int>::iterator it = vector1.begin();
-  ft::vector<int>::iterator ite = vector1.end();
-  int i = 1;
-  for (ft::vector<int>::iterator it = vector1.begin() ; it != vector1.end(); ++it)
-		std::cout << "#" << i++ << " " << *it << std::endl;
-  vector1.reserve(5);
-  i = 1;
-  for (ft::vector<int>::iterator it3 = vector1.begin() ; it3 != vector1.end(); ++it3)
-		std::cout << "#" << i++ << " " << *it3 << std::endl;
-  std::cout << "vector.size 1: " << vector1.size() << " vector capacity: " << vector1.capacity() << " vector1.max_size: " << vector1.max_size() << std::endl; 
-//   ft::vector<int>vector2(it, ite);
-  
+  // set some initial content:
+  for (int i=1;i<10;i++) myvector.push_back(i);
+	myvector.erase(myvector.begin() + 5, myvector.end());
+//   myvector.resize(5);
+//   myvector.resize(8,100);
+//   myvector.resize(12);
 
-	// int i = 1;
-	// for (ft::vector<int>::iterator it = vector2.begin() ; it != vector2.end(); ++it)
-	// 	std::cout << "#" << i++ << " " << *it << std::endl;
+  std::cout << "myvector contains:";
+  for (int i=0;i<myvector.capacity();i++)
+    std::cout << ' ' << myvector[i];
+  std::cout << '\n';
 	return (0);
 }

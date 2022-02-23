@@ -31,7 +31,7 @@ private:
     pointer _start;
     pointer _end;
     size_type _size;
-    size_t  _allocSize;
+    size_type  _allocSize;
 
 public:
 
@@ -54,6 +54,7 @@ public:
         this->_alloc.construct(&this->_array[i], val);
 		this->_start = this->_array;
 		this->_end = &this->_array[n];
+        
     }
             
     // template <class InputIterator>
@@ -155,6 +156,48 @@ public:
         // void insert (iterator position, size_type n, const value_type& val);
         // template <class InputIterator>
         // void insert (iterator position, InputIterator first, InputIterator last);
+
+    // template<class InputIterator>
+    // void assign(InputIterator first, InputIterator last);
+    void assign (size_type n, const value_type &val){
+        /*
+            if (old value)
+            {
+                destroy;
+                realloca allocate
+            }
+        
+        */
+
+        this->_array = this->_alloc.allocate(n);
+                 for(size_type i = 0;i < n; i++)
+        this->_alloc.construct(&this->_array[i], val);
+		this->_start = this->_array;
+		this->_end = &this->_array[n];
+        this->_size = n;
+        this->_allocSize = n;
+    }
+
+    void resize (size_type n, value_type val = value_type()){
+        /*
+            size_type tmp = n;
+            while (n < this->_size)
+            {
+                remove (this->_array[n])
+                destroy (this->_array[n])
+                n++;
+            }
+            this->_start = this->_array;
+            this->_end = &this->_array[n];
+            this->_size = tmp;
+            this->_allocSize = tmp;
+
+        */
+    }
+
+    allocator_type get_allocator()const{
+        return (this->_alloc);
+    }
         
     }; // end of vector class
 }; //end of ft namespace
