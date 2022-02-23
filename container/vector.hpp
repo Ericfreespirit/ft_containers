@@ -31,26 +31,9 @@ private:
     pointer _start;
     pointer _end;
     size_type _size;
+    size_t  _allocSize;
 
 public:
-
-        /*==============================
-        |   MEMBER FUNCTION PROTOTYPE  |
-        ==============================*/
-        void reserve (size_type n);
-        size_type max_size() const;
-        size_type size() const;
-        size_type capacity() const;
-        iterator insert (iterator position, const value_type& val);
-        void insert (iterator position, size_type n, const value_type& val);
-        template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last);
-
-        // iterator insert (iterator position, const value_type& val);	
-        // void insert (iterator position, size_type n, const value_type& val);
-        // template <class InputIterator>
-        // void insert (iterator position, InputIterator first, InputIterator last);
-
 
     /*================
     |   CONSTRUCTOR   |
@@ -119,13 +102,11 @@ public:
     iterator end() {
         return (this->_end);}
 
-    };
 
     /*====================
     |   MEMBER FUNCTION   |
     =====================*/
-    template <class T, class A>
-	void vector<T, A>::reserve(size_t new_cap) {
+	void reserve(size_t new_cap) {
 		if (new_cap > this->max_size())
 			throw std::length_error("vector::reserve");
         size_type y = -1;
@@ -142,23 +123,19 @@ public:
         }
     }
 
-    template <class T, class A>
-    size_t ft::vector<T, A>::size() const {
+    size_t size() const {
         return (this->_size);
     }
 
-    template <class T, class A>
-    size_t ft::vector<T, A>::max_size() const {
+    size_t max_size() const {
         return (allocator_type().max_size());
     }
 
-    template <class T, class A>
-    size_t ft::vector<T, A>::capacity() const {
+    size_t capacity() const {
         return (this->_allocSize);
     }
 
-    template <class T, class A>
-    ft::iterator_vector<T> ft::vector<T, A>::insert(ft::iterator_vector<T> pos, const T &value)
+    iterator insert(iterator pos, const T &value)
 	{
 		difference_type delta = pos - this->begin();
 
@@ -166,8 +143,7 @@ public:
 		return (this->begin() + delta);
 	}
 
-	template <class T, class A>
-    void ft::vector<T, A>::insert(ft::iterator_vector<T> pos, size_t count, const T &value)
+    void  insert(iterator pos, size_t count, const T &value)
 	{
 		if (this->_allocSize < this->_size + count)
 				this->reserve(this->_size + count);
@@ -175,7 +151,12 @@ public:
 		for (iterator it = pos; it != pos + count; ++it)
 			*it = value;
 	}
-
+        // iterator insert (iterator position, const value_type& val);	
+        // void insert (iterator position, size_type n, const value_type& val);
+        // template <class InputIterator>
+        // void insert (iterator position, InputIterator first, InputIterator last);
+        
+    }; // end of vector class
 }; //end of ft namespace
 
 #endif
