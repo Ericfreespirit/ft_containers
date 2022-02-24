@@ -5,7 +5,7 @@
 #include "const_iterator_vector.hpp"
 #include <type_traits>
 #include "traits.hpp"
-
+#include <sstream>
 
 namespace ft {
 
@@ -43,6 +43,8 @@ public:
         this->_array = this->_alloc.allocate(0);
         this->_start = NULL;
         this->_end = NULL;
+        _allocSize = 0;
+        _size = 0;
     }
 
     explicit vector (size_type n, const value_type &val = value_type(),
@@ -166,10 +168,10 @@ public:
 		size_t delta = pos - this->begin();
 		if (this->_allocSize < this->_size + count)
 		{
-			if (this->_allocSize * 2 < this->_size + count){
-				this->reserve(this->_size + count);}
-			else{
-				this->reserve(this->_allocSize * 2 + !this->_allocSize);}
+			if (this->_allocSize * 2 < this->_size + count)
+				this->reserve(this->_size + count);
+			else
+				this->reserve(this->_allocSize * 2 + !this->_allocSize);
 		}
 		pos = this->begin() + delta;
 		_size += count;
@@ -178,6 +180,51 @@ public:
         for (iterator it = pos; it != pos + count; it++)
 			*it = value;
     }
+
+    void push_back (const value_type& val) {
+        this->insert(this->end(), val);
+    }
+
+    reference at(size_type pos)
+	{
+		std::stringstream str;
+		if (pos > size())
+		{
+			str << "vector::_M_range_check: __n (which is " << pos << ") >= this->size() (which is " << this->size() << ")";
+			throw std::out_of_range(str.str());
+		}
+		else
+			return (this->_array[pos]);
+	};
+
+	// const_reference at(size_type pos) const
+	// {
+	// 	std::stringstream str;
+	// 	if (pos > size())
+	// 	{
+	// 		str << "vector::_M_range_check: __n (which is " << pos << ") >= this->size() (which is " << this->size() << ")";
+	// 		throw std::out_of_range(str.str());
+	// 	}
+	// 	else
+	// 		return (this->_array[pos]);
+	// };
+
+    reference front() {
+         return (*(this->begin()));
+    }
+
+    reference back() {
+        return (*(this->end() - 1));
+    }
+
+    // const_reference back() const {
+
+    // }
+
+    // const_reference front() const {
+    //     if (_size != 0)
+    //         return &begin();
+    // }
         // iterator insert (iterator position, const value_type& val);	
         // void insert (iterator position, size_type n, const value_type& val);
         // template <class InputIterator>
@@ -206,9 +253,9 @@ public:
     // void resize (size_type n, value_type val = value_type()){
     // }
     
-    allocator_type get_allocator()const{
-        return (this->_alloc);
-    }
+    // allocator_type get_allocator()const{
+    //     return (this->_alloc);
+    // }
         
 
         
