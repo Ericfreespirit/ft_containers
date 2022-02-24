@@ -135,7 +135,21 @@ public:
     size_t capacity() const {
         return (this->_allocSize);
     }
-
+    iterator erase (iterator pos){
+        /*
+            destroy(pos)
+            if (pos != end)
+             construct
+            init_all value
+        */
+        for(size_type i = 0; i < _size;i++){
+            _alloc.destroy(pos + i);
+            _alloc.construct(&_array[pos+i], _array[pos+i+1]);
+        }
+        _start = _array;
+        _end = &_array[i];
+        _size--;
+    }
     iterator insert(iterator pos, const T &value)
 	{
 		difference_type delta = pos - this->begin();
@@ -179,22 +193,8 @@ public:
     }
 
     void resize (size_type n, value_type val = value_type()){
-        /*
-            size_type tmp = n;
-            while (n < this->_size)
-            {
-                remove (this->_array[n])
-                destroy (this->_array[n])
-                n++;
-            }
-            this->_start = this->_array;
-            this->_end = &this->_array[n];
-            this->_size = tmp;
-            this->_allocSize = tmp;
-
-        */
     }
-
+    
     allocator_type get_allocator()const{
         return (this->_alloc);
     }
