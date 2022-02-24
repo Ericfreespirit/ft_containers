@@ -136,21 +136,21 @@ public:
     size_t capacity() const {
         return (this->_allocSize);
     }
-    iterator erase (iterator pos){
-        /*
-            destroy(pos)
-            if (pos != end)
-             construct
-            init_all value
-        */
-        for(size_type i = 0; i < _size;i++){
-            _alloc.destroy(pos + i);
-            _alloc.construct(&_array[pos+i], _array[pos+i+1]);
-        }
-        _start = _array;
-        _end = &_array[i];
-        _size--;
-    }
+    // iterator erase (iterator pos){
+    //     /*
+    //         destroy(pos)
+    //         if (pos != end)
+    //          construct
+    //         init_all value
+    //     */
+    //     for(size_type i = 0; i < _size;i++){
+    //         _alloc.destroy(pos + i);
+    //         _alloc.construct(&_array[pos+i], _array[pos+i+1]);
+    //     }
+    //     _start = _array;
+    //     _end = &_array[i];
+    //     _size--;
+    // }
     iterator insert(iterator pos, const T &value)
 	{
 		difference_type delta = pos - this->begin();
@@ -170,17 +170,11 @@ public:
 		}
 		pos = this->begin() + delta;
 		_size += count;
-		for (iterator it = this->end() - 1; it != pos - count - 1; it--)
-            *(it + count) = *it;
-        for (iterator it = pos; it != pos + count; it++)
-			*it = value;
-<<<<<<< HEAD
-	}
+    }
         // iterator insert (iterator position, const value_type& val);	
         // void insert (iterator position, size_type n, const value_type& val);
         // template <class InputIterator>
         // void insert (iterator position, InputIterator first, InputIterator last);
-
     // template<class InputIterator>
     // void assign(InputIterator first, InputIterator last);
     void assign (size_type n, const value_type &val){
@@ -209,10 +203,10 @@ public:
         return (this->_alloc);
     }
         
-=======
-        }
 
->>>>>>> 0bee07f72357563d92691be966bc577d8b1a19ea
+        
+
+
     }; // end of vector class
 }; //end of ft namespace
 
