@@ -6,16 +6,17 @@
 namespace ft {
 
     template <typename T>
-    class	const_iterator_vector : public ft::random_access_iterator_tag{
+    class	const_iterator_vector {
     public:
         typedef const_iterator_vector<T> _it;
 
+        typedef std::ptrdiff_t difference_type; //is the signed integer type of the result of subtracting two pointers. 
+	    typedef T value_type;
+	    typedef	T*  pointer;
 		typedef T& reference;
         typedef const T& const_reference;
-	    typedef	T*  pointer;
         typedef const T* const_pointer;
-	    typedef T value_type;
-        typedef std::ptrdiff_t difference_type; //is the signed integer type of the result of subtracting two pointers. 
+		typedef ft::random_access_iterator_tag iterator_category;
 
 
 	    const_iterator_vector(void) {};
@@ -37,10 +38,10 @@ namespace ft {
 	    difference_type operator+(_it p) {return(this->_ptr + p._ptr);}; // _ptr + p
 	    difference_type operator-(_it p) {return(this->_ptr - p._ptr);}; // _ptr - p
 
-	    const _it operator++() { this->_ptr--; return(*this);}; // ++_ptr
-	    const _it operator++(int) { this->_ptr--; return(_it(this->_ptr + 1));}; // _ptr++
-	    const _it operator--() { this->_ptr++; return(*this);}; // --_ptr
-	    const _it operator--(int) { this->_ptr++; return(_it(this->_ptr - 1));}; // _ptr--
+	    const _it operator++() { this->_ptr++; return(*this);}; // ++_ptr
+	    const _it operator++(int) { this->_ptr++; return(_it(this->_ptr + 1));}; // _ptr++
+	    const _it operator--() { this->_ptr--; return(*this);}; // --_ptr
+	    const _it operator--(int) { this->_ptr--; return(_it(this->_ptr - 1));}; // _ptr--
 
 	    void operator+=(difference_type p) {this->_ptr += p;}; // _ptr += p
 	    void operator-=(difference_type p) {this->_ptr -= p;}; // _ptr -= p
