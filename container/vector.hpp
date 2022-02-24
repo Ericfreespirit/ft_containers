@@ -51,7 +51,7 @@ public:
         const allocator_type& alloc = allocator_type()):
     _alloc(alloc),
 	_size(n){
-        _allocSize = 0;
+        _allocSize = n;
 		this->_array = this->_alloc.allocate(n);
          for(size_type i = 0;i < n; i++)
         this->_alloc.construct(&this->_array[i], val);
@@ -178,10 +178,7 @@ public:
 			*it = value;
     }
 
-    void push_back (const value_type& val) {
-        this->insert(this->end(), val);
-    }
-
+    //ADD const_reference at (size_type n) const;
     reference at(size_type pos)
 	{
 		std::stringstream str;
@@ -194,34 +191,41 @@ public:
 			return (this->_array[pos]);
 	};
 
-	// const_reference at(size_type pos) const
-	// {
-	// 	std::stringstream str;
-	// 	if (pos > size())
-	// 	{
-	// 		str << "vector::_M_range_check: __n (which is " << pos << ") >= this->size() (which is " << this->size() << ")";
-	// 		throw std::out_of_range(str.str());
-	// 	}
-	// 	else
-	// 		return (this->_array[pos]);
-	// };
-
+    //ADD 
+    //const_reference front() const {
+    //     if (_size != 0)
+    //         return &begin();
+    // }
     reference front() {
          return (*(this->begin()));
     }
 
+    void push_back (const value_type& val) {
+        this->insert(this->end(), val);
+    }
+
+    //ADD const_reference back() const;
     reference back() {
         return (*(this->end() - 1));
     }
 
-    // const_reference back() const {
+    void swap (vector& x) {
+        pointer startTmp = this->_start;
+        pointer endTmp = this->_end;
+        size_t sizeTmp = this->size();
+        size_t capacityTmp = this->_allocSize;
 
-    // }
+        this->_start = x._start;
+        this->_end = x._end;
+        this->_size = x.size();
+        this->_allocSize = x._allocSize;
 
-    // const_reference front() const {
-    //     if (_size != 0)
-    //         return &begin();
-    // }
+        x._start = startTmp;
+        x._end = endTmp;
+        x._size = sizeTmp;
+        x._allocSize = capacityTmp;
+    }
+
         // iterator insert (iterator position, const value_type& val);	
         // void insert (iterator position, size_type n, const value_type& val);
         // template <class InputIterator>

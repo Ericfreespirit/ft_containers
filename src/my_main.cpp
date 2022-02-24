@@ -64,11 +64,21 @@ int main() {
 
 
 	// int y = 0;
-	ft::vector<int> vec;
-	for (size_t i = 0; i < 10; i++)
-		vec.insert(vec.begin() +i, i);
-	for(size_t i = 0; i < vec.size();i++)
-		std::cout << "#" <<  i << " "<< vec[i] << std::endl;
+	ft::vector<int> vec(50, 100);
+	std::cout << vec.size() << std::endl;
+
+	// ft::vector<int> foo (3,100);   // three ints with a value of 100
+  	// ft::vector<int> bar (5,200);
+	// std::cout << "foo size = " << foo.size() << " " << foo.capacity() << " " << foo.front() << " " << foo.back() << std::endl;
+	// std::cout << "bar size = " << bar.size() << " " << bar.capacity() << " " << bar.front() << " " << bar.back() << std::endl;
+	// foo.swap(bar);
+	// std::cout << "foo size = " << foo.size() << " " << foo.capacity() << " " << foo.front() << " " << foo.back() << std::endl;
+	// std::cout << "bar size = " << bar.size() << " " << bar.capacity() << " " << bar.front() << " " << bar.back() << std::endl;
+
+	// for (size_t i = 0; i < 10; i++)
+	// 	vec.insert(vec.begin() +i, i);
+	// for(size_t i = 0; i < vec.size();i++)
+		// std::cout << "#" <<  i << " "<< vec[i] << std::endl;
 	// ft::vector<int> vec(10,100);
 	// vec.insert(vec.begin(), 200);
 
