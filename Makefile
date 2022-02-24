@@ -3,6 +3,7 @@ CC = clang++
 FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	utils/traits.hpp \
+	utils/utils.hpp \
 
 
 CPPFLAGS = -Wall -Wextra  -MMD -MP -Icontainer -Iinclude -Iutils

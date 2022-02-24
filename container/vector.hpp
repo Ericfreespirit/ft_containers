@@ -2,7 +2,7 @@
 #define VECTOR_H
 #include <iostream>
 #include "iterator_vector.hpp"
-// #include "const_iterator_vector.hpp"
+#include "const_iterator_vector.hpp"
 #include <type_traits>
 #include "traits.hpp"
 
@@ -22,7 +22,7 @@ public:
     typedef size_t size_type;
 
     typedef ft::iterator_vector<T> iterator;
-    // typedef ft::const_iterator_vector<T> const_iterator;
+    typedef ft::const_iterator_vector<T> const_iterator;
     // typedef reverse_iterator reverse_iterator;
     // typedef const_reverse_iterator const_reverse_iterator;
 private:
@@ -49,6 +49,7 @@ public:
         const allocator_type& alloc = allocator_type()):
     _alloc(alloc),
 	_size(n){
+        _allocSize = 0;
 		this->_array = this->_alloc.allocate(n);
          for(size_type i = 0;i < n; i++)
         this->_alloc.construct(&this->_array[i], val);
@@ -100,7 +101,7 @@ public:
     }
 
     iterator end() {
-        return (this->_end);}
+        return (this->_start + _size);}
 
 
     /*====================
@@ -143,19 +144,23 @@ public:
 		return (this->begin() + delta);
 	}
 
-    void  insert(iterator pos, size_t count, const T &value)
-	{
+    void  insert(iterator pos, size_t count, const T &value) {
+		size_t delta = pos - this->begin();
 		if (this->_allocSize < this->_size + count)
-				this->reserve(this->_size + count);
+		{
+			if (this->_allocSize * 2 < this->_size + count){
+				this->reserve(this->_size + count);}
+			else{
+				this->reserve(this->_allocSize * 2 + !this->_allocSize);}
+		}
+		pos = this->begin() + delta;
 		_size += count;
-		for (iterator it = pos; it != pos + count; ++it)
+		for (iterator it = this->end() - 1; it != pos - count - 1; it--)
+            *(it + count) = *it;
+        for (iterator it = pos; it != pos + count; it++)
 			*it = value;
-	}
-        // iterator insert (iterator position, const value_type& val);	
-        // void insert (iterator position, size_type n, const value_type& val);
-        // template <class InputIterator>
-        // void insert (iterator position, InputIterator first, InputIterator last);
-        
+        }
+
     }; // end of vector class
 }; //end of ft namespace
 
