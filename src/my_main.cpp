@@ -46,7 +46,11 @@ struct Buffer
 
 // int main(int argc, char** argv) {
 int main() {
- ft::vector<int> myvector;
+
+	ft::vector<int> v1(10,100);
+	std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
+	ft::vector<int>().swap(v1);
+	std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
 
 //   ft::vector<int> vector1(10,100);
 //   ft::vector<int>::iterator it = vector1.begin();
@@ -64,8 +68,8 @@ int main() {
 
 
 	// int y = 0;
-	ft::vector<int> vec(50, 100);
-	std::cout << vec.size() << std::endl;
+	// ft::vector<int> vec(50, 100);
+	// std::cout << vec.size() << std::endl;
 
 	// ft::vector<int> foo (3,100);   // three ints with a value of 100
   	// ft::vector<int> bar (5,200);
