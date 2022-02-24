@@ -63,11 +63,27 @@ int main() {
   
 
 
-	int y = 0;
-	ft::vector<int> vec(10,100);
-	vec.insert(vec.begin(), 200);
-
+	// int y = 0;
+	ft::vector<int> vec;
+	for (size_t i = 0; i < 10; i++)
+		vec.insert(vec.begin() +i, i);
 	for(size_t i = 0; i < vec.size();i++)
-		std::cout << "#" << " "<< vec[i] << std::endl;
+		std::cout << "#" <<  i << " "<< vec[i] << std::endl;
+	// ft::vector<int> vec(10,100);
+	// vec.insert(vec.begin(), 200);
+
+	// for(size_t i = 0; i < vec.size();i++)
+	// 	std::cout << "#" <<  i << " "<< vec[i] << std::endl;
+
+	// vec.insert(vec.begin() + 4, 4, 350);
+	// for(size_t i = 0; i < vec.size();i++)
+	// 	std::cout << "#" <<  i << " "<< vec[i] << std::endl;
+	// vec.push_back(10);
+	// for(size_t i = 0; i < vec.size();i++)
+	// 	std::cout << "#" <<  i << " "<< vec[i] << std::endl;
+	// ft::vector<int> vec1(0);
+	// std::cout << vec.size() << std::endl;
+	// std::cout << vec.front() << std::endl;
+	// std::cout << vec.back() << std::endl;
 	return (0);
 }
