@@ -170,6 +170,10 @@ public:
 		}
 		pos = this->begin() + delta;
 		_size += count;
+        		for (iterator it = this->end() - 1; it != pos - count - 1; it--)
+            *(it + count) = *it;
+        for (iterator it = pos; it != pos + count; it++)
+			*it = value;
     }
         // iterator insert (iterator position, const value_type& val);	
         // void insert (iterator position, size_type n, const value_type& val);
