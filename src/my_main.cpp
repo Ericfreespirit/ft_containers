@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 0 //CREATE A REAL STL EXAMPLE
+#if 1 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -65,12 +65,13 @@ int main() {
 
 	ft::vector<int> vec;
 	for(size_t i = 0; i < 10;i++)
-		vec.insert(vec.begin() + i, i);
+		vec.insert(vec.begin()+i,i);
 
 	for(size_t i = 0; i < vec.size();i++)
 		std::cout << "#" << i << " "<< vec[i] << std::endl;
 	std::cout << "--------" << std::endl;
-	// vec.erase(vec.begin());
+	vec.erase(vec.begin()+2, vec.begin()+4);
+	vec.erase(vec.begin());
 		for(size_t i = 0; i < vec.size();i++)
 		std::cout << "#" << i << " "<< vec[i] << std::endl;
 	return (0);

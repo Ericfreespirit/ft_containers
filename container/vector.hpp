@@ -139,23 +139,23 @@ public:
         return (this->_allocSize);
     }
     iterator erase (iterator pos){
-        /*
-            destroy(pos)
-            if (pos != end)
-             construct
-            init_all value
-        */
-       size_type i = 0;
-       size_type i_pos = pos - _start;
+        erase(pos, pos + 1);
+        return (&_array[(pos -_start)+ 1]);
+    }
+    iterator erase (iterator first, iterator last){
+        size_type i = 0;
+        size_type i_first = first - _start;
+        size_type i_last = last -_start;
         for(; i < _size;i++){
-            _alloc.destroy(&_array[i_pos+i]);
-            _alloc.construct(&_array[i_pos+i], _array[i_pos+i+1]);
+            _alloc.destroy(&_array[i_first+i]);
+            _alloc.construct(&_array[i_first+i], _array[i_last+i]);
         }
         _start = _array;
         _end = &_array[i];
-        _size--;
-        return (NULL);
+        _size -= i_last - i_first;
+        return (&_array[i_last+1]);
     }
+
     iterator insert(iterator pos, const T &value)
 	{
 		difference_type delta = pos - this->begin();
