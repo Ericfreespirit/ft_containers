@@ -67,12 +67,14 @@ int main() {
 	for(size_t i = 0; i < 10;i++)
 		vec.insert(vec.begin()+i,i);
 
-	for(size_t i = 0; i < vec.size();i++)
+	for(size_t i = 0; i < vec.capacity();i++)
 		std::cout << "#" << i << " "<< vec[i] << std::endl;
 	std::cout << "--------" << std::endl;
 	vec.erase(vec.begin()+2, vec.begin()+4);
 	vec.erase(vec.begin());
-		for(size_t i = 0; i < vec.size();i++)
+		for(size_t i = 0; i < vec.capacity();i++)
 		std::cout << "#" << i << " "<< vec[i] << std::endl;
+
+	std::cout << "max size: "<< vec.max_size() << std::endl;
 	return (0);
 }

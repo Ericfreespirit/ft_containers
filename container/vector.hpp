@@ -98,7 +98,7 @@ public:
 
     /*============
     |   ITERATOR  |
-    ===============*/
+    ===============*/   
     iterator begin() {
         return (this->_start);
     }
@@ -139,21 +139,25 @@ public:
         return (this->_allocSize);
     }
     iterator erase (iterator pos){
-        erase(pos, pos + 1);
-        return (&_array[(pos -_start)+ 1]);
+        // erase(pos, pos + 1);
+        // return (&_array[(pos -_start)+ 1]);
+        
     }
     iterator erase (iterator first, iterator last){
-        size_type i = 0;
-        size_type i_first = first - _start;
-        size_type i_last = last -_start;
-        for(; i < _size;i++){
-            _alloc.destroy(&_array[i_first+i]);
-            _alloc.construct(&_array[i_first+i], _array[i_last+i]);
-        }
-        _start = _array;
-        _end = &_array[i];
-        _size -= i_last - i_first;
-        return (&_array[i_last+1]);
+        // size_type i = 0;
+        // size_type i_first = first - _start;
+        // size_type i_last = last -_start;
+        // for(; i < _size;i++){
+        //     _alloc.destroy(&_array[i_first+i]);
+        //     _alloc.construct(&_array[i_first+i], _array[i_last+i]);
+        // }
+        // _start = _array;
+        // _end = &_array[i];
+        // _size -= i_last - i_first;
+        // return (&_array[i_last+1]);
+    }
+
+    void    pop_back(){
     }
 
     iterator insert(iterator pos, const T &value)
