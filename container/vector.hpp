@@ -40,8 +40,7 @@ public:
     ==================*/
     explicit vector (const allocator_type& alloc = allocator_type()):
     _alloc(alloc){
-        // this->_array = this->_alloc.allocate(0);
-        this->_array = NULL;
+        this->_array = this->_alloc.allocate(0);
         this->_start = NULL;
         this->_end = NULL;
         _allocSize = 0;
@@ -116,7 +115,6 @@ public:
 			throw std::length_error("vector::reserve");
         size_type y = -1;
         if (this->_allocSize < new_cap) {
-            std::cout << "888" << std::endl;
             T *newArr = _alloc.allocate(new_cap);
             while (++y <= new_cap && y < _size) {
                 this->_alloc.construct(&newArr[y], this->_array[y]);
@@ -165,6 +163,8 @@ public:
 
     void  insert(iterator pos, size_t count, const T &value) {
 		size_t delta = pos - this->begin();
+        if (size() == 0)
+            delta = 0;
 		if (this->_allocSize < this->_size + count)
 		{
 			if (this->_allocSize * 2 < this->_size + count)

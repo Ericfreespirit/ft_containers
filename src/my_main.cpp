@@ -53,11 +53,37 @@ int main() {
 	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
 
 
-	ft::vector<int> v1;
-	v1.reserve(10);
-	for (int i = 0; i < 9; i++)
-		v1.insert(v1.begin() + i, i);
-	std::cout << "capacity: " << v1.capacity() << std::endl;
+	ft::vector<int> vct(10);
+	ft::vector<int> vct2;
+
+	// for (ft::vector<int>::iterator it = vct.begin() ; it != vct.end(); ++it)
+	// 	std::cout << "#" << " " << *it << std::endl;
+	std::cout << vct.size() << std::endl;
+	for(unsigned long int i = 0; i < vct.size(); ++i)
+	{
+		vct[i] = (vct.size() - i) * 3; 
+	}
+	int i =0;
+	// for (ft::vector<int>::iterator it = vct.begin() ; it != vct.end(); ++it)
+	// 	std::cout << "#" << i++ << " " << *it << std::endl;
+	std::cout << "-- "<< vct2.size() << std::endl;
+
+	vct2.insert(vct2.end() - 2, 42);
+	i = 0;
+	for (ft::vector<int>::iterator it = vct2.begin() ; it != vct2.end(); ++it)
+		std::cout << "#" << i++ << " " << *it << std::endl;
+
+	vct2.insert(vct2.end(), 2, 84);
+
+	i = 0;
+	for (ft::vector<int>::iterator it = vct2.begin() ; it != vct2.end(); ++it)
+		std::cout << "#" << i++ << " " << *it << std::endl;
+
+	// ft::vector<int> v1;
+	// v1.reserve(10);
+	// for (int i = 0; i < 9; i++)
+	// 	v1.insert(v1.begin() + i, i);
+	// std::cout << "capacity: " << v1.capacity() << std::endl;
 	// for (ft::vector<int>::iterator it = v1.begin() ; it != v1.end(); ++it)
 	// 	std::cout << "#"<< *it << std::endl;
 // 		std::cout << "#" << i++ << " " << *it << std::endl;
