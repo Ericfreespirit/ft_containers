@@ -3,7 +3,6 @@
 #include <iostream>
 #include "iterator_vector.hpp"
 #include "const_iterator_vector.hpp"
-#include <type_traits>
 #include "traits.hpp"
 #include <sstream>
 
@@ -22,7 +21,7 @@ public:
     typedef size_t size_type;
 
     typedef ft::iterator_vector<T> iterator;
-    typedef ft::const_iterator_vector<T> const_iterator;
+    // typedef ft::const_iterator_vector<T> const_iterator;
     // typedef reverse_iterator reverse_iterator;
     // typedef const_reverse_iterator const_reverse_iterator;
 private:
@@ -40,9 +39,9 @@ public:
     ==================*/
     explicit vector (const allocator_type& alloc = allocator_type()):
     _alloc(alloc){
-        this->_array = this->_alloc.allocate(0);
-        this->_start = NULL;
-        this->_end = NULL;
+        _array = _alloc.allocate(0);
+        _start = NULL;
+        _end = NULL;
         _allocSize = 0;
         _size = 0;
     }
@@ -51,13 +50,12 @@ public:
         const allocator_type& alloc = allocator_type()):
     _alloc(alloc),
 	_size(n){
-        _allocSize = 0;
-		this->_array = this->_alloc.allocate(n);
+        _allocSize = n;
+		_array = _alloc.allocate(n);
          for(size_type i = 0;i < n; i++)
-        this->_alloc.construct(&this->_array[i], val);
-		this->_start = this->_array;
-		this->_end = &this->_array[n];
-        
+        _alloc.construct(&_array[i], val);
+		_start = _array;
+		_end = &_array[n];
     }
             
     // template <class InputIterator>
@@ -85,10 +83,10 @@ public:
 
     /* operator[] */
     reference operator[] (size_type n){
-        return (this->_array[n]);
+        return (_array[n]);
     }
     const_reference operator[] (size_type n)const{
-        return (this->_array[n]);
+        return (_array[n]);
     }
 
     /* operator= */
@@ -100,35 +98,35 @@ public:
     |   ITERATOR  |
     ===============*/   
     iterator begin() {
-        return (this->_start);
+        return (_start);
     }
 
     iterator end() {
-        return (this->_start + _size);}
+        return (_start + _size);}
 
 
     /*====================
     |   MEMBER FUNCTION   |
     =====================*/
 	void reserve(size_t new_cap) {
-		if (new_cap > this->max_size())
+		if (new_cap > max_size())
 			throw std::length_error("vector::reserve");
         size_type y = -1;
-        if (this->_allocSize < new_cap) {
+        if (_allocSize < new_cap) {
             T *newArr = _alloc.allocate(new_cap);
             while (++y <= new_cap && y < _size) {
-                this->_alloc.construct(&newArr[y], this->_array[y]);
+                _alloc.construct(&newArr[y], _array[y]);
             }
-            this->_allocSize = new_cap;
-            delete [] this->_array;
-            this->_array = newArr;
-            this->_start = this->_array;
-            this->_end = &this->_array[y];
+            _allocSize = new_cap;
+            // delete [] _array;
+            _array = newArr;
+            _start = _array;
+            _end = &_array[y];
         }
     }
 
     size_t size() const {
-        return (this->_size);
+        return (_size);
     }
 
     size_t max_size() const {
@@ -136,57 +134,55 @@ public:
     }
 
     size_t capacity() const {
-        return (this->_allocSize);
+        return (_allocSize);
     }
     iterator erase (iterator pos){
-        // erase(pos, pos + 1);
-        // return (&_array[(pos -_start)+ 1]);
-        
+        iterator ret = pos;
+        for(;pos != _end;pos++){
+            _alloc.destroy(&(*pos));
+            _alloc.construct(&(*pos), *pos + 1);
+        }
+        _size--;
+        return (ret);
     }
     iterator erase (iterator first, iterator last){
-        // size_type i = 0;
-        // size_type i_first = first - _start;
-        // size_type i_last = last -_start;
-        // for(; i < _size;i++){
-        //     _alloc.destroy(&_array[i_first+i]);
-        //     _alloc.construct(&_array[i_first+i], _array[i_last+i]);
-        // }
-        // _start = _array;
-        // _end = &_array[i];
-        // _size -= i_last - i_first;
-        // return (&_array[i_last+1]);
+        iterator ret = first;
+        for(;first != last ; --last)
+            erase(first);
+        return (ret);
     }
 
-    void    pop_back(){
+    void    clear(){
+        erase(0, end());
     }
 
     iterator insert(iterator pos, const T &value)
 	{
-		difference_type delta = pos - this->begin();
+		difference_type delta = pos - begin();
 
-		this->insert(pos, 1, value);
-		return (this->begin() + delta);
+		insert(pos, 1, value);
+		return (begin() + delta);
 	}
 
     void  insert(iterator pos, size_t count, const T &value) {
-		size_t delta = pos - this->begin();
-		if (this->_allocSize < this->_size + count)
+		size_t delta = pos - begin();
+		if (_allocSize < _size + count)
 		{
-			if (this->_allocSize * 2 < this->_size + count)
-				this->reserve(this->_size + count);
+			if (_allocSize * 2 < _size + count)
+				reserve(_size + count);
 			else
-				this->reserve(this->_allocSize * 2 + !this->_allocSize);
+				reserve(_allocSize * 2 + !_allocSize);
 		}
-		pos = this->begin() + delta;
+		pos = begin() + delta;
 		_size += count;
-        		for (iterator it = this->end() - 1; it != pos - count - 1; it--)
+        for (iterator it = end() - 1; it != pos - count - 1; it--)
             *(it + count) = *it;
         for (iterator it = pos; it != pos + count; it++)
 			*it = value;
     }
 
     void push_back (const value_type& val) {
-        this->insert(this->end(), val);
+        insert(end(), val);
     }
 
     reference at(size_type pos)
@@ -194,11 +190,11 @@ public:
 		std::stringstream str;
 		if (pos > size())
 		{
-			str << "vector::_M_range_check: __n (which is " << pos << ") >= this->size() (which is " << this->size() << ")";
+			str << "vector::_M_range_check: __n (which is " << pos << ") >= size() (which is " << size() << ")";
 			throw std::out_of_range(str.str());
 		}
 		else
-			return (this->_array[pos]);
+			return (_array[pos]);
 	};
 
 	// const_reference at(size_type pos) const
@@ -206,19 +202,19 @@ public:
 	// 	std::stringstream str;
 	// 	if (pos > size())
 	// 	{
-	// 		str << "vector::_M_range_check: __n (which is " << pos << ") >= this->size() (which is " << this->size() << ")";
+	// 		str << "vector::_M_range_check: __n (which is " << pos << ") >= size() (which is " << size() << ")";
 	// 		throw std::out_of_range(str.str());
 	// 	}
 	// 	else
-	// 		return (this->_array[pos]);
+	// 		return (_array[pos]);
 	// };
 
     reference front() {
-         return (*(this->begin()));
+         return (*(begin()));
     }
 
     reference back() {
-        return (*(this->end() - 1));
+        return (*(end() - 1));
     }
 
     // const_reference back() const {
@@ -245,20 +241,20 @@ public:
         
         */
 
-        this->_array = this->_alloc.allocate(n);
+        _array = _alloc.allocate(n);
                  for(size_type i = 0;i < n; i++)
-        this->_alloc.construct(&this->_array[i], val);
-		this->_start = this->_array;
-		this->_end = &this->_array[n];
-        this->_size = n;
-        this->_allocSize = n;
+        _alloc.construct(&_array[i], val);
+		_start = _array;
+		_end = &_array[n];
+        _size = n;
+        _allocSize = n;
     }
 
     // void resize (size_type n, value_type val = value_type()){
     // }
     
     // allocator_type get_allocator()const{
-    //     return (this->_alloc);
+    //     return (_alloc);
     // }
         
 

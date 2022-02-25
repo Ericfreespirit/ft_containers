@@ -3,11 +3,8 @@ CC = clang++
 FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	utils/traits.hpp \
-	utils/utils.hpp \
 
-
-CPPFLAGS = -Wall -Wextra  -MMD -MP -Icontainer -Iinclude -Iutils
-# CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils
+CPPFLAGS = -Wall -Wextra -std=c++98 -g -MMD -MP -Icontainer -Iinclude -Iutils
 
 FILES = my_main.cpp 
 
