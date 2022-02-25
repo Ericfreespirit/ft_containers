@@ -46,20 +46,11 @@ struct Buffer
 
 // int main(int argc, char** argv) {
 int main() {
- ft::vector<int> myvector;
 
-//   ft::vector<int> vector1(10,100);
-//   ft::vector<int>::iterator it = vector1.begin();
-//   ft::vector<int>::iterator ite = vector1.end();
-//   int i = 1;
-//   for (ft::vector<int>::iterator it = vector1.begin() ; it != vector1.end(); ++it)
-// 		std::cout << "#" << i++ << " " << *it << std::endl;
-//   vector1.reserve(15);
-//   i = 1;
-//   for (ft::vector<int>::iterator it3 = vector1.begin() ; it3 != vector1.end(); ++it3)
-// 		std::cout << "#" << i++ << " " << *it3 << std::endl;
-//   std::cout << "vector.size 1: " << vector1.size() << " vector capacity: " << vector1.capacity() << " vector1.max_size: " << vector1.max_size() << std::endl; 
-//   ft::vector<int>vector2(it, ite);
+	// ft::vector<int> v1(10,100);
+	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
+	// ft::vector<int>().swap(v1);
+	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
   
 
 
@@ -68,6 +59,7 @@ int main() {
 	for(size_t i = 0;i < 10;i++)
 		vect.insert(vect.begin() +i,i);
 	std::cout <<"size: " << vect.size() << std::endl;
+	// vect.erase(vect.begin(), vect.end());
 	vect.clear();
 	std::cout <<"size: " << vect.size() << std::endl;
 	for(size_t i = 0;i < vect.size();i++)
