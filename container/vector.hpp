@@ -3,9 +3,9 @@
 #include <iostream>
 #include "iterator_vector.hpp"
 #include "const_iterator_vector.hpp"
-#include <type_traits>
 #include "traits.hpp"
 #include <sstream>
+#include <memory>
 
 namespace ft {
 
@@ -40,7 +40,8 @@ public:
     ==================*/
     explicit vector (const allocator_type& alloc = allocator_type()):
     _alloc(alloc){
-        this->_array = this->_alloc.allocate(0);
+        // this->_array = this->_alloc.allocate(0);
+        this->_array = NULL;
         this->_start = NULL;
         this->_end = NULL;
         _allocSize = 0;
@@ -76,7 +77,7 @@ public:
     |   DESTRUCTOR   |
     ================*/
         ~vector(){
-            
+        _alloc.deallocate(_array, size());
         };
 
     /*============
@@ -115,12 +116,13 @@ public:
 			throw std::length_error("vector::reserve");
         size_type y = -1;
         if (this->_allocSize < new_cap) {
+            std::cout << "888" << std::endl;
             T *newArr = _alloc.allocate(new_cap);
             while (++y <= new_cap && y < _size) {
                 this->_alloc.construct(&newArr[y], this->_array[y]);
             }
             this->_allocSize = new_cap;
-            delete [] this->_array;
+            _alloc.deallocate(_array, size());
             this->_array = newArr;
             this->_start = this->_array;
             this->_end = &this->_array[y];
@@ -172,7 +174,7 @@ public:
 		}
 		pos = this->begin() + delta;
 		_size += count;
-        		for (iterator it = this->end() - 1; it != pos - count - 1; it--)
+        for (iterator it = this->end() -1 ; it != pos - count; it--)
             *(it + count) = *it;
         for (iterator it = pos; it != pos + count; it++)
 			*it = value;
@@ -232,24 +234,24 @@ public:
         // void insert (iterator position, InputIterator first, InputIterator last);
     // template<class InputIterator>
     // void assign(InputIterator first, InputIterator last);
-    void assign (size_type n, const value_type &val){
-        /*
-            if (old value)
-            {
-                destroy;
-                realloca allocate
-            }
+    // void assign (size_type n, const value_type &val){
+    //     /*
+    //         if (old value)
+    //         {
+    //             destroy;
+    //             realloca allocate
+    //         }
         
-        */
+    //     */
 
-        this->_array = this->_alloc.allocate(n);
-                 for(size_type i = 0;i < n; i++)
-        this->_alloc.construct(&this->_array[i], val);
-		this->_start = this->_array;
-		this->_end = &this->_array[n];
-        this->_size = n;
-        this->_allocSize = n;
-    }
+    //     this->_array = this->_alloc.allocate(n);
+    //              for(size_type i = 0;i < n; i++)
+    //     this->_alloc.construct(&this->_array[i], val);
+	// 	this->_start = this->_array;
+	// 	this->_end = &this->_array[n];
+    //     this->_size = n;
+    //     this->_allocSize = n;
+    // }
 
     // void resize (size_type n, value_type val = value_type()){
     // }

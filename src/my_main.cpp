@@ -47,11 +47,20 @@ struct Buffer
 // int main(int argc, char** argv) {
 int main() {
 
-	ft::vector<int> v1(10,100);
-	std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
-	ft::vector<int>().swap(v1);
-	std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
+	// ft::vector<int> v1(10,100);
+	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
+	// ft::vector<int>().swap(v1);
+	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
 
+
+	ft::vector<int> v1;
+	v1.reserve(10);
+	for (int i = 0; i < 9; i++)
+		v1.insert(v1.begin() + i, i);
+	std::cout << "capacity: " << v1.capacity() << std::endl;
+	// for (ft::vector<int>::iterator it = v1.begin() ; it != v1.end(); ++it)
+	// 	std::cout << "#"<< *it << std::endl;
+// 		std::cout << "#" << i++ << " " << *it << std::endl;
 //   ft::vector<int> vector1(10,100);
 //   ft::vector<int>::iterator it = vector1.begin();
 //   ft::vector<int>::iterator ite = vector1.end();
