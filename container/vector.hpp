@@ -22,7 +22,7 @@ public:
     typedef size_t size_type;
 
     typedef ft::iterator_vector<T> iterator;
-    // typedef ft::const_iterator_vector<T> const_iterator;
+    typedef ft::const_iterator_vector<T> const_iterator;
     // typedef reverse_iterator reverse_iterator;
     // typedef const_reverse_iterator const_reverse_iterator;
 private:
@@ -94,10 +94,17 @@ public:
     ===============*/   
     iterator begin() {
         return (_array);
+    }    
+    const_iterator begin() const{
+        return (_array);
     }
 
     iterator end() {
-        return (_array + _size);}
+        return (_array + _size);
+    }
+    const_iterator end() const{
+        return (_array + _size);
+    }
 
 
     /*====================

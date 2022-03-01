@@ -2,6 +2,7 @@ NAME = ft_container
 CC = clang++ 
 FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
+	include/const_iterator_vector.hpp \
 	utils/traits.hpp \
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -g -MMD -MP -Icontainer -Iinclude -Iutils

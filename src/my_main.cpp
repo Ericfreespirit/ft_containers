@@ -45,24 +45,41 @@ struct Buffer
 // };
 
 // int main(int argc, char** argv) {
-int main() {
 
-	// ft::vector<int> v1(10,100);
-	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
-	// ft::vector<int>().swap(v1);
-	// std::cout << "vector.size 1: " << v1.size() << " vector capacity: " << v1.capacity() << " vector1.max_size: " << v1.max_size() << std::endl; 
-  
+template <typename T>
+void printSize(ft::vector<T> &vect){
+	std::cout << "size: "<< vect.size()<<std::endl;
+	for(size_t i = 0; i < vect.size(); i++)
+		std::cout << "#" << i << " " << vect[i] << " |";
+	std::cout << std::endl;
+}
 
+template <typename T>
+void checkErase(ft::vector<T> &vect, typename ft::vector<T>::iterator it){
+	vect.erase(it);
+	printSize(vect);
+}
 
+template <typename T>
+void checkErase(ft::vector<T> &vect, typename ft::vector<T>::iterator it, typename ft::vector<T>::iterator ite){
+	vect.erase(it, ite);
+	printSize(vect);
+}
+
+int test_erase()
+{
 	ft::vector<int> vect;
 
 	for(size_t i = 0;i < 10;i++)
 		vect.insert(vect.begin() +i,i);
-	std::cout <<"size: " << vect.size() << std::endl;
-	// vect.erase(vect.begin(), vect.end());
-	vect.clear();
-	std::cout <<"size: " << vect.size() << std::endl;
-	for(size_t i = 0;i < vect.size();i++)
-		std::cout << vect[i] << std::endl;
+	printSize(vect);
+	// checkErase(vect, vect.begin());
+	checkErase(vect, vect.begin(), vect.end());
+}
+
+
+int main() {
+
+
 	return (0);
 }
