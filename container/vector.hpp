@@ -22,7 +22,7 @@ public:
     typedef size_t size_type;
 
     typedef ft::iterator_vector<T> iterator;
-    // typedef ft::const_iterator_vector<T> const_iterator;
+    typedef ft::const_iterator_vector<T> const_iterator;
     // typedef reverse_iterator reverse_iterator;
     // typedef const_reverse_iterator const_reverse_iterator;
 private:
@@ -98,6 +98,12 @@ public:
 
     iterator end() {
         return (_array + _size);}
+    
+    const_iterator begin() const {
+        return (_array);}
+
+    const_iterator end() const {
+        return (_array + _size);}
 
 
     /*====================
@@ -109,7 +115,7 @@ public:
         size_type y = -1;
         if (_allocSize < new_cap) {
             T *newArr = _alloc.allocate(new_cap);
-            while (++y <= new_cap && y < _size) {
+            while (++y <= new_cap && y < size()) {
                 _alloc.construct(&newArr[y], _array[y]);
             }
             _allocSize = new_cap;
@@ -152,7 +158,6 @@ public:
     iterator insert(iterator pos, const T &value)
 	{
 		difference_type delta = pos - begin();
-
 		insert(pos, 1, value);
 		return (begin() + delta);
 	}
@@ -163,11 +168,16 @@ public:
             delta = 0;
 		if (_allocSize < _size + count)
 		{
-			if (_allocSize * 2 < _size + count)
+			// if (_allocSize * 2 < _size + count)
+            // {
+                std::cout << "====================OPTION 1" << std::endl;
 				reserve(_size + count);
-			else
-				reserve(_allocSize * 2 + !_allocSize);
-		}
+            // }
+            // else{
+            //     std::cout << "====================OPTION 2" << std::endl;
+			// 	reserve(_allocSize * 2 + !_allocSize);
+            // }
+        }
 		pos = begin() + delta;
 		_size += count;
         for (iterator it = end() -1 ; it != pos - count; it--)
@@ -179,6 +189,31 @@ public:
     void push_back (const value_type& val) {
         insert(end(), val);
     }
+
+    void resize (size_type n, T val= value_type()) {
+        if (n > size())
+        {
+            if (_allocSize * 2 < n)
+				this->reserve(n);
+			else
+				this->reserve(_allocSize * 2);
+            for (size_t i = _size; i < n; i++)
+                _array[i] = val;
+            _size = n;
+        }
+        else if (n < size())
+            erase(begin() + n, end());
+
+    }
+
+    // void assign (InputIterator first, InputIterator last) {
+
+    // }
+
+    // void assign (size_type n, const value_type& val) {
+
+    // }
+
 
     reference at(size_type pos)
 	{
