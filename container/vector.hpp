@@ -147,8 +147,17 @@ public:
     }
     iterator erase (iterator first, iterator last){
         iterator ret = first;
-        for(;first != last ; --last)
-            erase(first);
+        // iterator *tmp = new iterator(last);
+        // size_t len = 0;
+        // for(;(last + len)!= end();len++);
+        // for(size_t i = 0; i < _size-1; i++){
+        //     _alloc.destroy(&(*(first + i)));
+        // }
+        // for(size_t i = 0; i < len;i++){
+        //     _alloc.construct(&(*(first + i)), *(*tmp) + i);
+        // }
+        // _size += len;
+        // delete tmp;
         return (ret);
     }
 

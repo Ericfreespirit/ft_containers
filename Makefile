@@ -4,10 +4,13 @@ FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	include/const_iterator_vector.hpp \
 	utils/traits.hpp \
+	src/our_test/AllTest.hpp\
 
-CPPFLAGS = -Wall -Wextra -std=c++98 -g -MMD -MP -Icontainer -Iinclude -Iutils
+CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils 
+BUGFLAGS = -fsanitize=address -g
 
-FILES = my_main.cpp 
+FILES = my_main.cpp \
+		testErase.cpp\
 
 
 SRC_PATH = $(shell find src -type d)
@@ -19,7 +22,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(FILES:%.cpp=%.o))
 all :   $(NAME) 
 
 $(NAME) :  $(OBJ_PATH) $(OBJ) $(FILE_HPP) 
-	@$(CC) $(CPPFLAGS) $(OBJ) -o ${NAME}
+	@$(CC)  $(CPPFLAGS)$(BUGFLAGS)  $(OBJ) -o ${NAME}
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
