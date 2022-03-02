@@ -115,7 +115,7 @@ public:
 			throw std::length_error("vector::reserve");
         size_type y = -1;
         if (_allocSize < new_cap) {
-            T *newArr = _alloc.allocate(new_cap);
+            T *newArr = _alloc.allocate(new_cap + 1);
             while (++y <= new_cap && y < _size) {
                 _alloc.construct(&newArr[y], _array[y]);
             }
