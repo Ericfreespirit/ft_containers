@@ -1,7 +1,7 @@
 #ifndef ITERATOR_VECTOR_H
 #define ITERATOR_VECTOR_H
 
-#include "traits.hpp"
+#include "../utils/traits.hpp"
 
 namespace ft{
 

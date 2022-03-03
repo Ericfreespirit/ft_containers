@@ -5,7 +5,7 @@ FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	utils/traits.hpp \
 
-CPPFLAGS = -Wall -Wextra -std=c++98 -Icontainer -Iinclude -Iutils
+CPPFLAGS = -Wall -Wextra -fsanitize=address -g3 -std=c++98 -Icontainer -Iinclude -Iutils
 
 FILES = my_main.cpp 
 

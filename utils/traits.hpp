@@ -1,7 +1,7 @@
 #ifndef TRAITS_H
 #define TRAITS_H
 
-#include "iterator_vector.hpp"
+#include "../include/iterator_vector.hpp"
 
 namespace ft{
 

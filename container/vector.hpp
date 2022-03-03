@@ -1,9 +1,9 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <iostream>
-#include "iterator_vector.hpp"
-#include "const_iterator_vector.hpp"
-#include "traits.hpp"
+#include "../include/iterator_vector.hpp"
+#include "../include/const_iterator_vector.hpp"
+#include "../utils/traits.hpp"
 #include <sstream>
 #include <memory>
 
@@ -63,7 +63,12 @@ public:
     //     std::cout << "here 2" << std::endl;
     // }
     
-    vector (const vector& x);
+    vector (const vector& x) : _alloc(){
+        _array = NULL;
+        _size = 0;
+        _allocSize = 0;
+        *this = x;
+    }
     
     /*================
     |   DESTRUCTOR   |
@@ -84,6 +89,14 @@ public:
         return (_array[n]);
     }
 
+
+    vector &operator=(const vector& x){
+		if (x == *this)
+			return (*this);
+		this->clear();
+		// this->insert(this->end(), x.begin(), x.end());
+		return (*this);
+	}
     /* operator= */
     // vector& operator= (const vector& x){
 
@@ -114,12 +127,12 @@ public:
 			throw std::length_error("vector::reserve");
         size_type y = -1;
         if (_allocSize < new_cap) {
-            T *newArr = _alloc.allocate(new_cap);
+            T *newArr = _alloc.allocate(new_cap + 1);
             while (++y <= new_cap && y < size()) {
                 _alloc.construct(&newArr[y], _array[y]);
             }
-            _allocSize = new_cap;
             _alloc.deallocate(_array, size());
+            _allocSize = new_cap;
             _array = newArr;
         }
     }
@@ -168,15 +181,10 @@ public:
             delta = 0;
 		if (_allocSize < _size + count)
 		{
-			// if (_allocSize * 2 < _size + count)
-            // {
-                std::cout << "====================OPTION 1" << std::endl;
+			if (_allocSize * 2 < _size + count)
 				reserve(_size + count);
-            // }
-            // else{
-            //     std::cout << "====================OPTION 2" << std::endl;
-			// 	reserve(_allocSize * 2 + !_allocSize);
-            // }
+            else
+				reserve(_allocSize * 2 + !_allocSize);
         }
 		pos = begin() + delta;
 		_size += count;
@@ -227,18 +235,36 @@ public:
 			return (_array[pos]);
 	};
 
+    const_reference at(size_type pos) const
+	{
+		std::stringstream str;
+		if (pos > size())
+		{
+			str << "vector::_M_range_check: __n (which is " << pos << ") >= size() (which is " << size() << ")";
+			throw std::out_of_range(str.str());
+		}
+		else
+			return (_array[pos]);
+	};
+
     //ADD 
     //const_reference front() const {
     //     if (_size != 0)
     //         return &begin();
     // }
     reference front() {
+        return (*(begin()));
+    }
+
+    const_reference front() const {
          return (*(begin()));
     }
 
-
-    //ADD const_reference back() const;
     reference back() {
+        return (*(end() - 1));
+    }
+    //ADD const_reference back() const;
+    const_reference back() const {
         return (*(end() - 1));
     }
 

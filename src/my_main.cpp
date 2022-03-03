@@ -88,33 +88,37 @@ int main() {
 	// for(size_t i = 0;i < vect.size();i++)
 	// 	std::cout << vect[i] << std::endl;
 
-	ft::vector<int> vct(10);
+	ft::vector<int> vct;
 	ft::vector<int> vct2;
-	for (unsigned long int i = 0; i < vct.size(); ++i)
-		vct[i] = (vct.size() - i) * 3;
-	printSize(vct);
-	std::cout << std::endl << "1" << std::endl;
 
-	vct2.insert(vct2.end(), 42);
-	std::cout << std::endl << "4" << std::endl;
-	vct2.insert(vct2.begin(), 2, 21);
-	printSize(vct2);
-	std::cout << std::endl << "2" << std::endl;
-	vct2.insert(vct2.end() - 2, 42);
-	printSize(vct2);
-	std::cout << std::endl << "3" << std::endl;
+	for (int i = 0; i < 10; i++)
+		vct.insert(vct.begin() + i, i);
+	
+	// for (unsigned long int i = 0; i < vct.size(); ++i)
+	// 	vct[i] = (vct.size() - i) * 3;
+	// printSize(vct);
+	// std::cout << std::endl << "1" << std::endl;
+
+	// vct2.insert(vct2.end(), 42);
+	// std::cout << std::endl << "4" << std::endl;
+	// vct2.insert(vct2.begin(), 2, 21);
+	// printSize(vct2);
+	// std::cout << std::endl << "2" << std::endl;
+	// vct2.insert(vct2.end() - 2, 42);
+	// printSize(vct2);
+	// std::cout << std::endl << "3" << std::endl;
 
 	// vct2.insert(vct2.end(), 2, 84);
-	printSize(vct2);
+	// printSize(vct2);
 
 	// vct2.resize(4);
-	printSize(vct2);
+	// printSize(vct2);
 	
 	// vct2.insert(vct2.begin() + 2, vct.begin(), vct.end());
-	vct.clear();
-	printSize(vct2);
+	// vct.clear();
+	// printSize(vct2);
 
-	printSize(vct);
+	// printSize(vct);
 
 	// vct2.insert(vct2.begin() + 2, vct.begin(), vct.end());
 	// vct.clear();
