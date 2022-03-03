@@ -37,14 +37,14 @@ void print(ft::vector<T> &my_vect, std::vector<T> &vect){
 */
 template <typename T>
 void compErase(ft::vector<T> &my_vect, std::vector<T> &vect){
-    	if (my_vect.max_size() != vect.max_size())
-		std::cout << "[Error max_size] our_test: " << my_vect.size() << "| std: " << vect.size()
+    if (my_vect.max_size() != vect.max_size())
+		std::cout << "[Error max_size] our_test: " << my_vect.max_size() << "| std: " << vect.max_size()
 		<< std::endl;
 	if (my_vect.size() != vect.size())
 		std::cout << "[Error size] our_test: " << my_vect.size() << "| std: " << vect.size()
 		<< std::endl;
 	if (my_vect.capacity() != vect.capacity())
-		std::cout << "[Error capacity] our_test: " << my_vect.size() << "| std: " << vect.size()
+		std::cout << "[Error capacity] our_test: " << my_vect.capacity() << "| std: " << vect.capacity()
 		<< std::endl;
 	for(size_t i = 0; i < vect.size(); i++)
 		if (vect[i] != my_vect[i] )
@@ -60,5 +60,6 @@ void compErase(ft::vector<T> &my_vect, std::vector<T> &vect){
 /* unit test */
 void testErase();
 void testResize();
+void testAssign();
 
 #endif

@@ -26,6 +26,9 @@ struct Buffer
 
 
 int main() {
-	testErase();
+	// testErase();
+	// testResize();
+	testAssign();
+
 	return (0);
 }

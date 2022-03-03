@@ -199,31 +199,29 @@ public:
         insert(end(), val);
     }
 
-    void resize (size_type n, T val= value_type()) {
+    void resize (size_type n, T val = value_type()) {
         if (n > size())
         {
-            if (_allocSize * 2 < n)
+            if (_allocSize  < n)
 				this->reserve(n);
-			else
-				this->reserve(_allocSize * 2);
             for (size_t i = _size; i < n; i++)
                 _array[i] = val;
             _size = n;
         }
         else if (n < size())
             erase(begin() + n, end());
-
     }
 
     // void assign (InputIterator first, InputIterator last) {
 
     // }
 
-    // void assign (size_type n, const value_type& val) {
-
-    // }
-
-
+    void assign (size_type n, const value_type& val) {
+        clear();
+        resize(n, val);
+    }
+  
+ 
     reference at(size_type pos)
 	{
 		std::stringstream str;

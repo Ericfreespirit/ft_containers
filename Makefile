@@ -13,6 +13,7 @@ BUGFLAGS = -fsanitize=address -g
 FILES = my_main.cpp \
 		testErase.cpp\
 		testResize.cpp\
+		testAssign.cpp\
 
 
 
