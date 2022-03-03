@@ -1,6 +1,5 @@
 
 #include "our_test/AllTest.hpp"
-
 #include <iostream>
 #include <string>
 #include <deque>
@@ -12,7 +11,7 @@
 #else
 	// #include <map.hpp>
 	// #include <stack.hpp>
-	#include <vector.hpp>
+	// #include <vector.hpp>
 #endif
 
 #include <stdlib.h>
@@ -26,8 +25,8 @@ struct Buffer
 };
 
 
-
 int main() {
 	testErase();
+
 	return (0);
 }

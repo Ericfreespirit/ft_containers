@@ -147,17 +147,9 @@ public:
     }
     iterator erase (iterator first, iterator last){
         iterator ret = first;
-        // iterator *tmp = new iterator(last);
-        // size_t len = 0;
-        // for(;(last + len)!= end();len++);
-        // for(size_t i = 0; i < _size-1; i++){
-        //     _alloc.destroy(&(*(first + i)));
-        // }
-        // for(size_t i = 0; i < len;i++){
-        //     _alloc.construct(&(*(first + i)), *(*tmp) + i);
-        // }
-        // _size += len;
-        // delete tmp;
+        for(;first != last ; --last){
+            erase(first);
+        }
         return (ret);
     }
 
@@ -249,12 +241,12 @@ public:
 
     
 
-    // void resize (size_type n, value_type val = value_type()){
-    // }
+    void resize (size_type n, value_type val = value_type()){
+    }
     
-    // allocator_type get_allocator()const{
-    //     return (_alloc);
-    // }
+    allocator_type get_allocator()const{
+        return (_alloc);
+    }
         
 
         
