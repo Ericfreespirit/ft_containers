@@ -5,14 +5,10 @@ FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	include/const_iterator_vector.hpp \
 	utils/traits.hpp \
-	src/our_test/AllTest.hpp\
+	src/our_test/AllTest.hpp \
 
-<<<<<<< HEAD
-CPPFLAGS = -Wall -Wextra -fsanitize=address -g3 -std=c++98 -Icontainer -Iinclude -Iutils
-=======
 CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils 
 BUGFLAGS = -fsanitize=address -g
->>>>>>> 1e2774f8910973cc82b24eaf74daf5337caac7a6
 
 FILES = my_main.cpp \
 		testErase.cpp\
