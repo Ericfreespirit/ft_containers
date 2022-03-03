@@ -26,6 +26,6 @@ struct Buffer
 
 
 int main() {
-
+	testErase();
 	return (0);
 }

@@ -12,6 +12,8 @@ BUGFLAGS = -fsanitize=address -g
 
 FILES = my_main.cpp \
 		testErase.cpp\
+		testResize.cpp\
+
 
 
 SRC_PATH = $(shell find src -type d)
