@@ -107,6 +107,9 @@ public:
     ===============*/   
     iterator begin() {
         return (_array);
+    }    
+    const_iterator begin() const{
+        return (_array);
     }
 
     iterator end() {
@@ -159,8 +162,9 @@ public:
     }
     iterator erase (iterator first, iterator last){
         iterator ret = first;
-        for(;first != last ; --last)
+        for(;first != last ; --last){
             erase(first);
+        }
         return (ret);
     }
 
@@ -294,12 +298,12 @@ public:
 
     
 
-    // void resize (size_type n, value_type val = value_type()){
-    // }
+    void resize (size_type n, value_type val = value_type()){
+    }
     
-    // allocator_type get_allocator()const{
-    //     return (_alloc);
-    // }
+    allocator_type get_allocator()const{
+        return (_alloc);
+    }
         
 
         
