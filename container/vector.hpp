@@ -3,6 +3,8 @@
 #include <iostream>
 #include "../include/iterator_vector.hpp"
 #include "../include/const_iterator_vector.hpp"
+#include "../include/reverse_iterator_vector.hpp"
+#include "../include/const_reverse_iterator_vector.hpp"
 #include "../utils/traits.hpp"
 #include <sstream>
 #include <memory>
@@ -23,8 +25,9 @@ public:
 
     typedef ft::iterator_vector<T> iterator;
     typedef ft::const_iterator_vector<T> const_iterator;
-    // typedef reverse_iterator reverse_iterator;
-    // typedef const_reverse_iterator const_reverse_iterator;
+    typedef ft::reverse_iterator_vector<T> reverse_iterator;
+    typedef ft::const_reverse_iterator_vector<T> const_reverse_iterator;
+
 private:
     T *_array;
     A _alloc;
@@ -94,13 +97,9 @@ public:
 		if (x == *this)
 			return (*this);
 		this->clear();
-		// this->insert(this->end(), x.begin(), x.end());
+		// insert(this->begin(), x.begin(), x.end());
 		return (*this);
 	}
-    /* operator= */
-    // vector& operator= (const vector& x){
-
-    // }
 
     /*============
     |   ITERATOR  |
@@ -110,14 +109,26 @@ public:
     }
 
     iterator end() {
-        return (_array + _size);}
+        return (_array + _size );}
     
     const_iterator begin() const {
-        return (_array);}
+        return (_array);
+    }
 
     const_iterator end() const {
-        return (_array + _size);}
+        return (_array + _size);
+    }
 
+    reverse_iterator rbegin(){
+
+        return (_array + (_size - 1));
+    }
+    // const_reverse_iterator rbegin() const{}
+
+    reverse_iterator rend(){
+        return (_array - 1);
+    }
+    // const_reverse_iterator rend() const;
 
     /*====================
     |   MEMBER FUNCTION   |
@@ -267,6 +278,14 @@ public:
         return (*(end() - 1));
     }
 
+
+    bool empty() const {
+        return (_size == 0 ? true : false);
+    }
+
+    allocator_type get_allocator()const {
+        return (_alloc);
+    }
     // void swap (vector& x) {
     //     pointer startTmp = _start;
     //     pointer endTmp = _end;
@@ -293,5 +312,24 @@ public:
 
     }; // end of vector class
 }; //end of ft namespace
+
+
+/*======================
+|   NO-MEMBER OPERATOR |
+=======================*/
+
+
+
+template <class T, class Alloc>
+bool operator==(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
+    if (lhs.size() != rhs.size())
+        return (false);
+    typename ft::vector<T>::const_iterator it_lhs = lhs.begin();
+    typename ft::vector<T>::const_iterator it_rhs = rhs.begin();
+    for(; it_lhs != lhs.end(); it_lhs++)
+        if(*it_lhs != *(it_rhs))
+            return (false);
+    return (true);
+}
 
 #endif

@@ -10,7 +10,7 @@ namespace ft {
     public:
         typedef const_iterator_vector<T> _it;
 
-        typedef std::ptrdiff_t difference_type; //is the signed integer type of the result of subtracting two pointers. 
+        typedef std::ptrdiff_t difference_type;
 	    typedef T value_type;
 	    typedef	T*  pointer;
 		typedef T& reference;
@@ -20,6 +20,7 @@ namespace ft {
 
 
 	    const_iterator_vector(void) {};
+	    ~const_iterator_vector(void) {};
 	    const_iterator_vector(pointer ptr) { _ptr = ptr; };
 	    const_iterator_vector(_it const &p) { *this = p; } ;
     

@@ -4,6 +4,8 @@ CC = clang++
 FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	include/const_iterator_vector.hpp \
+	include/reverse_iterator_vector.hpp \
+	include/const_reverse_iterator_vector.hpp \
 	utils/traits.hpp \
 	src/our_test/AllTest.hpp \
 
