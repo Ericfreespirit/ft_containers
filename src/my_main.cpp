@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <vector>
 #if 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
@@ -25,7 +26,39 @@ struct Buffer
 };
 
 
-int main() {
+// int main() {
 
-	return (0);
+// 	ft::vector<int> stw(10);
+// 	ft::vector<int>::const_iterator it = stw.begin();
+// 	return (0);
+// }
+
+int main ()
+{
+#include <iostream>
+#include <vector>
+
+  std::vector<int> myvector (3,100);
+  std::vector<int>::iterator it;
+
+  it = myvector.begin();
+  it = myvector.insert ( it , 200 );
+
+  myvector.insert (it,2,300);
+
+  // "it" no longer valid, get a new one:
+  it = myvector.begin();
+
+  std::vector<int> anothervector (2,400);
+  myvector.insert (it+2,anothervector.begin(),anothervector.end());
+
+  int myarray [] = { 501,502,503 };
+  myvector.insert (myvector.begin(), myarray, myarray+3);
+
+  std::cout << "myvector contains:";
+  for (it=myvector.begin(); it<myvector.end(); it++)
+    std::cout << ' ' << *it;
+  std::cout << '\n';
+
+  return 0;
 }

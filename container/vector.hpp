@@ -90,11 +90,19 @@ public:
     }
 
 
-    vector &operator=(const vector& x){
+    vector &operator=(vector& x) const{
 		if (x == *this)
 			return (*this);
 		this->clear();
-		// this->insert(this->end(), x.begin(), x.end());
+		this->insert(this->end(), x.begin(), x.end());
+		return (*this);
+	}
+
+    vector &operator=(vector& x){
+		if (x == *this)
+			return (*this);
+		this->clear();
+		this->insert(this->end(), x.begin(), x.end());
 		return (*this);
 	}
     /* operator= */
@@ -195,6 +203,53 @@ public:
 			*it = value;
     }
 
+    /*
+    template <class T, class A>
+	template <class InputIT>
+	void vector<T, A>::insert(ft::vector_iterator<T> pos, InputIT its,
+	typename ft::enable_if<is_input_iterator<InputIT>::value, InputIT>::type ite)
+    */
+
+
+//    template <typename T, typename Alloc>
+// template <class InputIterator, std::enable_if_t<is_iterator_v<InputIterator>, int> = 0>
+// void vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
+    
+    // template <class InputIterator>
+    template <class InputIterator, ft::enable_if<is_iterator<InputIterator>, int> = 0>
+    void insert(iterator pos, InputIterator its, InputIterator ite)
+    // void insert (iterator pos, InputIterator its, InputIterator ite,
+	// 	typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL){
+    {
+        size_t delta = 0;
+		size_t index = pos - this->begin();
+
+		for (InputIterator tmp = its; tmp != ite; ++tmp)
+			++delta;
+
+		if (this->_allocSize < this->_size + delta)
+		{
+			if (this->_size * 2 < this->_size + delta)
+				this->reserve(this->_size + delta);
+			else
+				this->reserve(this->_size * 2 + !this->_allocSize);
+		}
+		pos = this->begin() + index;
+		this->_size += delta;
+		for (iterator it = end() - 1; it != pos + delta - 1; --it)
+			*it = *(it - delta);
+		while (its != ite)
+		{
+			*pos = *its;
+			++pos;
+			++its;
+		}
+    }
+
+    void pop_back() {
+        erase(end());
+    }
+
     void push_back (const value_type& val) {
         insert(end(), val);
     }
@@ -269,22 +324,19 @@ public:
         return (*(end() - 1));
     }
 
-    // void swap (vector& x) {
-    //     pointer startTmp = _start;
-    //     pointer endTmp = _end;
-    //     size_t sizeTmp = size();
-    //     size_t capacityTmp = _allocSize;
+    void swap (vector& x) {
+        T* startTmp = _array;
+        size_t sizeTmp = size();
+        size_t capacityTmp = _allocSize;
 
-    //     _start = x._start;
-    //     _end = x._end;
-    //     _size = x.size();
-    //     _allocSize = x._allocSize;
+        _array = x._array;
+        _size = x.size();
+        _allocSize = x._allocSize;
 
-    //     x._start = startTmp;
-    //     x._end = endTmp;
-    //     x._size = sizeTmp;
-    //     x._allocSize = capacityTmp;
-    // }
+        x._array = startTmp;
+        x._size = sizeTmp;
+        x._allocSize = capacityTmp;
+    }
 
         // iterator insert (iterator position, const value_type& val);	
         // void insert (iterator position, size_type n, const value_type& val);
