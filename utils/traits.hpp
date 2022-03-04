@@ -74,8 +74,8 @@ struct enable_if<true, T>{};
 
 template <typename>
         struct is_iterator_type : public is_iterator_res<false, bool> {};
-template <>
-        struct is_iterator_type<bool> : public is_iterator_res<true, iterator_traits::iterator_category> {};
+template <class T>
+        struct is_iterator_type<bool> : public is_iterator_res<true, iterator_traits<T>::iterator_category<T> > {};
 /*
 template <typename T>
     struct is_integral : public is_integral_type<T> { };
