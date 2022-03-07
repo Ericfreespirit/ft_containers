@@ -29,12 +29,14 @@ struct Buffer
 
 
 int main() {
-	// testErase();
-	// testResize();
-	// testAssign();
-	ft::vector<int> foo (3,100);   // three ints with a value of 100
-	ft::vector<int> bar (2,200);   // two ints with a value of 200
+	ft::vector<int> v1(3, 42);
+	ft::vector<int> v2;
 
-	if (foo==bar) std::cout << "foo and bar are equal\n";
+	v2.insert(v2.begin(), 10, 42);
+	// v2.insert(v1.begin(),v1.begin(), v1.end());
+
+	std::cout << v2[0] << std::endl;
+	// for(ft::vector<int>::iterator it = v2.begin(); it != v2.end(); it++)
+	// std::cout << *it << std::endl;
 	return (0);
 }

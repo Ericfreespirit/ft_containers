@@ -10,7 +10,7 @@ FILE_HPP = container/vector.hpp \
 	src/our_test/AllTest.hpp \
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils 
-BUGFLAGS = -fsanitize=address -g
+# BUGFLAGS = -fsanitize=address -g3
 
 FILES = my_main.cpp \
 		testErase.cpp\

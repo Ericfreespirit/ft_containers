@@ -46,8 +46,11 @@ namespace ft{
 
 	    pointer operator ->() {return(this->_ptr);}; // _ptr->p
 	    pointer operator ->() const {return (this->_ptr);};	
-        //const_reference operator *() const {return (*this->_ptr);}; // *_ptr
+        // const_reference operator *() const {return (*this->_ptr);}; // *_ptr
 		reference operator *() const {return (*this->_ptr);}; // *_ptr
+
+
+		
 	    const_reference operator [](difference_type p) const {return (*(this->_ptr + p));}; // _ptr[]
     private:
 		pointer _ptr;

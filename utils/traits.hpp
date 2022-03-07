@@ -11,11 +11,12 @@ namespace ft{
 
 template <bool Cond, class T = void>
 struct enable_if {
-        typedef T type;
 };
 
 template <typename T>
-struct enable_if<true, T>{};
+struct enable_if<true, T>{
+        typedef T type;
+};
 
 
 /*======================
@@ -72,46 +73,51 @@ struct forward_iterator_tag : public input_iterator_tag {};
 struct bidirectional_iterator_tag : public forward_iterator_tag {};
 struct random_access_iterator_tag : public bidirectional_iterator_tag {};
     
-template <class Iter>
+template <class InputIterator>
 struct iterator_traits {
-    typedef typename Iter::difference_type difference_type;
-    typedef typename Iter::value_type value_type;
-    typedef typename Iter::pointer pointer;
-    typedef typename Iter::reference reference;
-    typedef typename Iter::const_reference const_reference;
-    typedef typename Iter::iterator_category iterator_category;
+    typedef typename InputIterator::difference_type difference_type;
+    typedef typename InputIterator::value_type value_type;
+    typedef typename InputIterator::pointer pointer;
+    typedef typename InputIterator::reference reference;
+    typedef typename InputIterator::const_reference const_reference;
+    typedef typename InputIterator::iterator_category iterator_category;
+};
+
+template <class T>
+struct iterator_traits <T*> {
+		typedef std::ptrdiff_t					difference_type;
+		typedef T								value_type;
+		typedef T*								pointer;
+		typedef T&								reference;
+		typedef ft::random_access_iterator_tag	iterator_category;
+};
+
+template <class T>
+struct iterator_traits <const T*> {
+		typedef const std::ptrdiff_t				difference_type;
+		typedef const T								value_type;
+		typedef const T*								pointer;
+		typedef const T&								reference;
+		typedef ft::random_access_iterator_tag	iterator_category;
 };
 
 
-
-/*
- iterator_traits <T*>
- iterator_traits <const T*>
-
-*/
-
-
-template <class A, class B>
-struct is_same {
-    static const bool value = false;
-};
-
-
-template <class A>
-struct is_same<A, A> {
-    static const bool value = true;
-};
-
-template <bool is_integral, bool is_iterator, class Iter>
-struct is_iterator_res{
-    typedef Iter type;
-    static const bool value = is_iterator;
-};
-
-
-template<class Iter>
+template <class T>
 struct is_iterator {
-    // static const bool value = !ft::is_integral<InputIterator>::value && is_same<typename iterator_traits<Iter>::iterator_category, input_iterator_tag>::value;
+	typedef char yes[1];
+	typedef char no[2];
+
+	template <typename C>
+	static yes& test(typename C::iterator_category *);
+	template <typename>
+	static no& test(...);
+
+	static const bool value = sizeof(test<T>(NULL)) == sizeof(yes);
+};
+
+template <class T>
+struct is_iterator<T*> {
+	static const bool value = true;
 };
 
 
