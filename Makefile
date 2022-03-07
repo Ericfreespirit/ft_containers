@@ -4,6 +4,8 @@ CC = clang++
 FILE_HPP = container/vector.hpp \
 	include/iterator_vector.hpp \
 	include/const_iterator_vector.hpp \
+	include/reverse_iterator_vector.hpp \
+	include/const_reverse_iterator_vector.hpp \
 	utils/traits.hpp \
 	src/our_test/AllTest.hpp \
 
@@ -12,6 +14,9 @@ CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils
 
 FILES = my_main.cpp \
 		testErase.cpp\
+		testResize.cpp\
+		testAssign.cpp\
+
 
 
 SRC_PATH = $(shell find src -type d)

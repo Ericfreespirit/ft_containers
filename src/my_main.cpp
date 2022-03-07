@@ -1,5 +1,5 @@
 
-#include "our_test/AllTest.hpp"
+// #include "our_test/AllTest.hpp"
 #include <iostream>
 #include <string>
 #include <deque>
@@ -12,7 +12,7 @@
 #else
 	// #include <map.hpp>
 	// #include <stack.hpp>
-	// #include <vector.hpp>
+	#include <vector.hpp>
 #endif
 
 #include <stdlib.h>
@@ -26,46 +26,18 @@ struct Buffer
 };
 
 
-// int main() {
-
-// 	ft::vector<int> stw(10);
-// 	ft::vector<int>::const_iterator it = stw.begin();
-// 	return (0);
-// }
-
-int main ()
-{
-#include <iostream>
-#include <vector>
+#define COUNT (MAX_RAM / (int)sizeof(Buffer))
 
 
-  ft::vector<int> vec;
-  ft::vector<int>::iterator it;
+int main() {
+	ft::vector<int> v1(3, 42);
+	ft::vector<int> v2;
 
-  vec.insert(vec.begin(), 10, 42);
-  for (it = vec.begin(); it != vec.end(); it++)
-    std::cout << *it << std::endl;
-  // std::vector<int> myvector (3,100);
-  // std::vector<int>::iterator it;
+	v2.insert(v2.begin(), 10, 42);
+	// v2.insert(v1.begin(),v1.begin(), v1.end());
 
-  // it = myvector.begin();
-  // it = myvector.insert ( it , 200 );
-
-  // myvector.insert (it,2,300);
-
-  // // "it" no longer valid, get a new one:
-  // it = myvector.begin();
-
-  // std::vector<int> anothervector (2,400);
-  // myvector.insert (it+2,anothervector.begin(),anothervector.end());
-
-  // int myarray [] = { 501,502,503 };
-  // myvector.insert (myvector.begin(), myarray, myarray+3);
-
-  // std::cout << "myvector contains:";
-  // for (it=myvector.begin(); it<myvector.end(); it++)
-  //   std::cout << ' ' << *it;
-  // std::cout << '\n';
-
-  // return 0;
+	std::cout << v2[0] << std::endl;
+	// for(ft::vector<int>::iterator it = v2.begin(); it != v2.end(); it++)
+	// std::cout << *it << std::endl;
+	return (0);
 }
