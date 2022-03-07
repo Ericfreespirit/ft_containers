@@ -185,7 +185,7 @@ public:
 	}
 
     void  insert(iterator pos, size_t count, const T &value) {
-		size_t delta = pos - begin();
+        size_t delta = pos - begin();
         if (size() == 0)
             delta = 0;
 		if (_allocSize < _size + count)
@@ -195,8 +195,11 @@ public:
             else
 				reserve(_allocSize * 2 + !_allocSize);
         }
+        std::cout << 
+        // std::cout << _size << std::endl;
 		pos = begin() + delta;
-		_size += count;
+		std::cout << " ";
+        _size += count;
         for (iterator it = end() -1 ; it != pos - count; it--)
             *(it + count) = *it;
         for (iterator it = pos; it != pos + count; it++)
@@ -216,35 +219,35 @@ public:
 // void vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
     
     // template <class InputIterator>
-    template <class InputIterator, ft::enable_if<is_iterator<InputIterator>, int> = 0>
-    void insert(iterator pos, InputIterator its, InputIterator ite)
+    // template <class InputIterator, ft::enable_if<is_iterator<InputIterator>, int> = 0>
+    // void insert(iterator pos, InputIterator its, InputIterator ite)
     // void insert (iterator pos, InputIterator its, InputIterator ite,
 	// 	typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL){
-    {
-        size_t delta = 0;
-		size_t index = pos - this->begin();
+    // {
+    //     size_t delta = 0;
+	// 	size_t index = pos - this->begin();
 
-		for (InputIterator tmp = its; tmp != ite; ++tmp)
-			++delta;
+	// 	for (InputIterator tmp = its; tmp != ite; ++tmp)
+	// 		++delta;
 
-		if (this->_allocSize < this->_size + delta)
-		{
-			if (this->_size * 2 < this->_size + delta)
-				this->reserve(this->_size + delta);
-			else
-				this->reserve(this->_size * 2 + !this->_allocSize);
-		}
-		pos = this->begin() + index;
-		this->_size += delta;
-		for (iterator it = end() - 1; it != pos + delta - 1; --it)
-			*it = *(it - delta);
-		while (its != ite)
-		{
-			*pos = *its;
-			++pos;
-			++its;
-		}
-    }
+	// 	if (this->_allocSize < this->_size + delta)
+	// 	{
+	// 		if (this->_size * 2 < this->_size + delta)
+	// 			this->reserve(this->_size + delta);
+	// 		else
+	// 			this->reserve(this->_size * 2 + !this->_allocSize);
+	// 	}
+	// 	pos = this->begin() + index;
+	// 	this->_size += delta;
+	// 	for (iterator it = end() - 1; it != pos + delta - 1; --it)
+	// 		*it = *(it - delta);
+	// 	while (its != ite)
+	// 	{
+	// 		*pos = *its;
+	// 		++pos;
+	// 		++its;
+	// 	}
+    // }
 
     void pop_back() {
         erase(end());

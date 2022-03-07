@@ -66,16 +66,16 @@ struct enable_if<true, T>{};
         struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> {};
 
 
- template <bool is_iterator, typename T>
-        struct is_iterator_res {
-            typedef T type;
-            static const bool value = is_iterator;
-};
+//  template <bool is_iterator, typename T>
+//         struct is_iterator_res {
+//             typedef T type;
+//             static const bool value = is_iterator;
+// };
 
-template <typename>
-        struct is_iterator_type : public is_iterator_res<false, bool> {};
-template <class T>
-        struct is_iterator_type<bool> : public is_iterator_res<true, iterator_traits<T>::iterator_category<T> > {};
+// template <typename>
+//         struct is_iterator_type : public is_iterator_res<false, bool> {};
+// template <class T>
+//         struct is_iterator_type<bool> : public is_iterator_res<true, iterator_traits<T>::iterator_category<T> > {};
 /*
 template <typename T>
     struct is_integral : public is_integral_type<T> { };

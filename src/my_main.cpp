@@ -38,27 +38,34 @@ int main ()
 #include <iostream>
 #include <vector>
 
-  std::vector<int> myvector (3,100);
-  std::vector<int>::iterator it;
 
-  it = myvector.begin();
-  it = myvector.insert ( it , 200 );
+  ft::vector<int> vec;
+  ft::vector<int>::iterator it;
 
-  myvector.insert (it,2,300);
+  vec.insert(vec.begin(), 10, 42);
+  for (it = vec.begin(); it != vec.end(); it++)
+    std::cout << *it << std::endl;
+  // std::vector<int> myvector (3,100);
+  // std::vector<int>::iterator it;
 
-  // "it" no longer valid, get a new one:
-  it = myvector.begin();
+  // it = myvector.begin();
+  // it = myvector.insert ( it , 200 );
 
-  std::vector<int> anothervector (2,400);
-  myvector.insert (it+2,anothervector.begin(),anothervector.end());
+  // myvector.insert (it,2,300);
 
-  int myarray [] = { 501,502,503 };
-  myvector.insert (myvector.begin(), myarray, myarray+3);
+  // // "it" no longer valid, get a new one:
+  // it = myvector.begin();
 
-  std::cout << "myvector contains:";
-  for (it=myvector.begin(); it<myvector.end(); it++)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
+  // std::vector<int> anothervector (2,400);
+  // myvector.insert (it+2,anothervector.begin(),anothervector.end());
 
-  return 0;
+  // int myarray [] = { 501,502,503 };
+  // myvector.insert (myvector.begin(), myarray, myarray+3);
+
+  // std::cout << "myvector contains:";
+  // for (it=myvector.begin(); it<myvector.end(); it++)
+  //   std::cout << ' ' << *it;
+  // std::cout << '\n';
+
+  // return 0;
 }
