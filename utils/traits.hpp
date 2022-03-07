@@ -22,17 +22,7 @@ struct enable_if<true, T> {
 template <bool Cond, class T = void>
 struct enable_if {
 };
-
-template <typename T>
-<<<<<<< HEAD
-struct enable_if<true, T>{};
 */
-=======
-struct enable_if<true, T>{
-        typedef T type;
-};
-
->>>>>>> b9315be629a9ec8c5b729b237a99c83831c27180
 
 /*======================
 |   integral traits     |

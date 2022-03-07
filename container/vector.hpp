@@ -52,8 +52,10 @@ public:
 	_size(n){
         _allocSize = n;
 		_array = _alloc.allocate(n);
-         for(size_type i = 0;i < n; i++)
-        _alloc.construct(&_array[i], val);
+         for(size_type i = 0;i < n; i++) {
+            _alloc.construct(&_array[i], val);
+            // std::cout << _array[i] << std::endl;
+            }
     }
             
     template <class InputIterator>
@@ -61,11 +63,11 @@ public:
         const allocator_type& alloc = allocator_type(),
         typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0):
     _alloc(alloc){
-        std::cout << "hello" << std::endl;
+        // std::cout << "hello" << std::endl;
         (void)first;
         (void)last;
     }
-    
+
     vector (const vector& x) : _alloc(){
         _array = NULL;
         _size = 0;
@@ -92,20 +94,9 @@ public:
         return (_array[n]);
     }
 
-
-    vector &operator=(vector& x) const{
-		if (x == *this)
-			return (*this);
-		this->clear();
-		this->insert(this->end(), x.begin(), x.end());
-		return (*this);
-	}
-
-    vector &operator=(vector& x){
-		if (x == *this)
-			return (*this);
-		this->clear();
-		this->insert(this->end(), x.begin(), x.end());
+	vector &operator=(vector const &x)
+	{
+		this->assign(x.begin(), x.end());
 		return (*this);
 	}
 
@@ -117,7 +108,7 @@ public:
     }
 
     iterator end() {
-        return (_array + _size );}
+        return (_array + _size);}
     
     const_iterator begin() const {
         return (_array);
@@ -189,7 +180,7 @@ public:
 
     void    clear(){
         erase(begin(),end());
-        delete _array;
+        // delete _array;
     }
 
     iterator insert(iterator pos, const T &value)
@@ -203,69 +194,59 @@ public:
         size_t delta = pos - begin();
         if (size() == 0)
             delta = 0;
-		if (_allocSize < _size + count)
-		{
-			if (_allocSize * 2 < _size + count)
-				reserve(_size + count);
-            else
-				reserve(_allocSize * 2 + !_allocSize);
+		if (_allocSize < _size + count) {
+			if (_allocSize * 2 < _size + count) {
+				reserve(_size + count);}
+            else {
+				reserve(_allocSize * 2 + !_allocSize);}
         }
-        std::cout << 
-        // std::cout << _size << std::endl;
+        int on = 0;
+        if (_size == 0)
+            on = 1;
 		pos = begin() + delta;
-		std::cout << " ";
         _size += count;
+        if (on == 0) {
         for (iterator it = end() -1 ; it != pos - count; it--)
-            *(it + count) = *it;
+            *(it + count) = *it;}
         for (iterator it = pos; it != pos + count; it++)
 			*it = value;
     }
 
-    /*
-    template <class T, class A>
 	template <class InputIT>
-	void vector<T, A>::insert(ft::vector_iterator<T> pos, InputIT its,
-	typename ft::enable_if<is_input_iterator<InputIT>::value, InputIT>::type ite)
-    */
+	void insert(ft::iterator_vector<T> pos, InputIT its,
+	typename ft::enable_if<is_iterator<InputIT>::value, InputIT>::type ite)
+    {
+        size_t delta = 0;
+		size_t index = pos - this->begin();
 
+		for (InputIT tmp = its; tmp != ite; ++tmp)
+			++delta;
 
-//    template <typename T, typename Alloc>
-// template <class InputIterator, std::enable_if_t<is_iterator_v<InputIterator>, int> = 0>
-// void vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
-    
-    // template <class InputIterator>
-    // template <class InputIterator, ft::enable_if<is_iterator<InputIterator>, int> = 0>
-    // void insert(iterator pos, InputIterator its, InputIterator ite)
-    // void insert (iterator pos, InputIterator its, InputIterator ite,
-	// 	typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = NULL){
-    // {
-    //     size_t delta = 0;
-	// 	size_t index = pos - this->begin();
+		if (this->_allocSize < this->_size + delta)
+		{
+			if (this->_size * 2 < this->_size + delta)
+				this->reserve(this->_size + delta);
+			else
+				this->reserve(this->_size * 2 + !this->_allocSize);
+		}
+		pos = this->begin() + index;
+        int on = 0;
+        if (_size == 0)
+            on = 1;
+		this->_size += delta;
+        if (on == 0) {
+		for (iterator it = end() - 1; it != pos + delta - 1; --it)
+			*it = *(it - delta);}
+		while (its != ite)
+		{
+			*pos = *its;
+			++pos;
+			++its;
+		}
+    }
 
-	// 	for (InputIterator tmp = its; tmp != ite; ++tmp)
-	// 		++delta;
-
-	// 	if (this->_allocSize < this->_size + delta)
-	// 	{
-	// 		if (this->_size * 2 < this->_size + delta)
-	// 			this->reserve(this->_size + delta);
-	// 		else
-	// 			this->reserve(this->_size * 2 + !this->_allocSize);
-	// 	}
-	// 	pos = this->begin() + index;
-	// 	this->_size += delta;
-	// 	for (iterator it = end() - 1; it != pos + delta - 1; --it)
-	// 		*it = *(it - delta);
-	// 	while (its != ite)
-	// 	{
-	// 		*pos = *its;
-	// 		++pos;
-	// 		++its;
-	// 	}
-    // }
-
-    // void pop_back() {
-    //     erase(end());
+    void pop_back() {
+        erase(end());}
     // template <class InputIterator>
     // void insert (iterator pos, InputIterator first, InputIterator last,
     //     typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0){
@@ -294,7 +275,7 @@ public:
     void assign (InputIterator first, InputIterator last,
        typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0) {
         clear();
-        insert(0, first, last);
+        insert(begin(), first, last);
     }
     void assign (size_type n, const value_type& val) {
         clear();
@@ -347,7 +328,15 @@ public:
         return (*(end() - 1));
     }
 
-<<<<<<< HEAD
+
+    bool empty() const {
+        return (_size == 0 ? true : false);
+    }
+
+    allocator_type get_allocator()const {
+        return (_alloc);
+    }
+
     void swap (vector& x) {
         T* startTmp = _array;
         size_t sizeTmp = size();
@@ -361,33 +350,6 @@ public:
         x._size = sizeTmp;
         x._allocSize = capacityTmp;
     }
-=======
-
-    bool empty() const {
-        return (_size == 0 ? true : false);
-    }
-
-    allocator_type get_allocator()const {
-        return (_alloc);
-    }
-    // void swap (vector& x) {
-    //     pointer startTmp = _start;
-    //     pointer endTmp = _end;
-    //     size_t sizeTmp = size();
-    //     size_t capacityTmp = _allocSize;
-
-    //     _start = x._start;
-    //     _end = x._end;
-    //     _size = x.size();
-    //     _allocSize = x._allocSize;
-
-    //     x._start = startTmp;
-    //     x._end = endTmp;
-    //     x._size = sizeTmp;
-    //     x._allocSize = capacityTmp;
-    // }
->>>>>>> b9315be629a9ec8c5b729b237a99c83831c27180
-
         // iterator insert (iterator position, const value_type& val);	
         // void insert (iterator position, size_type n, const value_type& val);
         // template <class InputIterator>
