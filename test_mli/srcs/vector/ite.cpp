@@ -32,8 +32,9 @@ int		main(void)
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = vct.begin();
 
-	for (int i = 0; i < size; ++i)
-		it[i] = (size - i) * 5;
+	for (int i = 0; i < size; ++i) {
+		std::cout << "ajbpn" << std::endl;
+		it[i] = (size - i) * 5;}
 	prepost_incdec(vct);
 
 	it = it + 5;

@@ -9,8 +9,9 @@ int		main(void)
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it(vct.begin());
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite(vct.end());
 
-	for (int i = 1; it != ite; ++i)
-		*it++ = i;
+	for (int i = 1; it != ite; ++i) {
+		// std::cout << "ajbpn" << std::endl;
+		*it++ = i;}
 	printSize(vct, 1);
 
 	it = vct.begin();
