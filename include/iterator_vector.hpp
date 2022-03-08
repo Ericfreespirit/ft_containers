@@ -33,8 +33,24 @@ namespace ft{
 	    bool operator >=(_it const& p) const {return(this->_ptr >= p._ptr);};
 	    bool operator <=(_it const& p) const {return(this->_ptr <= p._ptr);};
 
-	    _it operator +(difference_type p) {return(_it(this->_ptr + p));}; // _ptr + p
-	    _it operator -(difference_type p) {return(_it(this->_ptr - p));}; // _ptr - p
+
+/*
+difference_type		operator-(const random_access_iterator<T> &n) const {
+	return __it__::operator-(n);
+};
+vector_iterator			operator-(difference_type n) const {
+	return __it__::operator-(n);
+};
+vector_iterator			operator+(difference_type n) const {
+	return __it__::operator+(n);
+};
+friend vector_iterator		operator+(difference_type n, const vector_iterator &rhs) {
+	return rhs.operator+(n);
+};
+*/
+		// _it operator +(difference_type p) {return _ptr + p;};
+	    _it operator +(difference_type p) const {return(_it(this->_ptr + p));}; // _ptr + p
+	    _it operator -(difference_type p) const {return(_it(this->_ptr - p));}; // _ptr - p
 
 	    difference_type operator +(_it p) {return(this->_ptr + p._ptr);}; // _ptr + p
 	    difference_type operator -(_it p) {return(this->_ptr - p._ptr);}; // _ptr - p
@@ -44,8 +60,8 @@ namespace ft{
 	    _it operator --() { this->_ptr--; return(*this);}; // --_ptr
 	    _it operator --(int) { this->_ptr--; return(_it(this->_ptr - 1));}; // _ptr--
 
-	    void operator +=(difference_type p) {this->_ptr += p;}; // _ptr += p
-	    void operator -=(difference_type p) {this->_ptr -= p;}; // _ptr -= p
+	    _it operator +=(difference_type p) {this->_ptr += p; return(*this);}; // _ptr += p
+	    _it operator -=(difference_type p) {this->_ptr -= p; return(*this);}; // _ptr -= p
 
 	    pointer operator ->() {return(this->_ptr);}; // _ptr->p
 	    pointer operator ->() const {return (this->_ptr);};	
