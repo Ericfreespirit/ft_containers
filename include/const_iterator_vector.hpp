@@ -2,6 +2,7 @@
 #define CONST_ITERATOR_VECTOR_H
 
 #include "../utils/traits.hpp"
+#include "iterator_vector.hpp"
 
 namespace ft {
 
@@ -22,7 +23,9 @@ namespace ft {
 	    const_iterator_vector(void) {};
 	    ~const_iterator_vector(void) {};
 	    const_iterator_vector(pointer ptr) { _ptr = ptr; };
-	    const_iterator_vector(_it const &p) { *this = p; } ;
+		const_iterator_vector(iterator_vector<T> const &src) { _ptr = src.operator->();};
+		const_iterator_vector(const_iterator_vector const &src) { *this = src; } ;
+	    // const_iterator_vector(_it const &p) { *this = p; } ;
     
 	    const _it &operator=(_it const &p) { _ptr = p._ptr; return (*this); };
 
@@ -44,11 +47,11 @@ namespace ft {
 	    const _it operator--() { this->_ptr--; return(*this);}; // --_ptr
 	    const _it operator--(int) { this->_ptr--; return(_it(this->_ptr - 1));}; // _ptr--
 
-	    void operator+=(difference_type p) {this->_ptr += p;}; // _ptr += p
-	    void operator-=(difference_type p) {this->_ptr -= p;}; // _ptr -= p
+	    _it operator+=(difference_type p) {this->_ptr += p; return(*this);}; // _ptr += p
+	    _it operator-=(difference_type p) {this->_ptr -= p; return(*this);}; // _ptr -= p
 
-	    const_pointer operator->() {return(this->_ptr);}; // _ptr->p
-	    const_pointer operator->() const {return (this->_ptr);};	
+	    pointer operator->() {return(this->_ptr);}; // _ptr->p
+	    pointer operator->() const {return (this->_ptr);};	
         const_reference operator*() const {return (*this->_ptr);}; // *_ptr
 	    const_reference operator[](difference_type p) const {return (*(this->_ptr + p));}; // _ptr[]
     private:

@@ -9,15 +9,14 @@ namespace ft{
 |   enable_if  |
 ===============*/
 
-template <bool Cond, class T = void>
+template<bool Cond, class T = void>
 struct enable_if {
+
 };
 
-template <typename T>
-struct enable_if<true, T>{
-        typedef T type;
-};
-
+template<class T>
+struct enable_if<true, T> { 
+    typedef T type;};
 
 /*======================
 |   integral traits     |
@@ -55,12 +54,6 @@ struct enable_if<true, T>{
         struct is_integral_type<unsigned long int> : public is_integral_res<true, unsigned long int> {};   
     template <>
         struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> {};
-
-
-    template <typename T>
-        struct is_integral : public is_integral_type<T> { };
-
-
 
 /*======================
 |    iterator traits    |

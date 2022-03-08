@@ -36,9 +36,9 @@ int		main(void)
 	vct2.resize(4);
 	printSize(vct2);
 
-	// vct2.insert(vct2.begin() + 2, vct.begin(), vct.end());
-	// vct.clear();
-	// printSize(vct2);
+	vct2.insert(vct2.begin() + 2, vct.begin(), vct.end());
+	vct.clear();
+	printSize(vct2);
 
 	printSize(vct);
 	return (0);

@@ -53,8 +53,9 @@ public:
 	_size(n){
         _allocSize = n;
 		_array = _alloc.allocate(n);
-         for(size_type i = 0;i < n; i++)
-        _alloc.construct(&_array[i], val);
+         for(size_type i = 0;i < n; i++) {
+            _alloc.construct(&_array[i], val);
+            }
     }
             
     template <class InputIterator>
@@ -62,10 +63,14 @@ public:
         const allocator_type& alloc = allocator_type(),
         typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0):
     _alloc(alloc){
+        _array = NULL;
+        _size = 0;
+        _allocSize = 0;
+        assign(first, last);
         (void)first;
         (void)last;
     }
-    
+
     vector (const vector& x) : _alloc(){
         _array = NULL;
         _size = 0;
@@ -78,6 +83,7 @@ public:
     ================*/
         ~vector(){
             clear();
+            _alloc.deallocate(_array, this->capacity());
         };
 
     /*============
@@ -92,12 +98,9 @@ public:
         return (_array[n]);
     }
 
-
-    vector &operator=(const vector& x){
-		// if (x == *this)
-		// 	return (*this);
-		clear();
-		insert(begin(), x.begin(), x.end());
+	vector &operator=(vector const &x)
+	{
+        this->insert(this->begin(), x.begin(), x.end());
 		return (*this);
 	}
 
@@ -109,7 +112,7 @@ public:
     }
 
     iterator end() {
-        return (_array + _size );}
+        return (_array + _size);}
     
     const_iterator begin() const {
         return (_array);
@@ -162,6 +165,7 @@ public:
     size_t capacity() const {
         return (_allocSize);
     }
+
     iterator erase (iterator pos){
         iterator ret = pos;
         for(;pos != end();pos++){
@@ -171,6 +175,7 @@ public:
         _size--;
         return (ret);
     }
+    
     iterator erase (iterator first, iterator last){
         iterator ret = first;
         for(;first != last ; --last){
@@ -248,6 +253,15 @@ public:
 		}
     }
 
+    void pop_back() {
+        erase(end());}
+    // template <class InputIterator>
+    // void insert (iterator pos, InputIterator first, InputIterator last,
+    //     typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0){
+    //     for(; first != last; first++)
+    //         insert(pos++, *first);
+    // }
+
     void push_back (const value_type& val) {
         insert(end(), val);
     }
@@ -269,7 +283,7 @@ public:
     void assign (InputIterator first, InputIterator last,
        typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0) {
         clear();
-        insert(0, first, last);
+        insert(begin(), first, last);
     }
     void assign (size_type n, const value_type& val) {
         clear();
@@ -330,22 +344,21 @@ public:
     allocator_type get_allocator()const {
         return (_alloc);
     }
-    // void swap (vector& x) {
-    //     pointer startTmp = _start;
-    //     pointer endTmp = _end;
-    //     size_t sizeTmp = size();
-    //     size_t capacityTmp = _allocSize;
 
-    //     _start = x._start;
-    //     _end = x._end;
-    //     _size = x.size();
-    //     _allocSize = x._allocSize;
+    void swap (vector& x) {
+        T* startTmp = _array;
+        size_t sizeTmp = size();
+        size_t capacityTmp = _allocSize;
 
-    //     x._start = startTmp;
-    //     x._end = endTmp;
-    //     x._size = sizeTmp;
-    //     x._allocSize = capacityTmp;
-    // }
+        _array = x._array;
+        _size = x.size();
+        _allocSize = x._allocSize;
+
+        x._array = startTmp;
+        x._size = sizeTmp;
+        x._allocSize = capacityTmp;
+    }
+
     }; // end of vector class
 }; //end of ft namespace
 
