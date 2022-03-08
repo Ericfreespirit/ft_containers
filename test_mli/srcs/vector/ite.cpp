@@ -37,7 +37,10 @@ int		main(void)
 	prepost_incdec(vct);
 
 	it = it + 5;
+	// it.operator=(it.operator+(5));
 	it = 1 + it;
+	// it.operator=(1.operator+(it));
+	it = 1 - it;
 	it = it - 4;
 	std::cout << *(it += 2) << std::endl;
 	std::cout << *(it -= 1) << std::endl;

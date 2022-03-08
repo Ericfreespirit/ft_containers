@@ -9,13 +9,10 @@ FILE_HPP = container/vector.hpp \
 	utils/traits.hpp \
 	utils/algorithm.hpp \
 	src/our_test/AllTest.hpp \
+	include/iterator.hpp \
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils 
-<<<<<<< HEAD
-BUGFLAGS = -fsanitize=address -g3
-=======
 # BUGFLAGS = -fsanitize=address -g
->>>>>>> 828b84479a8eb422fe64bd77387969c4c4c336bd
 
 FILES = my_main.cpp \
 		testErase.cpp\

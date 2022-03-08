@@ -2,11 +2,16 @@
 #define ITERATOR_VECTOR_H
 
 #include "../utils/traits.hpp"
+#include "iterator.hpp"
+
 
 namespace ft{
 
-    template <class T>
-    class iterator_vector {
+	template <class T>
+	class iterator;
+    
+	template <class T>
+    class iterator_vector : public iterator<T> {
     public:
         typedef iterator_vector<T> _it;
 		
@@ -19,46 +24,32 @@ namespace ft{
 		typedef ft::random_access_iterator_tag iterator_category;
 
 		iterator_vector(void) {};
-        iterator_vector(pointer ptr) : _ptr(ptr){};
-        ~iterator_vector(){};
+        iterator_vector(pointer ptr){this->_ptr =ptr;};
+        virtual ~iterator_vector(){};
         // iterator_vector(const _it &ref);
 		iterator_vector(iterator_vector const &src) { *this = src; } ;
 
-	    _it &operator=(_it const &src) { this->_ptr = src.operator->(); return (*this); };
+	    _it &operator=(_it const &src) { this->_ptr = src._ptr; return (*this); };
 
-	    bool operator ==(_it const& p) const {return(this->_ptr == p._ptr);};
-	    bool operator !=(_it const& p) const {return(this->_ptr != p._ptr);};
-	    bool operator >(_it const& p) const {return(this->_ptr > p._ptr);};
-	    bool operator <(_it const& p) const {return(this->_ptr < p._ptr);};
-	    bool operator >=(_it const& p) const {return(this->_ptr >= p._ptr);};
-	    bool operator <=(_it const& p) const {return(this->_ptr <= p._ptr);};
+		// using iterator::operator==();
+	    // bool operator ==(_it const& p) const {return(this->_ptr == p._ptr);};
+	    // bool operator !=(_it const& p) const {return(this->_ptr != p._ptr);};
+	    // bool operator >(_it const& p) const {return(this->_ptr > p._ptr);};
+	    // bool operator <(_it const& p) const {return(this->_ptr < p._ptr);};
+	    // bool operator >=(_it const& p) const {return(this->_ptr >= p._ptr);};
+	    // bool operator <=(_it const& p) const {return(this->_ptr <= p._ptr);};
 
+		// // _it operator +(difference_type p) {return _ptr + p;};
+	    // _it operator +(difference_type p) const {return(_it(this->_ptr + p));}; // _ptr + p
+	    // _it operator -(difference_type p) const {return(_it(this->_ptr - p));}; // _ptr - p
 
-/*
-difference_type		operator-(const random_access_iterator<T> &n) const {
-	return __it__::operator-(n);
-};
-vector_iterator			operator-(difference_type n) const {
-	return __it__::operator-(n);
-};
-vector_iterator			operator+(difference_type n) const {
-	return __it__::operator+(n);
-};
-friend vector_iterator		operator+(difference_type n, const vector_iterator &rhs) {
-	return rhs.operator+(n);
-};
-*/
-		// _it operator +(difference_type p) {return _ptr + p;};
-	    _it operator +(difference_type p) const {return(_it(this->_ptr + p));}; // _ptr + p
-	    _it operator -(difference_type p) const {return(_it(this->_ptr - p));}; // _ptr - p
+	    // difference_type operator +(_it p) {return(this->_ptr + p._ptr);}; // _ptr + p
+	    // difference_type operator -(_it p) {return(this->_ptr - p._ptr);}; // _ptr - p
 
-	    difference_type operator +(_it p) {return(this->_ptr + p._ptr);}; // _ptr + p
-	    difference_type operator -(_it p) {return(this->_ptr - p._ptr);}; // _ptr - p
-
-	    _it operator ++() { this->_ptr++; return(*this);}; // ++_ptr
-	    _it operator ++(int) { this->_ptr++; return(_it(this->_ptr + 1));}; // _ptr++
-	    _it operator --() { this->_ptr--; return(*this);}; // --_ptr
-	    _it operator --(int) { this->_ptr--; return(_it(this->_ptr - 1));}; // _ptr--
+	    // _it operator ++() { this->_ptr++; return(*this);}; // ++_ptr
+	    // _it operator ++(int) { this->_ptr++; return(_it(this->_ptr + 1));}; // _ptr++
+	    // _it operator --() { this->_ptr--; return(*this);}; // --_ptr
+	    // _it operator --(int) { this->_ptr--; return(_it(this->_ptr - 1));}; // _ptr--
 
 	    _it operator +=(difference_type p) {this->_ptr += p; return(*this);}; // _ptr += p
 	    _it operator -=(difference_type p) {this->_ptr -= p; return(*this);}; // _ptr -= p
@@ -69,9 +60,14 @@ friend vector_iterator		operator+(difference_type n, const vector_iterator &rhs)
         const_reference operator *() const {return (*this->_ptr);}; // *_ptr
 	    const_reference operator [](difference_type p) const {return (*(this->_ptr + p));}; // _ptr[]
 		reference operator [](difference_type p) { return (*(this->_ptr + p)); };	
-    private:
-		pointer _ptr;
+    // private:
+	// 	pointer _ptr;
     }; //end of iterator_vector definition class
+
+	template <class T>
+	iterator_vector<T> operator+(std::ptrdiff_t i, iterator_vector<T> &it) {
+		return (it + i);
+	}
 }//end of namespace ft
 
 #endif
