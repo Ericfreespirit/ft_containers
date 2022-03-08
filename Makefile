@@ -9,6 +9,7 @@ FILE_HPP = container/vector.hpp \
 	utils/traits.hpp \
 	utils/algorithm.hpp \
 	src/our_test/AllTest.hpp \
+	include/iterator.hpp \
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils 
 # BUGFLAGS = -fsanitize=address -g
