@@ -4,7 +4,7 @@
 #include <string>
 #include <deque>
 #include <vector>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -31,19 +31,7 @@ struct Buffer
 
 int main() {
   ft::vector<int> foo (3,100);   // three ints with a value of 100
-  ft::vector<int> bar (5,200);   // five ints with a value of 200
-
-  swap(foo, bar);
-
-  std::cout << "foo contains:";
-  for (ft::vector<int>::iterator it = foo.begin(); it!=foo.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
-
-  std::cout << "bar contains:";
-  for (ft::vector<int>::iterator it = bar.begin(); it!=bar.end(); ++it)
-    std::cout << ' ' << *it;
-  std::cout << '\n';
+  ft::vector<int>::const_iterator c
 
   return 0;
 }

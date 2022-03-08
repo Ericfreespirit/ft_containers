@@ -57,6 +57,12 @@ namespace ft {
     private:
 		pointer _ptr;
     }; //end of iterator_vector definition class
+
+	// template <typename T>
+	// const_iterator_vector<T> operator-(const const_iterator_vector<T> &it1, const const_iterator_vector<T> i){
+	// 	return (it1 - i);
+	// }
+
 }//end of namespace ft
 
 #endif

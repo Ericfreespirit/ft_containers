@@ -48,7 +48,6 @@ friend vector_iterator		operator+(difference_type n, const vector_iterator &rhs)
 	return rhs.operator+(n);
 };
 */
-		// _it operator +(difference_type p) {return _ptr + p;};
 	    _it operator +(difference_type p) const {return(_it(this->_ptr + p));}; // _ptr + p
 	    _it operator -(difference_type p) const {return(_it(this->_ptr - p));}; // _ptr - p
 
@@ -72,6 +71,11 @@ friend vector_iterator		operator+(difference_type n, const vector_iterator &rhs)
     private:
 		pointer _ptr;
     }; //end of iterator_vector definition class
-}//end of namespace ft
 
-#endif
+	template <typename T>
+	iterator_vector<T> operator+(std::ptrdiff_t i, iterator_vector<T> &it){
+		return (it + i);
+	}
+
+}//end of namespace ft
+#endif 

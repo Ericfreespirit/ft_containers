@@ -100,7 +100,8 @@ public:
 
 	vector &operator=(vector const &x)
 	{
-        this->insert(this->begin(), x.begin(), x.end());
+        clear();
+        insert(begin(), x.begin(), x.end());
 		return (*this);
 	}
 
