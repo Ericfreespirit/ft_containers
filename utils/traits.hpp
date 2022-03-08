@@ -18,12 +18,6 @@ template<class T>
 struct enable_if<true, T> { 
     typedef T type;};
 
-/*
-template <bool Cond, class T = void>
-struct enable_if {
-};
-*/
-
 /*======================
 |   integral traits     |
 ========================*/
@@ -60,31 +54,6 @@ struct enable_if {
         struct is_integral_type<unsigned long int> : public is_integral_res<true, unsigned long int> {};   
     template <>
         struct is_integral_type<unsigned long long int> : public is_integral_res<true, unsigned long long int> {};
-
-
-//  template <bool is_iterator, typename T>
-//         struct is_iterator_res {
-//             typedef T type;
-//             static const bool value = is_iterator;
-// };
-
-// template <typename>
-//         struct is_iterator_type : public is_iterator_res<false, bool> {};
-// template <class T>
-//         struct is_iterator_type<bool> : public is_iterator_res<true, iterator_traits<T>::iterator_category<T> > {};
-/*
-template <typename T>
-    struct is_integral : public is_integral_type<T> { };
-
-template <class T, class = void>
-bool is_iterator_v = false;
-
-template <class T>
-bool is_iterator_v<T, iterator_traits<Iter>::iterator_category<T> = true;
-*/
-// template <typename T, typename Alloc>
-// template <class InputIterator, std::enable_if_t<is_iterator_v<InputIterator>, int> = 0>
-// void vector<T, Alloc>::insert(iterator position, InputIterator first, InputIterator last)
 
 /*======================
 |    iterator traits    |

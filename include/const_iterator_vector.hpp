@@ -2,6 +2,7 @@
 #define CONST_ITERATOR_VECTOR_H
 
 #include "../utils/traits.hpp"
+#include "iterator_vector.hpp"
 
 namespace ft {
 

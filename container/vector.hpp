@@ -54,7 +54,6 @@ public:
 		_array = _alloc.allocate(n);
          for(size_type i = 0;i < n; i++) {
             _alloc.construct(&_array[i], val);
-            // std::cout << _array[i] << std::endl;
             }
     }
             
@@ -63,7 +62,10 @@ public:
         const allocator_type& alloc = allocator_type(),
         typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0):
     _alloc(alloc){
-        // std::cout << "hello" << std::endl;
+        _array = NULL;
+        _size = 0;
+        _allocSize = 0;
+        assign(first, last);
         (void)first;
         (void)last;
     }
@@ -80,6 +82,7 @@ public:
     ================*/
         ~vector(){
             clear();
+            _alloc.deallocate(_array, this->capacity());
         };
 
     /*============
@@ -96,7 +99,7 @@ public:
 
 	vector &operator=(vector const &x)
 	{
-		this->assign(x.begin(), x.end());
+        this->insert(this->begin(), x.begin(), x.end());
 		return (*this);
 	}
 
@@ -161,6 +164,7 @@ public:
     size_t capacity() const {
         return (_allocSize);
     }
+
     iterator erase (iterator pos){
         iterator ret = pos;
         for(;pos != end();pos++){
@@ -170,6 +174,7 @@ public:
         _size--;
         return (ret);
     }
+    
     iterator erase (iterator first, iterator last){
         iterator ret = first;
         for(;first != last ; --last){
