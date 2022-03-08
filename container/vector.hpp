@@ -62,7 +62,6 @@ public:
         const allocator_type& alloc = allocator_type(),
         typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0):
     _alloc(alloc){
-        std::cout << "hello" << std::endl;
         (void)first;
         (void)last;
     }
@@ -95,10 +94,10 @@ public:
 
 
     vector &operator=(const vector& x){
-		if (x == *this)
-			return (*this);
-		this->clear();
-		// insert(this->begin(), x.begin(), x.end());
+		// if (x == *this)
+		// 	return (*this);
+		clear();
+		insert(begin(), x.begin(), x.end());
 		return (*this);
 	}
 
@@ -181,8 +180,10 @@ public:
     }
 
     void    clear(){
+        if (empty())
+            return ;
         erase(begin(),end());
-        delete _array;
+        // delete _array;
     }
 
     iterator insert(iterator pos, const T &value)
@@ -193,29 +194,58 @@ public:
 	}
 
     void  insert(iterator pos, size_t count, const T &value) {
-		size_t delta = pos - begin();
+        size_t delta = pos - begin();
         if (size() == 0)
             delta = 0;
-		if (_allocSize < _size + count)
-		{
-			if (_allocSize * 2 < _size + count)
-				reserve(_size + count);
-            else
-				reserve(_allocSize * 2 + !_allocSize);
+		if (_allocSize < _size + count) {
+			if (_allocSize * 2 < _size + count) {
+				reserve(_size + count);}
+            else {
+				reserve(_allocSize * 2 + !_allocSize);}
         }
+        int on = 0;
+        if (_size == 0)
+            on = 1;
 		pos = begin() + delta;
-		_size += count;
+        _size += count;
+        if (on == 0) {
         for (iterator it = end() -1 ; it != pos - count; it--)
-            *(it + count) = *it;
+            *(it + count) = *it;}
         for (iterator it = pos; it != pos + count; it++)
 			*it = value;
     }
 
-    template <class InputIterator>
-    void insert (iterator pos, InputIterator first, InputIterator last,
-        typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0){
-        for(; first != last; first++)
-            insert(pos++, *first);
+	template <class InputIT>
+	void insert(ft::iterator_vector<T> pos, InputIT its,
+	typename ft::enable_if<is_iterator<InputIT>::value, InputIT>::type ite)
+    {
+        size_t delta = 0;
+		size_t index = pos - this->begin();
+
+		for (InputIT tmp = its; tmp != ite; ++tmp)
+			++delta;
+
+		if (this->_allocSize < this->_size + delta)
+		{
+			if (this->_size * 2 < this->_size + delta)
+				this->reserve(this->_size + delta);
+			else
+				this->reserve(this->_size * 2 + !this->_allocSize);
+		}
+		pos = this->begin() + index;
+        int on = 0;
+        if (_size == 0)
+            on = 1;
+		this->_size += delta;
+        if (on == 0) {
+		for (iterator it = end() - 1; it != pos + delta - 1; --it)
+			*it = *(it - delta);}
+		while (its != ite)
+		{
+			*pos = *its;
+			++pos;
+			++its;
+		}
     }
 
     void push_back (const value_type& val) {
@@ -316,14 +346,6 @@ public:
     //     x._size = sizeTmp;
     //     x._allocSize = capacityTmp;
     // }
-
-        // iterator insert (iterator position, const value_type& val);	
-        // void insert (iterator position, size_type n, const value_type& val);
-        // template <class InputIterator>
-        // void insert (iterator position, InputIterator first, InputIterator last);
-    // template<class InputIterator>
-    // void assign(InputIterator first, InputIterator last);
-
     }; // end of vector class
 }; //end of ft namespace
 
@@ -334,12 +356,14 @@ public:
 
 template <class T, class Alloc>
 bool operator==(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
+    if (lhs.size() != rhs.size())
+        return (false);
     return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 }
 
 template <class T, class Alloc>
 bool operator!=(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-    return (lhs == rhs ? false : true);
+    return (!(lhs == rhs));
 }
 
 template <class T, class Alloc>
@@ -349,14 +373,27 @@ bool operator<(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
 
 template <class T, class Alloc>
 bool operator> (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-    return (lhs < rhs ? false : true);
+    return (rhs < lhs);
 }
 template <class T, class Alloc>
 bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-    return (true ? lhs < rhs || lhs == rhs : false);
+    return (!(lhs > rhs));
 }
 template <class T, class Alloc>
 bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-    return (true ? lhs > rhs || lhs == rhs : false);
+    return (!(lhs < rhs));
 }
+
+/*======================
+|   NO-MEMBER FUNCTION |
+=======================*/
+
+template <class T, class Alloc>
+void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y){
+    ft::vector<T> tmp = x;
+    x = y;
+    y = tmp;
+}
+
+
 #endif
