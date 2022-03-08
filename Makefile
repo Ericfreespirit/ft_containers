@@ -7,6 +7,7 @@ FILE_HPP = container/vector.hpp \
 	include/reverse_iterator_vector.hpp \
 	include/const_reverse_iterator_vector.hpp \
 	utils/traits.hpp \
+	utils/algorithm.hpp \
 	src/our_test/AllTest.hpp \
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -MMD -MP -Icontainer -Iinclude -Iutils 

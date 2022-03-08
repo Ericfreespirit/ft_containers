@@ -6,6 +6,7 @@
 #include "../include/reverse_iterator_vector.hpp"
 #include "../include/const_reverse_iterator_vector.hpp"
 #include "../utils/traits.hpp"
+#include "../utils/algorithm.hpp"
 #include <sstream>
 #include <memory>
 
@@ -331,34 +332,31 @@ public:
 |   NO-MEMBER OPERATOR |
 =======================*/
 
-
-
-/* Wrong, have to use std::equal*/
 template <class T, class Alloc>
 bool operator==(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-    if (lhs.size() != rhs.size())
-        return (false);
-    typename ft::vector<T>::const_iterator it_lhs = lhs.begin();
-    typename ft::vector<T>::const_iterator it_rhs = rhs.begin();
-    for(; it_lhs != lhs.end(); it_lhs++)
-        if(*it_lhs != *(it_rhs))
-            return (false);
-    return (true);
+    return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 }
 
 template <class T, class Alloc>
 bool operator!=(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-    return ( lhs == rhs ? false : true);
+    return (lhs == rhs ? false : true);
 }
-/* have to use std:: lexicographical_compate */
-// template <class T, class Alloc>
-// bool operator<(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
-// }
 
-// template <class T, class Alloc>
-//   bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>
-//   bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>
-//   bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+template <class T, class Alloc>
+bool operator<(const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
+    return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+}
+
+template <class T, class Alloc>
+bool operator> (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
+    return (lhs < rhs ? false : true);
+}
+template <class T, class Alloc>
+bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
+    return (true ? lhs < rhs || lhs == rhs : false);
+}
+template <class T, class Alloc>
+bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs){
+    return (true ? lhs > rhs || lhs == rhs : false);
+}
 #endif
