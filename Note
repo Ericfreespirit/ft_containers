@@ -1,0 +1,11 @@
+src/my_main.cpp:78:44: error: invalid operands to binary expression 
+('ft::vector<int>::const_reverse_iterator' (aka 'reverse_iterator<const_iterator_vector<int> >') and 
+'ft::vector<int>::reverse_iterator' (aka 'reverse_iterator<iterator_vector<int> >'))
+        std::cout << "(it == const_it): " << (ite == it) << std::endl;
+
+resum error:
+const to int operator impossible
+
+
+resum note:
+problem for the operator== who get two different template (const int and int)
