@@ -1,10 +1,12 @@
 #ifndef MAP_H
 #define MAP_H
 #include <iostream>
+#include <limits>
 #include "../utils/Pair.hpp"
 #include "../utils/AVL.hpp"
 #include "../include/tree_iterator.hpp"
 #include "../include/iterator_map.hpp"
+#include "../include/const_iterator_map.hpp"
 #include "../utils/traits.hpp"
 #include "../utils/algorithm.hpp"
 
@@ -31,11 +33,11 @@ public:
 	typedef typename Allocator::const_reference const_reference;
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
-  	typedef std::ptrdiff_t difference_type;
+  typedef std::ptrdiff_t difference_type;
  	typedef size_t size_type;
 
 	typedef ft::iterator_map<value_type, key_compare> iterator;
-	// typedef implementation defined const_iterator; // See 23.1
+	typedef ft::const_iterator_map<value_type, key_compare> const_iterator;
 	// typedef std::reverse_iterator<iterator> reverse_iterator;
 	// typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -64,6 +66,8 @@ public:
 		const Allocator& alloc = Allocator()){
 			_avl._alloc = alloc;
 			_avl._key_compare = comp;
+			_avl._dummyNode = _avl._alloc.allocate(1);
+      _avl._alloc.construct(_avl._dummyNode, Node<value_type>());
 		};
 
 
@@ -79,14 +83,18 @@ public:
 
 		~map(){
 			_avl.freeAVL(_avl._head);
+			_avl.freeDummyNode();
 		};
 
 		// map<Key,T,Compare,Allocator>&
 		// operator=(const map<Key,T,Compare,Allocator>& x);
 
 	private:
+		typedef	Node<value_type> _node;
+		typedef typename allocator_type::template rebind<_node>::other		_avl_allocator;
+
 		AVL<value_type, key_compare> _avl;
-		Node<value_type> _dummyNode;
+
 
 	/*=============
   |   ITERATOR   |
@@ -94,14 +102,20 @@ public:
 	public:
 	iterator begin(){
 		if (!_avl._head)
-			return (&_dummyNode);
+			return (_avl._dummyNode);
 		return (_avl.minValNode(_avl._head));
 	}
-	// const_iterator begin() const;
 	iterator end(){
-		return (&_dummyNode);
+		return (_avl._dummyNode);
 	}
-	// const_iterator end() const;
+	const_iterator begin() const{
+		if (!_avl._head)
+			return (_avl._dummyNode);
+		return (_avl.minValNode(_avl._head));
+	}
+	const_iterator end() const{
+		return (_avl._dummyNode);
+	}
 	// reverse_iterator rbegin();
 	// const_reverse_iterator rbegin() const;
 	// reverse_iterator rend();
@@ -114,7 +128,9 @@ public:
 	size_type size() const{
 		return (_avl.getSize());
 	}
-	// size_type max_size() const;
+	size_type max_size() const{
+		return (_avl_allocator().max_size());
+	}
 	// allocator_type get_allocator() const;
 
 	/*================
@@ -127,9 +143,9 @@ public:
 		return (tmp.first->second);
 	}
 
-	void print(){
-		_avl.print(_avl._head);
-	}
+	// void print(){
+	// 	_avl.print(_avl._head);
+	// }
 	/*================
   	|   MODIFIERS     |
  	==================*/
@@ -146,8 +162,9 @@ public:
 	}
 
 	iterator insert(iterator , const value_type& x){
+		// _avl._head = _avl.insert(_avl._head, x);
 		_avl._head = _avl.insert(_avl._head, x);
-		return (_avl._head);
+		return (_avl.find(_avl._head, x.first));
 	}
   
 	template <class InputIterator>
@@ -157,7 +174,6 @@ public:
 	}
 
 	void erase(iterator position){
-		std::cout << "erase" << std::endl; 
 		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
 	}
 	// size_type erase(const key_type& x);

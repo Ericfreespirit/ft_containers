@@ -9,6 +9,7 @@ FILE_HPP = container/vector.hpp \
 	container/map.hpp \
 	include/tree_iterator.hpp \
 	include/iterator_map.hpp \
+	include/const_iterator_map.hpp \
 	utils/Pair.hpp \
 	utils/AVL.hpp \
 	utils/traits.hpp \

@@ -15,7 +15,8 @@ public:
 
     iterator_map(): tree_iterator<value_type, kc>(){};
 
-    virtual ~iterator_map(){
+    ~iterator_map(){
+			// this->_avlIt.freeDummyNode();
     }
     iterator_map(const iterator_map &src){
         *this = src;

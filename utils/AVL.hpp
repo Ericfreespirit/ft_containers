@@ -17,15 +17,18 @@ public:
 
     AVL():
     _head(NULL), 
-    // _highest_node(NULL),
     _size(0),
-    _capacity(0){};
+    _capacity(0){
+			// _dummyNode = _alloc.allocate(1);
+      // _alloc.construct(_dummyNode, Node<T>());
+		};
 
     AVL(const AVL &ref){
         *this = ref;
     }
     AVL &operator=(const AVL &ref){
         _head = ref._head;
+        _dummyNode = ref._dummyNode;
         _alloc = ref._alloc;
         _size = ref._size;
         _capacity = ref._capacity;
@@ -42,6 +45,13 @@ public:
             _alloc.deallocate(node,1);
         }
     }
+		void freeDummyNode(){
+			if (_dummyNode != NULL){
+				_alloc.destroy(_dummyNode);
+				_alloc.deallocate(_dummyNode, 1);
+				_dummyNode = NULL;
+			}
+		}
 
     int height(Node<T> *node){
         if (node == NULL)
@@ -156,7 +166,7 @@ public:
         return (node);
     }
 
-    Node<T> *minValNode(Node<T> *node){
+    Node<T> *minValNode(Node<T> *node)const{
         Node<T> *curr = node;
 
         while(curr->_left != NULL)
@@ -254,7 +264,7 @@ public:
     
 public:
     Node<T> *_head;
-    // Node<T> *_highest_node;
+    Node<T> *_dummyNode;
     A _alloc;
     kc _key_compare;
     size_t _size;
