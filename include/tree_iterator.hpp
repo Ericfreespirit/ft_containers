@@ -56,7 +56,7 @@ namespace ft{
                 else
                     _avlIt._head = &_dummyNode;
             }
-						else
+			else
             	_avlIt._head = &_dummyNode;
             return (*this);
         }; 
@@ -68,23 +68,20 @@ namespace ft{
         }
 			//--_ptr
 	    const tree_iterator operator--(){
-        if (_avlIt._head->_right != NULL)
-            _avlIt._head = _avlIt.maxValNode(_avlIt._head->_left);
-        else if (_avlIt._head->_parent != NULL){
-            Node<value_type> *curr = _avlIt._head;
-            while (curr->_parent != NULL
-            && _avlIt.key_comp(curr, curr->_parent))
-                curr = curr->_parent;
-            if (curr->_parent != NULL
-            && _avlIt.key_comp(curr->_parent, _avlIt._head))
-                _avlIt._head = curr->_parent;
-            else
-                _avlIt._head = &_dummyNode;
-        }
-				else
-        	_avlIt._head = &_dummyNode;
-        return (*this);
-			}
+            /*
+                if(head == begin)
+                    head = end;
+                else if (head == end()){
+                    
+                }
+                else
+                {
+                    head--;
+                }
+
+            */
+            return (*this);
+		}
 			
 			// _ptr--
 	    const tree_iterator operator--(int){

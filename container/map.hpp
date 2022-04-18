@@ -67,7 +67,7 @@ public:
 			_avl._alloc = alloc;
 			_avl._key_compare = comp;
 			_avl._dummyNode = _avl._alloc.allocate(1);
-      _avl._alloc.construct(_avl._dummyNode, Node<value_type>());
+     		_avl._alloc.construct(_avl._dummyNode, Node<value_type>());
 		};
 
 
@@ -78,7 +78,7 @@ public:
 			_avl._alloc = alloc;
 			_avl._key_compare = comp;
 			_avl._dummyNode = _avl._alloc.allocate(1);
-      _avl._alloc.construct(_avl._dummyNode, Node<value_type>());
+			_avl._alloc.construct(_avl._dummyNode, Node<value_type>());
 			insert(first, last);
 		}
 
