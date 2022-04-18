@@ -71,13 +71,16 @@ public:
 		};
 
 
-		// template <class InputIterator>
-		// map(InputIterator first, InputIterator last,
-		// const Compare& comp = Compare(), const Allocator& alloc = Allocator(),
-        // typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0){
-		// 	_avl._alloc = alloc;
-		// 	_avl._key_compare = comp;
-		// }
+		template <class InputIterator>
+		map(InputIterator first, InputIterator last,
+		const Compare& comp = Compare(), const Allocator& alloc = Allocator(),
+        typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::type* = 0){
+			_avl._alloc = alloc;
+			_avl._key_compare = comp;
+			_avl._dummyNode = _avl._alloc.allocate(1);
+      _avl._alloc.construct(_avl._dummyNode, Node<value_type>());
+			insert(first, last);
+		}
 
 		// map(const map<Key,T,Compare,Allocator>& x);
 
@@ -143,9 +146,6 @@ public:
 		return (tmp.first->second);
 	}
 
-	// void print(){
-	// 	_avl.print(_avl._head);
-	// }
 	/*================
   	|   MODIFIERS     |
  	==================*/
@@ -162,24 +162,37 @@ public:
 	}
 
 	iterator insert(iterator , const value_type& x){
-		// _avl._head = _avl.insert(_avl._head, x);
 		_avl._head = _avl.insert(_avl._head, x);
 		return (_avl.find(_avl._head, x.first));
 	}
   
 	template <class InputIterator>
-	void insert(InputIterator first, InputIterator last){
+	typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::void_t 
+	insert(InputIterator first,InputIterator last){
 		for(;first != last; first++)
-			insert(first, *first);
+			insert(*first);
 	}
 
 	void erase(iterator position){
 		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
 	}
-	// size_type erase(const key_type& x);
+
+	size_type erase(const key_type& x){
+		size_t sz = _avl.getSize();
+		_avl._head = _avl.deleteNode(_avl._head, x.first);
+		if (_avl.getSize() != sz)
+			return(1);
+		return (0);
+	}
 	// void erase(iterator first, iterator last);
 	// void swap(map<Key,T,Compare,Allocator>&);
-	// void clear();
+	void clear(){
+		iterator it = begin();
+
+		for(;it != end(); it++)
+			erase(it);
+		_avl._head = _avl._dummyNode;
+	}
 
 	/*==============
 	|   OBSERVERS   |
@@ -193,10 +206,22 @@ public:
   	|   MAP OPERATION   |
 	===================*/
 	iterator find(const key_type& x){
-		return (_avl.find(_avl._head, x));
+			Node<value_type> *node = _avl.find(_avl._head, x);
+			if (node == NULL)
+				return (end());
+			return (node);
 	}
-	// const_iterator find(const key_type& x) const;
-	// size_type count(const key_type& x) const;
+	const_iterator find(const key_type& x) const{
+			Node<value_type> *node = _avl.find(_avl._head, x);
+			if (node == NULL)
+				return (end());
+			return (node);
+	}
+	size_type count(const key_type& x) const{
+		if (_avl.find(_avl._head, x) != NULL)
+			return (1);
+		return (0);
+	}
 	// iterator lower_bound(const key_type& x);
 	// const_iterator lower_bound(const key_type& x) const;
 	// iterator upper_bound(const key_type& x);

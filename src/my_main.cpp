@@ -25,9 +25,9 @@ struct Buffer
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 
-
+#define TESTED_NAMESPACE ft
 #define T1 int
-#define T2 std::string
+#define T2 int
 typedef ft::map<T1, T2>::value_type T3;
 typedef ft::map<T1, T2>::iterator iterator;
 
@@ -72,56 +72,46 @@ void	ft_insert(MAP &mp, U param)
 	printSize(mp);
 }
 
-template <typename MAP, typename U, typename V>
-void	ft_insert(MAP &mp, U param, V param2)
+template <typename MAP, typename U>
+void	ft_insert(MAP &mp, U param, U param2)
 {
-	iterator tmp;
-
 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	tmp = mp.insert(param, param2);
-	std::cout << "insert return: " << printPair(tmp);
+	mp.insert(param, param2);
 	printSize(mp);
 }
 
+#include <list>
 int		main(void)
 {
-	ft::map<T1, T2> mp, mp2;
-	ft_insert(mp, T3(42, "lol"));
-	ft_insert(mp, T3(42, "mdr"));
+	std::list<T3> lst;
+	unsigned int lst_size = 7;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(T3(lst_size - i, i));
 
-	ft_insert(mp, T3(50, "mdr"));
-	ft_insert(mp, T3(35, "funny"));
+	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
 
-	ft_insert(mp, T3(45, "bunny"));
-	ft_insert(mp, T3(21, "fizz"));
-	ft_insert(mp, T3(38, "buzz"));
+	TESTED_NAMESPACE::map<T1, T2> mp_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 5;
 
-	ft_insert(mp, mp.begin(), T3(55, "fuzzy"));
+	it = mp.begin(); ite = --(--mp.end());
+	TESTED_NAMESPACE::map<T1, T2> mp_copy(mp);
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 7;
 
-	ft_insert(mp2, mp2.begin(), T3(1337, "beauty"));
-	ft_insert(mp2, mp2.end(), T3(1000, "Hello"));
-	ft_insert(mp2, mp2.end(), T3(1500, "World"));
+	std::cout << "\t-- PART ONE --" << std::endl;
+	printSize(mp);
+	printSize(mp_range);
+	printSize(mp_copy);
 
+	mp = mp_copy;
+	mp_copy = mp_range;
+	mp_range.clear();
 
-	// ft::map<char, int> mymap;
-	// mymap['a'] = 200;
- 	// mymap['b'] = 100;
-	// mymap['c'] = 300;
-	// mymap['d'] = 400;
-	// mymap['e'] = 500;
-	// mymap['f'] = 600;
-	// mymap['g'] = 700;
-
-
-
-	// ft::map<char, int>::iterator it = mymap.begin();
-	// ft::map<char, int>::iterator ite = mymap.end();
-	// std::cout << "begin: " << it->first << std::endl;
-	// std::cout << "end: " << ite->first << std::endl;
-	// // mymap.erase(mymap.find('b'));
-	// // mymap.print();
-	// for (; it!=ite; it++){
-  //   	std::cout << it->first << " => " << it->second << '\n';
-	// }
+	std::cout << "\t-- PART TWO --" << std::endl;
+	printSize(mp);
+	printSize(mp_range);
+	printSize(mp_copy);
 	return (0);
 }

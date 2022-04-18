@@ -9,11 +9,11 @@ namespace ft{
     class tree_iterator{
     public:
         typedef std::ptrdiff_t difference_type; 
-	    typedef	value_type*  pointer;
-		typedef const value_type* const_pointer;
-	    typedef value_type& reference;
+	    	typedef	value_type*  pointer;
+				typedef const value_type* const_pointer;
+	    	typedef value_type& reference;
         typedef const value_type& const_reference;
-		typedef ft::bidirectional_iterator_tag iterator_category;
+			typedef ft::bidirectional_iterator_tag iterator_category;
 
         typedef typename value_type::first_type ftype;
         typedef typename value_type::second_type stype;
@@ -66,13 +66,37 @@ namespace ft{
             operator++();
             return (tmp);
         }
-	    const tree_iterator operator--(); // --_ptr
-	    const tree_iterator operator--(int) ; // _ptr--
+			//--_ptr
+	    const tree_iterator operator--(){
+        if (_avlIt._head->_right != NULL)
+            _avlIt._head = _avlIt.maxValNode(_avlIt._head->_left);
+        else if (_avlIt._head->_parent != NULL){
+            Node<value_type> *curr = _avlIt._head;
+            while (curr->_parent != NULL
+            && _avlIt.key_comp(curr, curr->_parent))
+                curr = curr->_parent;
+            if (curr->_parent != NULL
+            && _avlIt.key_comp(curr->_parent, _avlIt._head))
+                _avlIt._head = curr->_parent;
+            else
+                _avlIt._head = &_dummyNode;
+        }
+				else
+        	_avlIt._head = &_dummyNode;
+        return (*this);
+			}
+			
+			// _ptr--
+	    const tree_iterator operator--(int){
+				tree_iterator tmp(*this);
+        operator++();
+        return (tmp);
+			} 
 
 
         protected:
         AVL<value_type, kc> _avlIt;
-		Node<value_type> _dummyNode;
+				Node<value_type> _dummyNode;
 
     }; //end of class
 

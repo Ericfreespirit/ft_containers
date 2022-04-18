@@ -73,7 +73,7 @@ public:
         return (height(node->_left) - height(node->_right));
     }
 
-    Node<T> *find(Node<T> *node, ftype first){
+    Node<T> *find(Node<T> *node, ftype first)const {
         if (node == NULL)
             return (NULL);
         if (node->_pair.first == first)

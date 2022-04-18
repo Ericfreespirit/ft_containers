@@ -30,6 +30,18 @@ public:
     reference operator*()const{
         return (this->_avlIt._head->_pair);
     }
+		const_iterator_map	&operator++() { tree_iterator<value_type, kc>::operator++(); return *this; };
+		const_iterator_map	&operator--() { tree_iterator<value_type, kc>::operator--(); return *this; };
+		const_iterator_map	operator++(int) {
+			const_iterator_map tmp(*this);
+			operator++();
+			return tmp;
+		};
+		const_iterator_map	operator--(int)  {
+			const_iterator_map tmp(*this);
+			operator--();
+			return tmp;
+		};
 };
 
 }; //end of namespace
