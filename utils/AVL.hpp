@@ -18,10 +18,7 @@ public:
     AVL():
     _head(NULL), 
     _size(0),
-    _capacity(0){
-			// _dummyNode = _alloc.allocate(1);
-      // _alloc.construct(_dummyNode, Node<T>());
-		};
+    _capacity(0){};
 
     AVL(const AVL &ref){
         *this = ref;
@@ -38,20 +35,34 @@ public:
     };
 
     void freeAVL(Node<T> *node){
-        if (node != NULL){
+        if (node){
             freeAVL(node->_left);
             freeAVL(node->_right);
             _alloc.destroy(node);
             _alloc.deallocate(node,1);
         }
     }
-		void freeDummyNode(){
-			if (_dummyNode != NULL){
-				_alloc.destroy(_dummyNode);
-				_alloc.deallocate(_dummyNode, 1);
-				_dummyNode = NULL;
-			}
+	void freeDummyNode(){
+		if (_dummyNode){
+		//detach dummy node from the avl
+		Node<T> *curr;
+        if (_head){
+		    curr = minValNode(_head);
+		    if (curr){
+		    	curr->_left = NULL;
+		    }
+		    curr = maxValNode(_head);
+		    if (curr){
+		    	curr->_right = NULL;
+		    	_dummyNode->_parent = NULL;
+		    }
+        }
+		//free dummy node
+			_alloc.destroy(_dummyNode);
+			_alloc.deallocate(_dummyNode, 1);
+			_dummyNode = NULL;
 		}
+	}
 
     int height(Node<T> *node){
         if (node == NULL)
@@ -169,7 +180,7 @@ public:
     Node<T> *minValNode(Node<T> *node)const{
         Node<T> *curr = node;
 
-        while(curr->_left != NULL)
+        while(curr->_left != NULL && curr->_left != _dummyNode)
             curr = curr->_left;
         return (curr);
     }
@@ -177,7 +188,7 @@ public:
     Node<T> *maxValNode(Node<T> *node){
         Node<T> *curr = node;
 
-        while(curr->_right != NULL)
+        while(curr->_right != NULL && curr->_right != _dummyNode)
             curr = curr->_right;
         return (curr);
     }
@@ -198,8 +209,10 @@ public:
                     tmp = node;
                     node = NULL;
                 }
-                else
+                else{
                     *node = *tmp;
+                }
+                --_size;
                 _alloc.destroy(tmp);
                 _alloc.deallocate(tmp,1);
             }

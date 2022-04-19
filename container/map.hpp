@@ -85,8 +85,8 @@ public:
 		// map(const map<Key,T,Compare,Allocator>& x);
 
 		~map(){
-			_avl.freeAVL(_avl._head);
 			_avl.freeDummyNode();
+			_avl.freeAVL(_avl._head);
 		};
 
 		// map<Key,T,Compare,Allocator>&
@@ -98,6 +98,47 @@ public:
 
 		AVL<value_type, key_compare> _avl;
 
+	/*==============
+ 	| PRIVATE FUNC  |
+	===============*/
+	void detachDummyNode(){
+		Node<value_type> *curr;
+
+		if (!_avl._head)
+			return;
+		//detach dummy node at the begining
+		curr = _avl.minValNode(_avl._head);
+		if (curr){
+			curr->_left = NULL;
+		}
+
+		//detach dummy node at the end
+		curr = _avl.maxValNode(_avl._head);
+		if (curr){
+			curr->_right = NULL;
+			_avl._dummyNode->_parent = NULL;
+		}
+
+	}
+
+	void tieDummyNode(){
+		Node<value_type> *curr;
+
+		if (!_avl._head)
+			return;
+		//tie dummy node at the begining
+		curr = _avl.minValNode(_avl._head);
+		if (curr){
+			curr->_left = _avl._dummyNode;
+		}
+
+		//tie dummy node at the end
+		curr = _avl.maxValNode(_avl._head);
+		if (curr){
+			curr->_right = _avl._dummyNode;
+			_avl._dummyNode->_parent = curr;
+		}
+	}
 
 	/*=============
   |   ITERATOR   |
@@ -125,8 +166,8 @@ public:
 	// const_reverse_iterator rend() const;
 
 	/*=============
-  |   CAPACITY   |
-  ===============*/
+	|   CAPACITY   |
+  	===============*/
 	// bool empty() const;
 	size_type size() const{
 		return (_avl.getSize());
@@ -152,17 +193,22 @@ public:
 
 	ft::pair<iterator, bool> insert(const value_type& x){
 		size_t sz = _avl.getSize();
+		detachDummyNode();
 		_avl._head = _avl.insert(_avl._head, x);
+		tieDummyNode();
 
 		Node<value_type> *node = _avl.find(_avl._head, x.first);
 		ft::pair<iterator, bool> p(node, false);
-		if (_avl.getSize() != sz)
+		if (_avl.getSize() != sz){
 			p = ft::pair<iterator, bool> (node, true);
+		}
 		return (p);
 	}
 
 	iterator insert(iterator , const value_type& x){
+		detachDummyNode();
 		_avl._head = _avl.insert(_avl._head, x);
+		tieDummyNode();
 		return (_avl.find(_avl._head, x.first));
 	}
   
@@ -174,24 +220,30 @@ public:
 	}
 
 	void erase(iterator position){
+		detachDummyNode();
 		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
+		tieDummyNode();
 	}
 
 	size_type erase(const key_type& x){
 		size_t sz = _avl.getSize();
+		detachDummyNode();
 		_avl._head = _avl.deleteNode(_avl._head, x.first);
+		tieDummyNode();
 		if (_avl.getSize() != sz)
 			return(1);
 		return (0);
 	}
-	// void erase(iterator first, iterator last);
+	void erase(iterator first, iterator last){
+		std::cout << "len :" << last - first << std::endl;
+	}
 	// void swap(map<Key,T,Compare,Allocator>&);
 	void clear(){
 		iterator it = begin();
 
 		for(;it != end(); it++)
 			erase(it);
-		_avl._head = _avl._dummyNode;
+		_avl._head = NULL;
 	}
 
 	/*==============

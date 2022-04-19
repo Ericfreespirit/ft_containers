@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -27,8 +27,8 @@ struct Buffer
 
 #define TESTED_NAMESPACE ft
 #define T1 int
-#define T2 int
-typedef ft::map<T1, T2>::value_type T3;
+#define T2 std::string
+typedef ft::pair<const T1, T2> T3;
 typedef ft::map<T1, T2>::iterator iterator;
 
 static int iter = 0;
@@ -61,53 +61,61 @@ void	printSize(T_MAP const &mp, bool print_content = 1)
 }
 
 template <typename MAP, typename U>
-void	ft_insert(MAP &mp, U param)
+void	ft_erase(MAP &mp, U param)
 {
-	_pair<iterator, bool> tmp;
-
 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	tmp = mp.insert(param);
-	std::cout << "insert return: " << printPair(tmp.first);
-	std::cout << "Created new node: " << tmp.second << std::endl;
+	mp.erase(param);
 	printSize(mp);
 }
 
-template <typename MAP, typename U>
-void	ft_insert(MAP &mp, U param, U param2)
+template <typename MAP, typename U, typename V>
+void	ft_erase(MAP &mp, U param, V param2)
 {
 	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
-	mp.insert(param, param2);
+	mp.erase(param, param2);
 	printSize(mp);
 }
 
 #include <list>
 int		main(void)
 {
-	std::list<T3> lst;
-	unsigned int lst_size = 7;
-	for (unsigned int i = 0; i < lst_size; ++i){
-		lst.push_back(T3(lst_size - i, i));
-	}
+	ft::map<int,int>mp;
 
-	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
+	mp[1] = 1;
+	mp[2] = 1;
+	mp[3] = 1;
 
-	// for (;it != ite; it++)
+	mp.erase(mp.begin(), mp.end());
+	// mp.erase(mp.begin());
+	// mp.erase(mp.begin());
+	// mp.erase(mp.begin());
+	// ft::map<int,int>::iterator it = mp.begin();
+	// for(;it != mp.end(); it++){
 	// 	std::cout << it->first << std::endl;
-	std::cout << ite->first << std::endl;
-	std::cout << &ite->first << std::endl;
-	std::cout <<"-------" << std::endl;
-	ite = --mp.end();
-	std::cout << ite->first << std::endl;
-	std::cout << &ite->first << std::endl;
-	std::cout <<"-------" << std::endl;
-	ite = --(--mp.end());
-	std::cout << "loop" << std::endl;
-	for (;1; ite--){
-		getwchar();
-	std::cout << ite->first << std::endl;
-	std::cout << &ite->first << std::endl;
-	}
+	// }
 
 	return (0);
 }
+
+
+/*
+	//INSTER TEST
+	ft::map<char, int> mp;
+	mp['a'] = 1;
+	mp['b'] = 1;
+	mp['c'] = 1;
+	mp['d'] = 1;
+
+	ft::map<char, int >::iterator it = mp.begin();
+	std::cout << "Adress: " << &(--mp.begin()) << " ";
+	std::cout << (--mp.begin())->first << std ::endl;
+	std::cout << "============" << std::endl;
+	for(; it != mp.end(); it++){
+		std::cout << "Adress: "<< &(*it) << " ";
+		std::cout << it->first << std ::endl;
+	}
+	std::cout << "============" << std::endl;
+		std::cout << "Adress: "<< &(*it) << " ";
+		std::cout << it->first << std ::endl;
+
+*/

@@ -43,9 +43,11 @@ namespace ft{
 
         // ++_ptr
         const tree_iterator operator++(){
-            if (_avlIt._head->_right != NULL)
+            // std::cout << "head: " << _avlIt._head<< std::endl;
+            // std::cout << "dummy: " << _avlIt._dummyNode<< std::endl;
+            if (_avlIt._head->_right)
                 _avlIt._head = _avlIt.minValNode(_avlIt._head->_right);
-            else if (_avlIt._head->_parent != NULL){
+            else if (_avlIt._head->_parent){
                 Node<value_type> *curr = _avlIt._head;
                 while (curr->_parent != NULL
                 && _avlIt.key_comp(curr, curr->_parent))
@@ -54,10 +56,10 @@ namespace ft{
                 && _avlIt.key_comp(curr->_parent, _avlIt._head))
                     _avlIt._head = curr->_parent;
                 else
-                    _avlIt._head = &_dummyNode;
+                    _avlIt._head = _avlIt._dummyNode;
             }
 			else
-            	_avlIt._head = &_dummyNode;
+            	_avlIt._head = _avlIt._dummyNode;
             return (*this);
         }; 
         // _ptr++
@@ -68,18 +70,30 @@ namespace ft{
         }
 			//--_ptr
 	    const tree_iterator operator--(){
-            /*
-                if(head == begin)
-                    head = end;
-                else if (head == end()){
-                    
-                }
-                else
-                {
-                    head--;
-                }
+            if (_avlIt._head->_left){
+                _avlIt._head = _avlIt.maxValNode(_avlIt._head->_left);
+            }
+            else if (_avlIt._head->_parent){
+                // std::cout << "_avlIt._head: ";
+                // std::cout << _avlIt._head->_pair.first << std::endl;
+    
+                Node<value_type> *curr = _avlIt._head;
+                while (curr->_parent
+                && !_avlIt.key_comp(curr, curr->_parent))
+                    curr = curr->_parent;
+                // if (curr->_parent
+                // && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
+                std::cout << "[2][1]" << std::endl;
+                    _avlIt._head = curr->_parent;
+                // }
 
-            */
+            }
+			else{
+                std::cout << "[3]" << std::endl;
+                std::cout << "_avlIt._head: ";
+                // std::cout << _avlIt._head->_pair.first << std::endl;
+            	_avlIt._head = _avlIt._dummyNode;
+            }
             return (*this);
 		}
 			
@@ -93,7 +107,6 @@ namespace ft{
 
         protected:
         AVL<value_type, kc> _avlIt;
-				Node<value_type> _dummyNode;
 
     }; //end of class
 
