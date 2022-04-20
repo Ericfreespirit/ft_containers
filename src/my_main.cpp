@@ -84,15 +84,16 @@ int		main(void)
 	mp[1] = 1;
 	mp[2] = 1;
 	mp[3] = 1;
+	mp[4] = 1;
 
-	mp.erase(mp.begin(), mp.end());
+	// mp.erase(mp.begin(), mp.end());
+	// mp.erase(++mp.begin());
+	mp.erase(mp.find(3));
 	// mp.erase(mp.begin());
-	// mp.erase(mp.begin());
-	// mp.erase(mp.begin());
-	// ft::map<int,int>::iterator it = mp.begin();
-	// for(;it != mp.end(); it++){
-	// 	std::cout << it->first << std::endl;
-	// }
+	ft::map<int,int>::iterator it = mp.begin();
+	for(;it != mp.end(); it++){
+		std::cout << it->first << std::endl;
+	}
 
 	return (0);
 }

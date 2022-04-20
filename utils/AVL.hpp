@@ -203,34 +203,55 @@ public:
             node->_right = deleteNode(node->_right, first);
         }
         else {
-            if (node->_left == NULL || node->_right == NULL){
+            if (!node->_left || !node->_right){
+                std::cout << "node: " << node->_pair.first << std::endl;
                 Node<T> *tmp = node->_left ? node->_left : node->_right;
-                if (tmp == NULL){
+                /*
+                 0 child  
+                */
+                if (!tmp){
+                std::cout << "0 child" << std::endl;
                     tmp = node;
                     node = NULL;
                 }
+                /*
+                 1 child  
+                */
                 else{
-                    *node = *tmp;
+                std::cout << "1 child" << std::endl;
+                    tmp->_parent = node->_parent;
+                    if (node->_parent){
+                        node->_parent->_right = tmp ? tmp : node->_parent->_left = tmp;
+                    }
+                    _alloc.destroy(node);
+                    _alloc.deallocate(node,1);
+                    return (tmp);
+                    // *node = *tmp;
                 }
                 --_size;
                 _alloc.destroy(tmp);
                 _alloc.deallocate(tmp,1);
             }
+                /*
+                 2 child  
+                */
             else {
-            Node<T> *tmp (minValNode(node->_right));
-						tmp->_parent = node->_parent;
-						tmp->_left = node->_left;
-						if (node->_right != NULL && node->_right->_pair.first != tmp->_pair.first){
-							node->_right->_left = NULL;
-							tmp->_right = node->_right;
-						}
-						_alloc.construct(node, *tmp);
-						if (node->_right != NULL)
-							node->_right->_parent = node;
-						_alloc.destroy(tmp);
-						_alloc.deallocate(tmp, 1);
-            node->_right = deleteNode(node->_right, node->_pair.first);
-          }
+                std::cout << "2 child" << std::endl;
+                Node<T> *tmp (minValNode(node->_right));
+			    tmp->_parent = node->_parent;
+			    tmp->_left = node->_left;
+			    if (node->_right != NULL && node->_right->_pair.first != tmp->_pair.first){
+			    	node->_right->_left = NULL;
+			    	tmp->_right = node->_right;
+			    }
+			    _alloc.construct(node, *tmp);
+			    if (node->_right != NULL)
+			    	node->_right->_parent = node;
+			    _alloc.destroy(tmp);
+			    _alloc.deallocate(tmp, 1);
+                    --_size;
+                node->_right = deleteNode(node->_right, node->_pair.first);
+            }
         }
         if (node == NULL)
             return (node);
@@ -318,7 +339,7 @@ public:
     ~Node(){};
 
   T   _pair;
-  Node *_parent;
+    Node *_parent;
 	Node *_left;
 	Node *_right;
 	int _height;

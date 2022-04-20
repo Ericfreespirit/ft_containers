@@ -43,7 +43,6 @@ namespace ft{
 
         // ++_ptr
         const tree_iterator operator++(){
-            // std::cout << "head: " << _avlIt._head<< std::endl;
             // std::cout << "dummy: " << _avlIt._dummyNode<< std::endl;
             if (_avlIt._head->_right)
                 _avlIt._head = _avlIt.minValNode(_avlIt._head->_right);
@@ -83,14 +82,11 @@ namespace ft{
                     curr = curr->_parent;
                 // if (curr->_parent
                 // && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
-                std::cout << "[2][1]" << std::endl;
                     _avlIt._head = curr->_parent;
                 // }
 
             }
 			else{
-                std::cout << "[3]" << std::endl;
-                std::cout << "_avlIt._head: ";
                 // std::cout << _avlIt._head->_pair.first << std::endl;
             	_avlIt._head = _avlIt._dummyNode;
             }

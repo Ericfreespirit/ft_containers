@@ -180,6 +180,10 @@ public:
 	/*================
   	|   ELMT ACCESS   |
  	==================*/
+	void printAvl(){
+		_avl.print(_avl._head);
+	}
+
 	T& operator[](const key_type& x){
 		ft::pair<iterator, bool> tmp;
 
@@ -221,7 +225,9 @@ public:
 
 	void erase(iterator position){
 		detachDummyNode();
+
 		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
+		std::cout <<"head: " <<_avl._head->_pair.first << std::endl;
 		tieDummyNode();
 	}
 
@@ -235,7 +241,24 @@ public:
 		return (0);
 	}
 	void erase(iterator first, iterator last){
-		std::cout << "len :" << last - first << std::endl;
+		// iterator tmp = first;
+		// for (;first != last ; first++){
+		// 	std::cout << "Adress of first: "<< &(*first) << " ";
+		// 	std::cout << (*first).first << std::endl; 
+		// }
+		// first = tmp;
+		// std::cout << "Adress of last: "<< &(*last) << " ";
+		// std::cout << (*last).first << std::endl; 
+		// getwchar();
+		// for(;first != last; first++){
+			std::cout << "Adress of first: "<< &(*first) << " ";
+			std::cout << (*first).first << std::endl;
+			erase(first);
+			// std::cout << "Adress of first: "<< &(*first) << " ";
+			// std::cout << (*first).first << std::endl;
+		// }
+			// std::cout << "Adress of first: "<< &(*first) << " ";
+			// std::cout << (*first).first << std::endl;
 	}
 	// void swap(map<Key,T,Compare,Allocator>&);
 	void clear(){
