@@ -27,7 +27,7 @@ struct Buffer
 
 #define TESTED_NAMESPACE ft
 #define T1 int
-#define T2 std::string
+#define T2 int
 typedef ft::pair<const T1, T2> T3;
 typedef ft::map<T1, T2>::iterator iterator;
 
@@ -79,38 +79,51 @@ void	ft_erase(MAP &mp, U param, V param2)
 #include <list>
 int		main(void)
 {
-	ft::map<int,int>mp;
+// 	std::list<T3> lst;
+// 	unsigned int lst_size = 7;
+// 	for (unsigned int i = 0; i < lst_size; ++i)
+// 		lst.push_back(T3(lst_size - i, i));
 
+// 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+// 	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
+
+// 	TESTED_NAMESPACE::map<T1, T2> mp_range(it, --(--ite));
+// 	for (int i = 0; it != ite; ++it)
+// 		it->second = ++i * 5;
+
+// 	it = mp.begin(); ite = --(--mp.end());
+// 	TESTED_NAMESPACE::map<T1, T2> mp_copy(mp);
+// 	for (int i = 0; it != ite; ++it)
+// 		it->second = ++i * 7;
+
+// 	std::cout << "\t-- PART ONE --" << std::endl;
+// 	printSize(mp);
+// 	printSize(mp_range);
+// 	printSize(mp_copy);
+
+// 	mp = mp_copy;
+// 	mp_copy = mp_range;
+// 	mp_range.clear();
+
+// 	std::cout << "\t-- PART TWO --" << std::endl;
+// 	printSize(mp);
+// 	printSize(mp_range);
+// 	printSize(mp_copy);
+// 	return (0);
+
+
+
+	//INSTER TEST
+	ft::map<int, int> mp;
 	mp[1] = 1;
 	mp[2] = 1;
 	mp[3] = 1;
 	mp[4] = 1;
+	mp[5] = 1;
+	mp[6] = 1;
 
-	// mp.erase(mp.begin(), mp.end());
-	// mp.erase(++mp.begin());
-	mp.erase(mp.find(3));
-	// mp.erase(mp.begin());
-	ft::map<int,int>::iterator it = mp.begin();
-	for(;it != mp.end(); it++){
-		std::cout << it->first << std::endl;
-	}
+	ft::map<int, int >::iterator it = mp.begin();
 
-	return (0);
-}
-
-
-/*
-	//INSTER TEST
-	ft::map<char, int> mp;
-	mp['a'] = 1;
-	mp['b'] = 1;
-	mp['c'] = 1;
-	mp['d'] = 1;
-
-	ft::map<char, int >::iterator it = mp.begin();
-	std::cout << "Adress: " << &(--mp.begin()) << " ";
-	std::cout << (--mp.begin())->first << std ::endl;
-	std::cout << "============" << std::endl;
 	for(; it != mp.end(); it++){
 		std::cout << "Adress: "<< &(*it) << " ";
 		std::cout << it->first << std ::endl;
@@ -119,4 +132,7 @@ int		main(void)
 		std::cout << "Adress: "<< &(*it) << " ";
 		std::cout << it->first << std ::endl;
 
-*/
+	mp.clear();
+
+return (0);
+}

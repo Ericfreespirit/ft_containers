@@ -43,7 +43,7 @@ namespace ft{
 
         // ++_ptr
         const tree_iterator operator++(){
-            // std::cout << "dummy: " << _avlIt._dummyNode<< std::endl;
+            std::cout << "tree_iterator node: " << _avlIt._head->_pair.first<< std::endl;
             if (_avlIt._head->_right)
                 _avlIt._head = _avlIt.minValNode(_avlIt._head->_right);
             else if (_avlIt._head->_parent){
@@ -80,10 +80,10 @@ namespace ft{
                 while (curr->_parent
                 && !_avlIt.key_comp(curr, curr->_parent))
                     curr = curr->_parent;
-                // if (curr->_parent
-                // && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
+                if (curr->_parent
+                && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
                     _avlIt._head = curr->_parent;
-                // }
+                }
 
             }
 			else{

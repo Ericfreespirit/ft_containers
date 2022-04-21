@@ -225,9 +225,8 @@ public:
 
 	void erase(iterator position){
 		detachDummyNode();
-
+		std::cout << "pos will be delete: " << (*position).first << std::endl;
 		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
-		std::cout <<"head: " <<_avl._head->_pair.first << std::endl;
 		tieDummyNode();
 	}
 
@@ -241,31 +240,28 @@ public:
 		return (0);
 	}
 	void erase(iterator first, iterator last){
-		// iterator tmp = first;
-		// for (;first != last ; first++){
-		// 	std::cout << "Adress of first: "<< &(*first) << " ";
-		// 	std::cout << (*first).first << std::endl; 
-		// }
-		// first = tmp;
-		// std::cout << "Adress of last: "<< &(*last) << " ";
-		// std::cout << (*last).first << std::endl; 
-		// getwchar();
-		// for(;first != last; first++){
-			std::cout << "Adress of first: "<< &(*first) << " ";
-			std::cout << (*first).first << std::endl;
+		iterator curr (first);
+		iterator tmp;
+		while(first != last){
+			curr++;
+			if (curr == last)
+				return;
+			/*
+				if (node left && node->left > curr)
+					res = node->left
+				else (node right)
+					res =  node->right > curr
+			*/
 			erase(first);
-			// std::cout << "Adress of first: "<< &(*first) << " ";
-			// std::cout << (*first).first << std::endl;
-		// }
-			// std::cout << "Adress of first: "<< &(*first) << " ";
-			// std::cout << (*first).first << std::endl;
+			first = tmp;
+
+
+			getwchar();
+		}
 	}
 	// void swap(map<Key,T,Compare,Allocator>&);
 	void clear(){
-		iterator it = begin();
-
-		for(;it != end(); it++)
-			erase(it);
+		erase(begin(), end());
 		_avl._head = NULL;
 	}
 
