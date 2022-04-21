@@ -225,7 +225,7 @@ public:
 
 	void erase(iterator position){
 		detachDummyNode();
-		std::cout << "pos will be delete: " << (*position).first << std::endl;
+		std::cout << "will be delete: " << (*position).first << std::endl;
 		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
 		tieDummyNode();
 	}
@@ -240,25 +240,23 @@ public:
 		return (0);
 	}
 	void erase(iterator first, iterator last){
-		iterator curr (first);
-		iterator tmp;
+		AVL<value_type, key_compare> curr(_avl);
+		// std::cout << "tmp: " << &tmp << std::endl;
+		// std::cout << "avl: " << &avl << std::endl;
+		// std::cout << "first: "  << &(*first) << std::endl;
 		while(first != last){
-			curr++;
-			if (curr == last)
-				return;
-			/*
-				if (node left && node->left > curr)
-					res = node->left
-				else (node right)
-					res =  node->right > curr
-			*/
-			erase(first);
-			first = tmp;
+			erase(first++);
+
+		// std::cout << "tmp: " << &tmp << std::endl;
+		
+			// erase(first++);
+		};
 
 
-			getwchar();
-		}
+			
+
 	}
+	
 	// void swap(map<Key,T,Compare,Allocator>&);
 	void clear(){
 		erase(begin(), end());

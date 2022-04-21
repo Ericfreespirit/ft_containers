@@ -118,19 +118,20 @@ int		main(void)
 	mp[1] = 1;
 	mp[2] = 1;
 	mp[3] = 1;
-	mp[4] = 1;
-	mp[5] = 1;
-	mp[6] = 1;
+	// mp[4] = 1;
+	// mp[5] = 1;
+	// mp[6] = 1;
+	// mp[7] = 1;
 
 	ft::map<int, int >::iterator it = mp.begin();
 
-	for(; it != mp.end(); it++){
-		std::cout << "Adress: "<< &(*it) << " ";
-		std::cout << it->first << std ::endl;
-	}
-	std::cout << "============" << std::endl;
-		std::cout << "Adress: "<< &(*it) << " ";
-		std::cout << it->first << std ::endl;
+	// for(; it != mp.end(); it++){
+	// 	std::cout << "Adress: "<< &(*it) << " ";
+	// 	std::cout << it->first << std ::endl;
+	// }
+	// std::cout << "============" << std::endl;
+	// 	std::cout << "Adress: "<< &(*it) << " ";
+	// 	std::cout << it->first << std ::endl;
 
 	mp.clear();
 

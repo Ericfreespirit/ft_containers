@@ -204,13 +204,13 @@ public:
         }
         else {
             if (!node->_left || !node->_right){
-                std::cout << "node: " << node->_pair.first << std::endl;
+                // std::cout << "node: " << node->_pair.first << std::endl;
                 Node<T> *tmp = node->_left ? node->_left : node->_right;
                 /*
                  0 child  
                 */
                 if (!tmp){
-                std::cout << "0 child" << std::endl;
+                // std::cout << "0 child" << std::endl;
                     tmp = node;
                     node = NULL;
                 }
@@ -218,7 +218,7 @@ public:
                  1 child  
                 */
                 else{
-                std::cout << "1 child" << std::endl;
+                // std::cout << "1 child" << std::endl;
                     tmp->_parent = node->_parent;
                     if (node->_parent){
                         node->_parent->_right = tmp ? tmp : node->_parent->_left = tmp;
@@ -236,7 +236,7 @@ public:
                  2 child  
                 */
             else {
-                std::cout << "2 child" << std::endl;
+                // std::cout << "2 child" << std::endl;
                 Node<T> *tmp (minValNode(node->_right));
 			    tmp->_parent = node->_parent;
 			    tmp->_left = node->_left;
@@ -338,7 +338,7 @@ public:
     }
     ~Node(){};
 
-  T   _pair;
+    T   _pair;
     Node *_parent;
 	Node *_left;
 	Node *_right;
