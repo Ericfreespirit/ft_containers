@@ -83,7 +83,9 @@ public:
 			insert(first, last);
 		}
 
-		// map(const map<Key,T,Compare,Allocator>& x);
+		map(const map<Key,T,Compare,Allocator>& x){
+			_avl = _avl.copy(x._avl);
+		}
 
 		~map(){
 			_avl.freeDummyNode();

@@ -27,13 +27,17 @@ public:
         _head = ref._head;
         _dummyNode = ref._dummyNode;
         _alloc = ref._alloc;
+        _key_compare = ref._key_compare;
         _size = ref._size;
         _capacity = ref._capacity;
         return (*this);
     }
     ~AVL(){
     };
-
+    AVL &copy(const AVL &ref){
+        
+        return(*this);
+    }
     void freeAVL(Node<T> *node){
         if (node){
             freeAVL(node->_left);
