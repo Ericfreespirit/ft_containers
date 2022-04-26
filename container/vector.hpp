@@ -212,7 +212,7 @@ public:
 
         resize(_size + n);
 
-	    end = end();
+	    end = this->end();
 	    position = begin() + idx;
 	    old_end = begin() + old_end_idx;
 	    while (old_end != position)

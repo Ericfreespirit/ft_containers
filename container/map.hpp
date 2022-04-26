@@ -2,6 +2,7 @@
 #define MAP_H
 #include <iostream>
 #include <limits>
+#include "./vector.hpp"
 #include "../utils/Pair.hpp"
 #include "../utils/AVL.hpp"
 #include "../include/tree_iterator.hpp"
@@ -219,42 +220,35 @@ public:
 	template <class InputIterator>
 	typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::void_t 
 	insert(InputIterator first,InputIterator last){
-		for(;first != last; first++)
+		for(;first != last; first++){
+			// std::cout << "insert: " << first->first << std::endl;
 			insert(*first);
+		}
 	}
 
 	void erase(iterator position){
 		detachDummyNode();
-		std::cout << "will be delete: " << (*position).first << std::endl;
-		_avl._head = _avl.deleteNode(_avl._head, (*position).first);
+		_avl._head = _avl.deleteNode(_avl._head, position->first);
 		tieDummyNode();
 	}
 
 	size_type erase(const key_type& x){
 		size_t sz = _avl.getSize();
-		detachDummyNode();
-		_avl._head = _avl.deleteNode(_avl._head, x.first);
-		tieDummyNode();
+		erase(find(x));
 		if (_avl.getSize() != sz)
 			return(1);
 		return (0);
 	}
 	void erase(iterator first, iterator last){
-		AVL<value_type, key_compare> curr(_avl);
-		// std::cout << "tmp: " << &tmp << std::endl;
-		// std::cout << "avl: " << &avl << std::endl;
-		// std::cout << "first: "  << &(*first) << std::endl;
-		while(first != last){
-			erase(first++);
-
-		// std::cout << "tmp: " << &tmp << std::endl;
+		vector<Key> v;
 		
-			// erase(first++);
-		};
-
-
-			
-
+		while(first != last){
+			v.push_back(first->first);
+			first++;
+		}
+		for(size_t i = 0; i < v.size();i++){
+			erase(v[i]);
+		}
 	}
 	
 	// void swap(map<Key,T,Compare,Allocator>&);

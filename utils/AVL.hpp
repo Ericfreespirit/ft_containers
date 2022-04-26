@@ -203,8 +203,10 @@ public:
             node->_right = deleteNode(node->_right, first);
         }
         else {
+                // std::cout << "node parent: " << node->_parent->_pair.first << std::endl;
+                // std::cout << "node parent left: " << node->_parent->_left->_pair.first << std::endl; 
+                // std::cout << "node parent right: " << node->_parent->_right->_pair.first << std::endl; 
             if (!node->_left || !node->_right){
-                // std::cout << "node: " << node->_pair.first << std::endl;
                 Node<T> *tmp = node->_left ? node->_left : node->_right;
                 /*
                  0 child  
@@ -219,12 +221,28 @@ public:
                 */
                 else{
                 // std::cout << "1 child" << std::endl;
+                // std::cout << "node parent: " << node->_parent->_pair.first << std::endl;
+                // std::cout << "node parent left: " << node->_parent->_left->_pair.first << std::endl; 
+                // std::cout << "node parent right: " << node->_parent->_right->_pair.first << std::endl; 
+
+                // std::cout << "node: " << node->_pair.first << std::endl;
+                // std::cout << "tmp: " << tmp->_pair.first << std::endl;
+
+
                     tmp->_parent = node->_parent;
-                    if (node->_parent){
-                        node->_parent->_right = tmp ? tmp : node->_parent->_left = tmp;
+                    if (node->_parent && node->_parent->_left == node){
+                        // node->_parent->_right = tmp ? tmp : node->_parent->_left = tmp;
+                        tmp->_parent->_left = tmp;
                     }
+                    else if (node->_parent && node->_parent->_right == node){
+                        tmp->_parent->_right = tmp;
+                    }
+                // std::cout << "node parent: " << node->_parent->_pair.first << std::endl;
+                // std::cout << "node parent left: " << node->_parent->_left->_pair.first << std::endl; 
+                // std::cout << "node parent right: " << node->_parent->_right->_pair.first << std::endl; 
                     _alloc.destroy(node);
                     _alloc.deallocate(node,1);
+                    --_size;
                     return (tmp);
                     // *node = *tmp;
                 }

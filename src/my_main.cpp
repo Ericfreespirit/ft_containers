@@ -27,9 +27,8 @@ struct Buffer
 
 #define TESTED_NAMESPACE ft
 #define T1 int
-#define T2 int
+#define T2 std::string
 typedef ft::pair<const T1, T2> T3;
-typedef ft::map<T1, T2>::iterator iterator;
 
 static int iter = 0;
 
@@ -79,61 +78,43 @@ void	ft_erase(MAP &mp, U param, V param2)
 #include <list>
 int		main(void)
 {
-// 	std::list<T3> lst;
-// 	unsigned int lst_size = 7;
-// 	for (unsigned int i = 0; i < lst_size; ++i)
-// 		lst.push_back(T3(lst_size - i, i));
 
-// 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-// 	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
+	// INSTER TEST
+	std::list<T3> lst;
+	unsigned int lst_size = 10;
+	for (unsigned int i = 0; i < lst_size; ++i){
+		// std::cout << "i: " << i << std::endl;
+		lst.push_back(T3(i, std::string((lst_size - i), i + 65)));
+	}
+	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
 
-// 	TESTED_NAMESPACE::map<T1, T2> mp_range(it, --(--ite));
-// 	for (int i = 0; it != ite; ++it)
-// 		it->second = ++i * 5;
+	// ft::map<T1, T2>::iterator it = mp.end();
+	// for(; it != mp.end(); it++)
+	// 	std::cout << "it: " << it->first <<std::endl;
 
-// 	it = mp.begin(); ite = --(--mp.end());
-// 	TESTED_NAMESPACE::map<T1, T2> mp_copy(mp);
-// 	for (int i = 0; it != ite; ++it)
-// 		it->second = ++i * 7;
+	// it = --it;
+	// std::cout << "end: " << it->first << std::endl;
+	printSize(mp);
 
-// 	std::cout << "\t-- PART ONE --" << std::endl;
-// 	printSize(mp);
-// 	printSize(mp_range);
-// 	printSize(mp_copy);
+	ft_erase(mp, ++mp.begin());
 
-// 	mp = mp_copy;
-// 	mp_copy = mp_range;
-// 	mp_range.clear();
+	ft_erase(mp, mp.begin());
+	ft_erase(mp, --mp.end());
 
-// 	std::cout << "\t-- PART TWO --" << std::endl;
-// 	printSize(mp);
-// 	printSize(mp_range);
-// 	printSize(mp_copy);
-// 	return (0);
+	ft_erase(mp, mp.begin(), ++(++(++mp.begin())));
+	ft_erase(mp, --(--(--mp.end())), --mp.end());
 
+	mp[10] = "Hello";
+	mp[11] = "Hi there";
+	printSize(mp);
+	ft_erase(mp, --(--(--mp.end())), mp.end());
 
+	mp[12] = "ONE";
+	mp[13] = "TWO";
+	mp[14] = "THREE";
+	mp[15] = "FOUR";
+	printSize(mp);
+	ft_erase(mp, mp.begin(), mp.end());
 
-	//INSTER TEST
-	ft::map<int, int> mp;
-	mp[1] = 1;
-	mp[2] = 1;
-	mp[3] = 1;
-	// mp[4] = 1;
-	// mp[5] = 1;
-	// mp[6] = 1;
-	// mp[7] = 1;
-
-	ft::map<int, int >::iterator it = mp.begin();
-
-	// for(; it != mp.end(); it++){
-	// 	std::cout << "Adress: "<< &(*it) << " ";
-	// 	std::cout << it->first << std ::endl;
-	// }
-	// std::cout << "============" << std::endl;
-	// 	std::cout << "Adress: "<< &(*it) << " ";
-	// 	std::cout << it->first << std ::endl;
-
-	mp.clear();
-
-return (0);
+	return (0);
 }
