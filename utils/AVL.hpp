@@ -17,8 +17,8 @@ public:
 
     AVL():
     _head(NULL), 
-    _size(0),
-    _capacity(0){};
+    _size(0){};
+    // _capacity(0){};
 
     AVL(const AVL &ref){
         *this = ref;
@@ -29,15 +29,12 @@ public:
         _alloc = ref._alloc;
         _key_compare = ref._key_compare;
         _size = ref._size;
-        _capacity = ref._capacity;
+        // _capacity = ref._capacity;
         return (*this);
     }
     ~AVL(){
     };
-    AVL &copy(const AVL &ref){
-        
-        return(*this);
-    }
+
     void freeAVL(Node<T> *node){
         if (node){
             freeAVL(node->_left);
@@ -324,7 +321,7 @@ public:
     A _alloc;
     kc _key_compare;
     size_t _size;
-    size_t _capacity;
+    // size_t _capacity;
 };
 
 // Node of AVL Tree

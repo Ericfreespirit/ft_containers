@@ -40,6 +40,7 @@ namespace ft{
             return (_avlIt._head == it._avlIt._head);
         };
         bool operator!=(const tree_iterator &it)const{
+            // std::cout << "adress: " << _avlIt._head << "| " << it._avlIt._head << std::endl;
             return (_avlIt._head != it._avlIt._head);
         };
 

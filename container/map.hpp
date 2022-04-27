@@ -83,17 +83,26 @@ public:
 			insert(first, last);
 		}
 
-		map(const map<Key,T,Compare,Allocator>& x){
-			_avl = _avl.copy(x._avl);
+		map(const map<Key,T,Compare,Allocator>& x,
+		const Compare& comp = Compare(), const Allocator& alloc = Allocator()){
+			_avl._alloc = alloc;
+			_avl._key_compare = comp;
+			_avl._dummyNode = _avl._alloc.allocate(1);
+			_avl._alloc.construct(_avl._dummyNode, Node<value_type>());
+			insert(x.begin(), x.end());
+		}
+
+		map<Key,T,Compare,Allocator>&
+		operator=(const map<Key,T,Compare,Allocator>& x){
+			clear();
+			insert(x.begin(), x.end());
+			return (*this);
 		}
 
 		~map(){
 			_avl.freeDummyNode();
 			_avl.freeAVL(_avl._head);
 		};
-
-		// map<Key,T,Compare,Allocator>&
-		// operator=(const map<Key,T,Compare,Allocator>& x);
 
 	private:
 		typedef	Node<value_type> _node;
@@ -171,7 +180,9 @@ public:
 	/*=============
 	|   CAPACITY   |
   	===============*/
-	// bool empty() const;
+	bool empty() const{
+		return (1 ? size() == 0 : 0);
+	}
 	size_type size() const{
 		return (_avl.getSize());
 	}
@@ -223,7 +234,6 @@ public:
 	typename ft::enable_if<ft::is_iterator<InputIterator>::value, InputIterator>::void_t 
 	insert(InputIterator first,InputIterator last){
 		for(;first != last; first++){
-			// std::cout << "insert: " << first->first << std::endl;
 			insert(*first);
 		}
 	}
@@ -254,6 +264,7 @@ public:
 	}
 	
 	// void swap(map<Key,T,Compare,Allocator>&);
+
 	void clear(){
 		erase(begin(), end());
 		_avl._head = NULL;
@@ -287,16 +298,61 @@ public:
 			return (1);
 		return (0);
 	}
-	// iterator lower_bound(const key_type& x);
-	// const_iterator lower_bound(const key_type& x) const;
-	// iterator upper_bound(const key_type& x);
-	// const_iterator upper_bound(const key_type& x) const;
+	iterator lower_bound(const key_type& x){
+		key_compare kc;
+		iterator it = begin();
+		for(; it != end(); it++){
+			if (!kc(it->first, x))
+				return (it);
+		}
+		return (end());
+	}
+	const_iterator lower_bound(const key_type& x) const{
+		key_compare kc;
+		const_iterator it = begin();
+		for(; it != end(); it++){
+			if (!kc(it->first, x))
+				return (it);
+		}
+		return (end());
+	}
 
-	// pair<iterator,iterator>
-	// equal_range(const key_type& x);
+	iterator upper_bound(const key_type& x){
+		key_compare kc;
+		iterator it = begin();
+		for(; it != end(); ++it){
+			if (kc(x, it->first))
+				return (it);
+		}
+		return (end());
+	}
+	const_iterator upper_bound(const key_type& x) const{
+		key_compare kc;
+		const_iterator it = begin();
+		for(; it != end(); ++it){
+			if (kc(x, it->first))
+				return (it);
+		}
+		return (end());
+	}
 
-	// pair<const_iterator,const_iterator>
-	// equal_range(const key_type& x) const;
+	pair<iterator,iterator>
+	equal_range(const key_type& x){
+		pair<iterator, iterator> p;
+
+		p.first = lower_bound(x);
+		p.second = upper_bound(x);
+		return (p);
+	}
+
+	pair<const_iterator,const_iterator>
+	equal_range(const key_type& x) const{
+		pair<const_iterator, const_iterator> p;
+
+		p.first = lower_bound(x);
+		p.second = upper_bound(x);
+		return (p);
+	}
 
 
 };// end of class map
