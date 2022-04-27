@@ -81,15 +81,17 @@ namespace ft{
             }
             else if (_avlIt._head->_parent){
                 // std::cout << "2)" << std::endl;
-                // Node<value_type> *curr = _avlIt._head;
-                // while (curr->_parent
-                // && !_avlIt.key_comp(curr, curr->_parent))
-                //     curr = curr->_parent;
-                // if (curr->_parent
-                // && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
-                //     _avlIt._head = curr->_parent;
-                // }
-                _avlIt._head = _avlIt._head->_parent;
+                Node<value_type> *curr = _avlIt._head;
+                while (curr->_parent
+                && !_avlIt.key_comp(curr, curr->_parent)) // n1 < n2
+                    curr = curr->_parent;
+                if (curr->_parent
+                && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
+                    _avlIt._head = curr->_parent;
+                    // std::cout << "2.1)" << std::endl;
+                }
+                else 
+                    _avlIt._head = _avlIt._head->_parent;
             }
 			else{
                 // std::cout << "3)" << std::endl;
@@ -100,10 +102,10 @@ namespace ft{
 			
 			// _ptr--
 	    const tree_iterator operator--(int){
-				tree_iterator tmp(*this);
-        operator++();
-        return (tmp);
-			} 
+			tree_iterator tmp(*this);
+            operator--();
+            return (tmp);
+		} 
 
 
         protected:

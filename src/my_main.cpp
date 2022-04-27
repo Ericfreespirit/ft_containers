@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#if 1 //CREATE A REAL STL EXAMPLE
+#if 0 //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
 	#include <vector>
@@ -78,9 +78,11 @@ T	dec(T it, int n)
 	return (it);
 }
 
+#define _pair ft::pair
 #define TESTED_NAMESPACE ft
 #define T1 int
-#define T2 foo<int>
+#define T2 int
+typedef _pair<const T1, T2> T3;
 typedef TESTED_NAMESPACE::map<T1, T2>::value_type T3;
 typedef TESTED_NAMESPACE::map<T1, T2>::iterator ft_iterator;
 typedef TESTED_NAMESPACE::map<T1, T2>::const_iterator ft_const_iterator;
@@ -88,7 +90,6 @@ typedef TESTED_NAMESPACE::map<T1, T2>::const_iterator ft_const_iterator;
 static int iter = 0;
 
 
-#define _pair ft::pair
 
 template <typename T>
 std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
@@ -147,29 +148,82 @@ void	ft_const_bound(const MAP &mp, const T1 &param)
 #include <list>
 int		main(void)
 {
+	// std::list<T3> lst;
+	// unsigned int lst_size = 5;
+	// for (unsigned int i = 0; i < lst_size; ++i)
+	// 	lst.push_back(T3(2.5 + i, i + 1));
+
+	// TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+	// TESTED_NAMESPACE::map<T1, T2>::iterator it(mp.begin());
+	// TESTED_NAMESPACE::map<T1, T2>::const_iterator ite(mp.begin());
+	// printSize(mp);
+
+	// printPair(++ite);
+	// printPair(ite++);
+	// printPair(ite++);
+	// printPair(++ite);
+
+	// it->second.m();
+	// ite->second.m();
+
+	// printPair(++it);
+	// printPair(it++);
+	// printPair(it++);
+	// printPair(++it);
+
+	// printPair(--ite);
+	// printPair(ite--);
+	// printPair(--ite);
+	// printPair(ite--);
+
+	// (*it).second.m();
+	// (*ite).second.m();
+
+	// printPair(--it);
+	// printPair(it--);
+	// printPair(it--);
+	// printPair(--it);
+	// return (0);
+
+
 	std::list<T3> lst;
-	unsigned int lst_size = 10;
+	unsigned int lst_size = 7;
 	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3(i + 1, (i + 1) * 3));
+		lst.push_back(T3(lst_size - i, i));
+
 	TESTED_NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
-	// printSize(mp);
-	// ft_const_bound(mp, -10);
-	// ft_const_bound(mp, 1);
-	// ft_const_bound(mp, 5);
-	// ft_const_bound(mp, 10);
-	// ft_const_bound(mp, 50);
-	ft::map<T1, T2>::iterator it = mp.upper_bound(10);
-	--it;
-	--it;
-	std::cout << it->first << std::endl;
+	TESTED_NAMESPACE::map<T1, T2>::iterator it = mp.begin(), ite = mp.end();
 
-	// printSize(mp);
+	TESTED_NAMESPACE::map<T1, T2> mp_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		it->second = ++i * 5;
 
-	// mp.lower_bound(3)->second = 404;
-	// mp.upper_bound(7)->second = 842;
-	// ft_bound(mp, 5);
-	// ft_bound(mp, 7);
+	it = mp.begin(); ite = --(--mp.end());
 
+	for (; it != mp.end(); it++)
+		std::cout << "it: " << it->first << std::endl;
+	std::cout << (--mp.end())->first << std::endl;
+	std::cout << ite->first << std::endl;
+
+
+	// TESTED_NAMESPACE::map<T1, T2> mp_copy(mp);
+	// for (int i = 0; it != ite; ++it)
+	// 	it->second = ++i * 7;
+
+
+	
+	// std::cout << "\t-- PART ONE --" << std::endl;
 	// printSize(mp);
+	// printSize(mp_range);
+	// printSize(mp_copy);
+
+	// mp = mp_copy;
+	// mp_copy = mp_range;
+	// mp_range.clear();
+
+	// std::cout << "\t-- PART TWO --" << std::endl;
+	// printSize(mp);
+	// printSize(mp_range);
+	// printSize(mp_copy);
 	return (0);
 }
