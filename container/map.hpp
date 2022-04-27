@@ -189,14 +189,13 @@ public:
 	size_type max_size() const{
 		return (_avl_allocator().max_size());
 	}
-	// allocator_type get_allocator() const;
+	allocator_type get_allocator() const{
+		return (allocator_type());
+	}
 
 	/*================
   	|   ELMT ACCESS   |
  	==================*/
-	void printAvl(){
-		_avl.print(_avl._head);
-	}
 
 	T& operator[](const key_type& x){
 		ft::pair<iterator, bool> tmp;
@@ -263,7 +262,9 @@ public:
 		}
 	}
 	
-	// void swap(map<Key,T,Compare,Allocator>&);
+	void swap(map<Key,T,Compare,Allocator>& x){
+		// std::swap(2,1);
+	}
 
 	void clear(){
 		erase(begin(), end());
