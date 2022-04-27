@@ -263,7 +263,8 @@ public:
 	}
 	
 	void swap(map<Key,T,Compare,Allocator>& x){
-		// std::swap(2,1);
+
+		std::swap(_avl, x._avl);
 	}
 
 	void clear(){
