@@ -79,7 +79,15 @@ int		main(void)
 	mp[12] = "no";
 	mp[27] = "bee";
 	mp[90] = "8";
-	printSize(mp);
+
+	ft_mp_it it = mp.begin();
+	for(;it != mp.end(); it++){
+		std::cout << "it: " << it->first << std::endl;
+	}
+
+	// printSize(mp);
+
+	// mp.print();
 
 	return (0);
 }

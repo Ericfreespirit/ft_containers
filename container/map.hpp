@@ -34,15 +34,8 @@ public:
 	typedef typename Allocator::const_reference const_reference;
 	typedef typename Allocator::pointer pointer;
 	typedef typename Allocator::const_pointer const_pointer;
-  typedef std::ptrdiff_t difference_type;
+  	typedef std::ptrdiff_t difference_type;
  	typedef size_t size_type;
-
-	typedef ft::iterator_map<value_type, key_compare> iterator;
-	typedef ft::const_iterator_map<value_type, key_compare> const_iterator;
-	// typedef std::reverse_iterator<iterator> reverse_iterator;
-	// typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-
-
 
 	/*=========================
   	|   CLASS VALUE_COMPARE	   |
@@ -50,14 +43,27 @@ public:
 	class value_compare
 	: public std::binary_function<value_type,value_type,bool> {
 	friend class map;
-	protected:
+	// protected:
+	public:
 		Compare comp;
 		value_compare(Compare c = Compare()) : comp(c) {}
-	public:
 		bool operator()(const value_type& x, const value_type& y) const {
 		return comp(x.first, y.first);
-	}
+		}
+
 	}; //end of class value_compare
+
+	/*============
+  	|   ITERATOR  |
+  	==============*/
+	
+	typedef ft::iterator_map<value_type, value_compare> iterator;
+	typedef ft::const_iterator_map<value_type, value_compare> const_iterator;
+	// typedef std::reverse_iterator<iterator> reverse_iterator;
+	// typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+
+
 
 	/*=============================
   	|   CONSTRUCT/ COPY/ DESTROY   |
@@ -196,6 +202,9 @@ public:
 	/*================
   	|   ELMT ACCESS   |
  	==================*/
+	void print(){
+		_avl.print(_avl._head);
+	}
 
 	T& operator[](const key_type& x){
 		ft::pair<iterator, bool> tmp;

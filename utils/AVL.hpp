@@ -142,17 +142,15 @@ public:
             _size++;
              return (newNode(pair));
         }
-        if (pair.first < node->_pair.first){
+        if (_key_compare(pair.first, node->_pair.first)){
             Node<T> *lchild = insert(node->_left, pair);
             node->_left = lchild;
             lchild->_parent  = node;
-            // node->_left = insert(node->_left, pair);
         }
-        else if (pair.first > node->_pair.first){
+        else if (_key_compare(node->_pair.first, pair.first)){
             Node<T> *rchild = insert(node->_right, pair);
             node->_right = rchild;
             rchild->_parent  = node;
-            // node->_right = insert(node->_right, pair);
         }
         else 
             return (node);
@@ -160,18 +158,18 @@ public:
         int balance = getBalance(node);
 
         // left left
-        if (balance > 1 && pair.first < node->_left->_pair.first)
+        if (balance > 1 && _key_compare(pair.first, node->_pair.first))
             return (rightRotate(node));
         //right right
-        if (balance < -1 && pair.first > node->_right->_pair.first)
+        if (balance < -1 && _key_compare(node->_pair.first, pair.first))
             return (leftRotate(node));
         // left right
-        if (balance > 1 && pair.first > node->_left->_pair.first){
+        if (balance > 1 && _key_compare(node->_pair.first, pair.first)){
             node->_left = leftRotate(node->_left);
             return (rightRotate(node));
         }
         // right left
-        if (balance < -1 && pair.first < node->_right->_pair.first){
+        if (balance < -1 && _key_compare(pair.first, node->_pair.first)){
             node->_right = rightRotate(node->_right);
             return (leftRotate(node));
         }

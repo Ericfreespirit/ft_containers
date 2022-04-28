@@ -2,10 +2,10 @@
 #define TREE_ITERATOR_H
 
 #include "../utils/traits.hpp"
-#include "map.hpp"
+#include "../container/map.hpp"
 
 namespace ft{
-    template <class value_type, class kc>
+    template <class value_type, class value_compare>
     class tree_iterator{
     public:
         typedef std::ptrdiff_t difference_type; 
@@ -14,7 +14,7 @@ namespace ft{
 	    typedef value_type& reference;
         typedef const value_type& const_reference;
 		typedef ft::bidirectional_iterator_tag iterator_category;
-
+        
         typedef typename value_type::first_type ftype;
         typedef typename value_type::second_type stype;
 
@@ -44,27 +44,33 @@ namespace ft{
             return (_avlIt._head != it._avlIt._head);
         };
 
-
         // ++_ptr
         const tree_iterator operator++(){
-            // std::cout << "tree_iterator node: " << _avlIt._head->_pair.first<< std::endl;
-
             if(_avlIt._head->_right){
+                std::cout << "1)" << std::endl;
                 _avlIt._head = _avlIt.minValNode(_avlIt._head->_right);
             }
             else if (_avlIt._head->_parent){
+                std::cout << "2)" << std::endl;
                 Node<value_type> *curr = _avlIt._head;
                 while (curr->_parent != NULL
-                && _avlIt.key_comp(curr, curr->_parent))
+                && value_compare()(curr->_pair, curr->_parent->_pair))
                     curr = curr->_parent;
+                std::cout << "2.a)" << std::endl;
                 if (curr->_parent != NULL
-                && _avlIt.key_comp(curr->_parent, _avlIt._head))
+                && value_compare()(curr->_parent->_pair, _avlIt._head->_pair)){
+                std::cout << "2.a1)" << std::endl;
                     _avlIt._head = curr->_parent;
-                else
+                }
+                else{
+                std::cout << "2.a2)" << std::endl;
                     _avlIt._head = _avlIt._dummyNode;
+                }
             }
-			else
+			else{
+                std::cout << "3)" << std::endl;
             	_avlIt._head = _avlIt._dummyNode;
+            }
             return (*this);
         }; 
         // _ptr++
@@ -109,7 +115,7 @@ namespace ft{
 
 
         protected:
-        AVL<value_type, kc> _avlIt;
+        AVL<value_type, value_compare> _avlIt;
 
     }; //end of class
 
