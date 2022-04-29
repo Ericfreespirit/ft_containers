@@ -190,6 +190,8 @@ public:
         return (curr);
     }
 
+    
+
     Node<T> *deleteNode(Node<T> *node, ftype first){
         if (node == NULL)
             return (node);
