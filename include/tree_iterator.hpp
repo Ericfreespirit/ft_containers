@@ -5,18 +5,19 @@
 #include "../container/map.hpp"
 
 namespace ft{
-    template <class value_type, class value_compare>
+    template <class T, class value_compare>
     class tree_iterator{
     public:
+        typedef T value_type;
         typedef std::ptrdiff_t difference_type; 
-	    typedef	value_type*  pointer;
-		typedef const value_type* const_pointer;
-	    typedef value_type& reference;
-        typedef const value_type& const_reference;
+	    typedef	T*  pointer;
+		typedef const T* const_pointer;
+	    typedef T& reference;
+        typedef const T& const_reference;
 		typedef ft::bidirectional_iterator_tag iterator_category;
         
-        typedef typename value_type::first_type ftype;
-        typedef typename value_type::second_type stype;
+        typedef typename T::first_type ftype;
+        typedef typename T::second_type stype;
 
 
         tree_iterator(){};
@@ -50,7 +51,7 @@ namespace ft{
                 _avlIt._head = _avlIt.minValNode(_avlIt._head->_right);
             }
             else if (_avlIt._head->_parent){
-                Node<value_type> *curr = _avlIt._head;
+                Node<T> *curr = _avlIt._head;
                 while (curr->_parent
                 && value_compare()(curr->_parent->_pair, curr->_pair))
                     curr = curr->_parent;
@@ -79,7 +80,7 @@ namespace ft{
                 _avlIt._head = _avlIt.maxValNode(_avlIt._head->_left);
             }
             else if (_avlIt._head->_parent){
-                Node<value_type> *curr = _avlIt._head;
+                Node<T> *curr = _avlIt._head;
                while (curr->_parent
                 && value_compare()(curr->_pair, curr->_parent->_pair))
                     curr = curr->_parent;
@@ -105,7 +106,7 @@ namespace ft{
 
 
         protected:
-        AVL<value_type, value_compare> _avlIt;
+        AVL<T, value_compare> _avlIt;
 
     }; //end of class
 

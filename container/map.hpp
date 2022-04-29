@@ -8,6 +8,7 @@
 #include "../include/tree_iterator.hpp"
 #include "../include/iterator_map.hpp"
 #include "../include/const_iterator_map.hpp"
+#include "../include/reverse_iterator_vector.hpp"
 #include "../utils/traits.hpp"
 #include "../utils/algorithm.hpp"
 
@@ -59,8 +60,8 @@ public:
 	
 	typedef ft::iterator_map<value_type, value_compare> iterator;
 	typedef ft::const_iterator_map<value_type, value_compare> const_iterator;
-	// typedef std::reverse_iterator<iterator> reverse_iterator;
-	// typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
 
 
@@ -178,10 +179,18 @@ public:
 	const_iterator end() const{
 		return (_avl._dummyNode);
 	}
-	// reverse_iterator rbegin();
-	// const_reverse_iterator rbegin() const;
-	// reverse_iterator rend();
-	// const_reverse_iterator rend() const;
+	reverse_iterator rbegin(){
+		return (reverse_iterator(end()));
+	}
+	const_reverse_iterator rbegin() const{
+		return (_avl._dummyNode);
+	}
+	reverse_iterator rend(){
+		return(reverse_iterator(begin()));
+	}
+	const_reverse_iterator rend() const{
+		return (_avl._dummyNode);
+	}
 
 	/*=============
 	|   CAPACITY   |
