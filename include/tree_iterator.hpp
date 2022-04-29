@@ -76,11 +76,9 @@ namespace ft{
 			//--_ptr
 	    const tree_iterator operator--(){
             if (_avlIt._head != _avlIt._dummyNode &&_avlIt._head->_left){
-                // std::cout << "1)" << std::endl;
                 _avlIt._head = _avlIt.maxValNode(_avlIt._head->_left);
             }
             else if (_avlIt._head->_parent){
-                // std::cout << "2)" << std::endl;
                 Node<value_type> *curr = _avlIt._head;
                while (curr->_parent
                 && value_compare()(curr->_pair, curr->_parent->_pair))
@@ -93,7 +91,6 @@ namespace ft{
                     _avlIt._head = _avlIt._head->_parent;
             }
 			else{
-                // std::cout << "3)" << std::endl;
             	_avlIt._head = _avlIt._dummyNode;
             }
             return (*this);

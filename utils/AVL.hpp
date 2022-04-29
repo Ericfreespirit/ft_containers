@@ -18,7 +18,6 @@ public:
     AVL():
     _head(NULL), 
     _size(0){};
-    // _capacity(0){};
 
     AVL(const AVL &ref){
         *this = ref;
@@ -29,7 +28,6 @@ public:
         _alloc = ref._alloc;
         _key_compare = ref._key_compare;
         _size = ref._size;
-        // _capacity = ref._capacity;
         return (*this);
     }
     ~AVL(){
@@ -195,10 +193,10 @@ public:
     Node<T> *deleteNode(Node<T> *node, ftype first){
         if (node == NULL)
             return (node);
-        if (first < node->_pair.first){
+        if (_key_compare(first, node->_pair.first)){
             node->_left = deleteNode(node->_left, first);
         }
-        else if (first > node->_pair.first){
+        else if (_key_compare(node->_pair.first, first)){
             node->_right = deleteNode(node->_right, first);
         }
         else {
