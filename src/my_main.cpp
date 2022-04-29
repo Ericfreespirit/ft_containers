@@ -80,11 +80,10 @@ int		main(void)
 	mp[27] = "bee";
 	mp[90] = "8";
 
-	ft_mp_it it = mp.begin();
-	for(;it != mp.end(); it++){
+	ft_mp_it it = --mp.end();
+	for(;it != mp.end(); it--){
 		std::cout << "it: " << it->first << std::endl;
 	}
-
 	// printSize(mp);
 
 	// mp.print();

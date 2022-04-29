@@ -47,28 +47,22 @@ namespace ft{
         // ++_ptr
         const tree_iterator operator++(){
             if(_avlIt._head->_right){
-                std::cout << "1)" << std::endl;
                 _avlIt._head = _avlIt.minValNode(_avlIt._head->_right);
             }
             else if (_avlIt._head->_parent){
-                std::cout << "2)" << std::endl;
                 Node<value_type> *curr = _avlIt._head;
-                while (curr->_parent != NULL
-                && value_compare()(curr->_pair, curr->_parent->_pair))
+                while (curr->_parent
+                && value_compare()(curr->_parent->_pair, curr->_pair))
                     curr = curr->_parent;
-                std::cout << "2.a)" << std::endl;
-                if (curr->_parent != NULL
-                && value_compare()(curr->_parent->_pair, _avlIt._head->_pair)){
-                std::cout << "2.a1)" << std::endl;
+                if (curr->_parent
+                && value_compare()(_avlIt._head->_pair, curr->_parent->_pair)){
                     _avlIt._head = curr->_parent;
                 }
                 else{
-                std::cout << "2.a2)" << std::endl;
                     _avlIt._head = _avlIt._dummyNode;
                 }
             }
 			else{
-                std::cout << "3)" << std::endl;
             	_avlIt._head = _avlIt._dummyNode;
             }
             return (*this);
@@ -88,13 +82,12 @@ namespace ft{
             else if (_avlIt._head->_parent){
                 // std::cout << "2)" << std::endl;
                 Node<value_type> *curr = _avlIt._head;
-                while (curr->_parent
-                && !_avlIt.key_comp(curr, curr->_parent)) // n1 < n2
+               while (curr->_parent
+                && value_compare()(curr->_pair, curr->_parent->_pair))
                     curr = curr->_parent;
                 if (curr->_parent
-                && !_avlIt.key_comp(curr->_parent, _avlIt._head)){
+                && value_compare()(curr->_parent->_pair, _avlIt._head->_pair)){
                     _avlIt._head = curr->_parent;
-                    // std::cout << "2.1)" << std::endl;
                 }
                 else 
                     _avlIt._head = _avlIt._head->_parent;
