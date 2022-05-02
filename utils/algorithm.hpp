@@ -1,6 +1,9 @@
 #ifndef ALGORITHM_H
 #define ALGORITHM_H
 #include "traits.hpp"
+#include "Pair.hpp"
+#include "const_iterator_map.hpp"
+#include "tree_iterator.hpp"
 
 namespace ft{
 
@@ -11,7 +14,13 @@ template <class InputIterator1, class InputIterator2>
     bool equal (InputIterator1 first1, InputIterator1 last1, InputIterator2 first2,
     typename ft::enable_if<ft::is_iterator<InputIterator1>::value, InputIterator1>::type* = 0,
     typename ft::enable_if<ft::is_iterator<InputIterator2>::value, InputIterator2>::type* = 0){
-        
+
+    // if ((*first1).first != (*first2).first)
+    //     return (false);
+
+    // if (operator==(*first1, *first2))
+    //     return (true);
+    pair<int, char> p;
     while (first1 != last1){
         if (*first1 != *first2)
             return (false);

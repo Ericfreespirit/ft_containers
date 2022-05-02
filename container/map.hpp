@@ -3,7 +3,6 @@
 #include <iostream>
 #include <typeinfo>
 #include <limits>
-#include "./vector.hpp"
 #include "../utils/Pair.hpp"
 #include "../utils/AVL.hpp"
 #include "../include/tree_iterator.hpp"
@@ -12,6 +11,7 @@
 #include "../include/reverse_iterator_vector.hpp"
 #include "../utils/traits.hpp"
 #include "../utils/algorithm.hpp"
+#include "./vector.hpp"
 
 
 namespace ft{
@@ -63,9 +63,6 @@ public:
 	typedef ft::const_iterator_map<value_type, value_compare> const_iterator;
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
-
-
-
 
 	/*=============================
   	|   CONSTRUCT/ COPY/ DESTROY   |
@@ -388,6 +385,15 @@ bool operator==(const map<Key,T,Compare,Allocator>& x,
 const map<Key,T,Compare,Allocator>& y){
 	if (x.size() != y.size())
 		return (false);
+	// typename ft::map<Key, T, Compare, Allocator>::const_iterator itx = x.begin();
+	// typename ft::map<Key, T, Compare, Allocator>::const_iterator itex = x.end();
+	// typename ft::map<Key, T, Compare, Allocator>::const_iterator ity = y.begin();
+	// while(itx != itex){
+	// 	if ((*itx).first != ((*ity).first && (*itx).second != (*ity).second))
+	// 		return (false);
+	// 	itx++; ity++;
+	// }
+	// return (true);
 	return (ft::equal(x.begin(), x.end(), y.begin()));
 }
 
@@ -400,7 +406,16 @@ const map<Key,T,Compare,Allocator>& y){
 template <class Key, class T, class Compare, class Allocator>
 bool operator< (const map<Key,T,Compare,Allocator>& x,
 const map<Key,T,Compare,Allocator>& y){
-	return(ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));
+	typename ft::map<Key, T, Compare, Allocator>::const_iterator itx = x.begin();
+	typename ft::map<Key, T, Compare, Allocator>::const_iterator itex = x.end();
+	typename ft::map<Key, T, Compare, Allocator>::const_iterator ity = y.begin();
+	typename ft::map<Key, T, Compare, Allocator>::const_iterator itey = y.end();
+	while(itx != itex && ity != itey){
+		if ((*itx).first != ((*ity).first && (*itx).second != (*ity).second))
+			return (false);
+		itx++; ity++;
+	}
+	return (ity != itey);
 }
 
 

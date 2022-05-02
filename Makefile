@@ -17,7 +17,7 @@ FILE_HPP = container/vector.hpp \
 # src/our_test/AllTest.hpp 
 
 CPPFLAGS = -Wall -Wextra -std=c++98 -g3
-CPPFLAGS += -fsanitize=address
+# CPPFLAGS += -fsanitize=address
 INCFLAGS = -MMD -MP -Icontainer -Iinclude -Iutils
 
 
