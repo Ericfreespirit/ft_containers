@@ -103,7 +103,6 @@ void	cmp(const MAP &lhs, const MAP &rhs)
 
 int		main(void)
 {
-	/*
 	// RELATIONNAL OP MAP
 	TESTED_NAMESPACE::map<T1, T2> mp1;
 	TESTED_NAMESPACE::map<T1, T2> mp2;
@@ -111,7 +110,6 @@ int		main(void)
 	mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
 	mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
 
-	std::cout << "eq: " << (mp1 == mp2) << std::endl;
 
 	cmp(mp1, mp1); // 0
 	cmp(mp1, mp2); // 1
@@ -130,41 +128,5 @@ int		main(void)
 
 	cmp(mp1, mp2); // 6
 	cmp(mp2, mp1); // 7
-*/
-	#define TESTED_TYPE int
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
-	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin(), ite = vct.end();
-
-	std::cout << "len: " << (ite - it) << std::endl;
-	for (; it != ite; ++it)
-		*it = (ite - it);
-
-	it = vct.begin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_range(it, --(--ite));
-	for (int i = 0; it != ite; ++it)
-		*it = ++i * 5;
-
-	it = vct.begin();
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct_copy(vct);
-	for (int i = 0; it != ite; ++it)
-		*it = ++i * 7;
-	vct_copy.push_back(42);
-	vct_copy.push_back(21);
-
-	std::cout << "\t-- PART ONE --" << std::endl;
-	printSize(vct);
-	printSize(vct_range);
-	printSize(vct_copy);
-
-	vct = vct_copy;
-	vct_copy = vct_range;
-	vct_range.clear();
-
-	std::cout << "\t-- PART TWO --" << std::endl;
-	printSize(vct);
-	printSize(vct_range);
-	printSize(vct_copy);
-	return (0);
-
 	return (0);
 }

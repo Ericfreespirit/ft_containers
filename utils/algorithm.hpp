@@ -18,7 +18,6 @@ template <class InputIterator1, class InputIterator2>
 
     // if (operator==(*first1, *first2))
     //     return (true);
-    pair<int, char> p;
     while (first1 != last1){
         if (*first1 != *first2)
             return (false);
