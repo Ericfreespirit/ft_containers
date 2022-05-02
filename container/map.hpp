@@ -1,6 +1,7 @@
 #ifndef MAP_H
 #define MAP_H
 #include <iostream>
+#include <typeinfo>
 #include <limits>
 #include "./vector.hpp"
 #include "../utils/Pair.hpp"
@@ -379,28 +380,42 @@ public:
 
 };// end of class map
 
-
 /*=========================
 |   NON-MEMBER OVERLOADS   |
 ==========================*/
-// template <class Key, class T, class Compare, class Allocator>
-// bool operator==(const map<Key,T,Compare,Allocator>& x,
-// const map<Key,T,Compare,Allocator>& y);
-// template <class Key, class T, class Compare, class Allocator>
-// bool operator< (const map<Key,T,Compare,Allocator>& x,
-// const map<Key,T,Compare,Allocator>& y);
-// template <class Key, class T, class Compare, class Allocator>
-// bool operator!=(const map<Key,T,Compare,Allocator>& x,
-// const map<Key,T,Compare,Allocator>& y);
+template <class Key, class T, class Compare, class Allocator>
+bool operator==(const map<Key,T,Compare,Allocator>& x,
+const map<Key,T,Compare,Allocator>& y){
+	if (x.size() != y.size())
+		return (false);
+	return (ft::equal(x.begin(), x.end(), y.begin()));
+}
+
+template <class Key, class T, class Compare, class Allocator>
+bool operator!=(const map<Key,T,Compare,Allocator>& x,
+const map<Key,T,Compare,Allocator>& y){
+	return (!(x == y));
+}
+
+template <class Key, class T, class Compare, class Allocator>
+bool operator< (const map<Key,T,Compare,Allocator>& x,
+const map<Key,T,Compare,Allocator>& y){
+	return(ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end()));
+}
+
+
 // template <class Key, class T, class Compare, class Allocator>
 // bool operator> (const map<Key,T,Compare,Allocator>& x,
 // const map<Key,T,Compare,Allocator>& y);
+
 // template <class Key, class T, class Compare, class Allocator>
 // bool operator>=(const map<Key,T,Compare,Allocator>& x,
 // const map<Key,T,Compare,Allocator>& y);
+
 // template <class Key, class T, class Compare, class Allocator>
 // bool operator<=(const map<Key,T,Compare,Allocator>& x,
 // const map<Key,T,Compare,Allocator>& y);
+
 // template <class Key, class T, class Compare, class Allocator>
 // void swap(map<Key,T,Compare,Allocator>& x,
 // map<Key,T,Compare,Allocator>& y);
