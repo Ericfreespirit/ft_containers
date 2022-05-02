@@ -1,1 +1,76 @@
-ft::equal<ft::const_iterator_map<ft::pair<const int, char>, ft::map<int, char>::value_compare>, ft::const_iterator_map<ft::pair<const int, char>, ft::map<int, char>::value_compare> >'
+len: 5
+	-- PART ONE --
+size: 5
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+- 7
+- 14
+- 21
+- 2
+- 1
+###############################################
+size: 3
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+- 5
+- 4
+- 3
+###############################################
+size: 7
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+- 5
+- 10
+- 15
+- 2
+- 1
+- 42
+- 21
+###############################################
+	-- PART TWO --
+size: 12
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+- 5
+- 10
+- 15
+- 2
+- 1
+- 42
+- 21
+- 7
+- 14
+- 21
+- 2
+- 1
+###############################################
+size: 0
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+###############################################
+size: 10
+capacity: OK
+max_size: 2305843009213693951
+
+Content is:
+- 5
+- 4
+- 3
+- 5
+- 10
+- 15
+- 2
+- 1
+- 42
+- 21
+###############################################

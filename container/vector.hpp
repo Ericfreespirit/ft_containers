@@ -99,7 +99,7 @@ public:
 
 	vector &operator=(vector const &x)
 	{
-        this->insert(this->begin(), x.begin(), x.end());
+        assign(x.begin(), x.end());
 		return (*this);
 	}
 
