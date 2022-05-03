@@ -7,6 +7,7 @@ FILE_HPP = container/vector.hpp \
 	include/reverse_iterator_vector.hpp \
 	include/iterator.hpp \
 	container/map.hpp \
+	container/stack.hpp \
 	include/tree_iterator.hpp \
 	include/iterator_map.hpp \
 	include/const_iterator_map.hpp \

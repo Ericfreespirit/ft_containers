@@ -207,16 +207,17 @@ public:
 
     void  insert(iterator position, size_t n, const T &val) {
   	    difference_type const	idx = position - begin();
-	    difference_type const	old_end_idx = end() - begin();
-	    iterator				old_end, end;
+	    difference_type const	ide1 = end() - begin();
+	    iterator				end1;
+        iterator                end2;
 
         resize(_size + n);
 
-	    end = this->end();
+	    end2 = this->end();
 	    position = begin() + idx;
-	    old_end = begin() + old_end_idx;
-	    while (old_end != position)
-	    	*--end = *--old_end;
+	    end1 = begin() + ide1;
+	    while (end1 != position)
+	    	*--end2 = *--end1;
 	    while (n-- > 0)
 	    	*position++ = val;
     }
@@ -226,19 +227,21 @@ public:
 	void insert(ft::iterator_vector<T> position, InputIT first,
 	typename ft::enable_if<is_iterator<InputIT>::value, InputIT>::type last)
     {
-	    difference_type const	idx = position - begin();
-	    difference_type const	old_end_idx = end() - begin();
-	    iterator				old_end, end;
+  	    difference_type const	idx = position - begin();
+	    difference_type const	ide1 = end() - begin();
+	    iterator				end1;
+        iterator                end2;
 
-	    resize(_size + (ft::distance(first, last)));
+        resize(_size +(ft::distance(first, last)));
 
-	    end = this->end();
+	    end2 = this->end();
 	    position = begin() + idx;
-	    old_end = begin() + old_end_idx;
-	    while (old_end != position)
-	    	*--end = *--old_end;
+	    end1 = begin() + ide1;
+	    while (end1 != position)
+	    	*--end2 = *--end1;
 	    while (first != last)
 	    	*position++ = *first++;
+
     }
 
     void pop_back() {
