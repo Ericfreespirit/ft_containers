@@ -47,14 +47,19 @@ template <class InputIterator1, class InputIterator2>
     typename ft::enable_if<ft::is_iterator<InputIterator1>::value, InputIterator1>::type* = 0,
     typename ft::enable_if<ft::is_iterator<InputIterator2>::value, InputIterator2>::type* = 0) {
     
-    while (first1 != last1 && first2 != last2)
+    while (first1 != last1)
     {
+
         if (*first1 > *first2 || first2 == last2)
             return (false);
         else if (*first1 < *first2)
             return (true);
-        first1++; first2++;
+        ++first1; ++first2;
     }
+    // std::cout << &(*first1) << std::endl;
+    // std::cout << &(*last1 )<< std::endl;
+    // std::cout << &(*first2) << std::endl;
+    // std::cout << &(*last2 )<< std::endl;
     return (first2 != last2);
 }
 

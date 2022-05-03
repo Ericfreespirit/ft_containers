@@ -41,7 +41,6 @@ namespace ft{
             return (_avlIt._head == it._avlIt._head);
         };
         bool operator!=(const tree_iterator &it)const{
-            // std::cout << "adress: " << _avlIt._head << "| " << it._avlIt._head << std::endl;
             return (_avlIt._head != it._avlIt._head);
         };
 
@@ -104,13 +103,24 @@ namespace ft{
             return (tmp);
 		} 
 
-
         protected:
         AVL<T, value_compare> _avlIt;
+        friend tree_iterator *getItAddr(tree_iterator &x){
+            return (x._avlIt._head._pair);
+        }
 
     }; //end of class
 
 
+    template <class T, class value_compare>
+    bool operator==(tree_iterator<T, value_compare> &x, tree_iterator<T, value_compare> &y){
+        std::cout << "yo" << std::endl;
+        return(getItAddr(x) == y.getItAddr(y));
+    }
+    // template <class T, class value_compare>
+    // bool operator!=(tree_iterator<T, value_compare> &x, tree_iterator<T, value_compare> &y){
+    //     return(!(&x == &y));
+    // }
 
 }; //end of namespace
 
