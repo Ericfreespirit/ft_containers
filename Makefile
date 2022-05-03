@@ -38,13 +38,13 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(FILES:%.cpp=%.o))
 all :   $(NAME) 
 
 $(NAME) :  $(OBJ_PATH) $(OBJ) $(FILE_HPP) 
-	@$(CC)  $(CPPFLAGS) $(INCFLAGS)  $(OBJ) -o ${NAME}
+	$(CC)  $(CPPFLAGS) $(INCFLAGS)  $(OBJ) -o ${NAME}
 
 $(OBJ_PATH):
 	@mkdir -p $(OBJ_PATH)
 
 $(OBJ_PATH)/%.o : %.cpp
-	@$(CC) $(CPPFLAGS) -c $< -o $@ $(INCFLAGS)
+	$(CC) $(CPPFLAGS) -c $< -o $@ $(INCFLAGS)
 -include $(OBJ:.o=.d)
 
 

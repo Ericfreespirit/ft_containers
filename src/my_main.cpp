@@ -8,7 +8,7 @@
 	namespace ft = std;
 #else
 	#include <map.hpp>
-	// #include <stack.hpp>
+	#include <stack.hpp>
 	#include <vector.hpp>
 #endif
 
@@ -26,72 +26,21 @@ struct Buffer
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 
 
-#define _pair ft::pair
 #define TESTED_NAMESPACE ft
-#define T1 char
-#define T2 int
-typedef _pair<const T1, T2> T3;
-
-static int iter = 0;
-
-struct ft_more {
-	bool	operator()(const T1 &first, const T1 &second) const {
-		return (first > second);
-	}
-};
-
-#define T_SIZE_TYPE typename TESTED_NAMESPACE::vector<T>::size_type
-
-template <typename T>
-void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = true)
-{
-	const T_SIZE_TYPE size = vct.size();
-	const T_SIZE_TYPE capacity = vct.capacity();
-	const std::string isCapacityOk = (capacity >= size) ? "OK" : "KO";
-	// Cannot limit capacity's max value because it's implementation dependent
-
-	std::cout << "size: " << size << std::endl;
-	std::cout << "capacity: " << isCapacityOk << std::endl;
-	std::cout << "max_size: " << vct.max_size() << std::endl;
-	if (print_content)
-	{
-		typename TESTED_NAMESPACE::vector<T>::const_iterator it = vct.begin();
-		typename TESTED_NAMESPACE::vector<T>::const_iterator ite = vct.end();
-		std::cout << std::endl << "Content is:" << std::endl;
-		for (; it != ite; ++it)
-			std::cout << "- " << *it << std::endl;
-	}
-	std::cout << "###############################################" << std::endl;
-}
 
 
-template <typename T>
-std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
-{
-	o << "key: " << iterator->first << " | value: " << iterator->second;
-	if (nl)
-		o << std::endl;
-	return ("");
-}
 
-// template <typename T_MAP>
-// void	printSize(T_MAP const &mp, bool print_content = 1)
-// {
-// 	std::cout << "size: " << mp.size() << std::endl;
-// 	std::cout << "max_size: " << mp.max_size() << std::endl;
-// 	if (print_content)
-// 	{
-// 		typename T_MAP::const_iterator it = mp.begin(), ite = mp.end();
-// 		std::cout << std::endl << "Content is:" << std::endl;
-// 		for (; it != ite; ++it)
-// 			std::cout << "- " << printPair(it, false) << std::endl;
-// 	}
-// 	std::cout << "###############################################" << std::endl;
-// }
+// #define TESTED_TYPE int
+// typedef std::list<TESTED_TYPE> container_type;
+// #define t_stack_ TESTED_NAMESPACE::stack<TESTED_TYPE, container_type>
 
 
-template <class MAP>
-void	cmp(const MAP &lhs, const MAP &rhs)
+#define TESTED_TYPE int
+#define t_stack_ TESTED_NAMESPACE::stack<TESTED_TYPE>
+typedef t_stack_::container_type container_type;
+
+template <class T_STACK>
+void	cmp(const T_STACK &lhs, const T_STACK &rhs)
 {
 	static int i = 0;
 
@@ -100,34 +49,38 @@ void	cmp(const MAP &lhs, const MAP &rhs)
 	std::cout << "lt: " << (lhs <  rhs) << " | le: " << (lhs <= rhs) << std::endl;
 	std::cout << "gt: " << (lhs >  rhs) << " | ge: " << (lhs >= rhs) << std::endl;
 }
-
 int		main(void)
 {
-	// RELATIONNAL OP MAP
-	TESTED_NAMESPACE::map<T1, T2> mp1;
-	TESTED_NAMESPACE::map<T1, T2> mp2;
+	container_type	ctnr;
 
-	mp1['a'] = 2; mp1['b'] = 3; mp1['c'] = 4; mp1['d'] = 5;
-	mp2['a'] = 2; mp2['b'] = 3; mp2['c'] = 4; mp2['d'] = 5;
+	ctnr.push_back(21);
+	ctnr.push_back(42);
+	ctnr.push_back(1337);
+	ctnr.push_back(19);
+	ctnr.push_back(0);
+	ctnr.push_back(183792);
 
-	std::cout << (mp1 > mp2) << std::endl;
+	t_stack_	stck(ctnr);
+	t_stack_	stck2(ctnr);
 
-	// cmp(mp1, mp1); // 0
-	// cmp(mp1, mp2); // 1
+	cmp(stck, stck);  // 0
+	cmp(stck, stck2); // 1
 
-	// mp2['e'] = 6; mp2['f'] = 7; mp2['h'] = 8; mp2['h'] = 9;
+	stck2.push(60);
+	stck2.push(61);
+	stck2.push(62);
 
-	// cmp(mp1, mp2); // 2
-	// cmp(mp2, mp1); // 3
+	cmp(stck, stck2); // 2
+	cmp(stck2, stck); // 3
 
-	// (++(++mp1.begin()))->second = 42;
+	stck.push(42);
 
-	// cmp(mp1, mp2); // 4
-	// cmp(mp2, mp1); // 5
+	cmp(stck, stck2); // 4
+	cmp(stck2, stck); // 5
 
-	// swap(mp1, mp2);
+	stck.push(100);
 
-	// cmp(mp1, mp2); // 6
-	// cmp(mp2, mp1); // 7
+	cmp(stck, stck2); // 6
+	cmp(stck2, stck); // 7
 	return (0);
 }

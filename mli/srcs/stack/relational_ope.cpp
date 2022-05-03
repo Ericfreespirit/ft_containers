@@ -1,4 +1,5 @@
 #include "common.hpp"
+#include <list>
 
 #define TESTED_TYPE int
 #define t_stack_ TESTED_NAMESPACE::stack<TESTED_TYPE>
