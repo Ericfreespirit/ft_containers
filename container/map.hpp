@@ -404,13 +404,13 @@ const map<Key,T,Compare,Allocator>& y){
 template <class Key, class T, class Compare, class Allocator>
 bool operator> (const map<Key,T,Compare,Allocator>& x,
 const map<Key,T,Compare,Allocator>& y){
-	return (!(x < y));
+	return (y < x);
 }
 
 template <class Key, class T, class Compare, class Allocator>
 bool operator>=(const map<Key,T,Compare,Allocator>& x,
 const map<Key,T,Compare,Allocator>& y){
-	return (x == y || !(x < y));
+	return (x == y || (y < x));
 }
 
 template <class Key, class T, class Compare, class Allocator>
