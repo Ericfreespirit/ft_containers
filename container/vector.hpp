@@ -170,24 +170,24 @@ public:
     }
 
     iterator erase (iterator pos){
-        iterator ret = pos;
-        erase(pos, pos + 1);
-        return (ret);
+        // iterator ret = pos;
+        // erase(pos, pos + 1);
+        // return (ret);
+        return (erase(pos, pos +1));
     }
 
     iterator erase (iterator first, iterator last){
 
         iterator ret = first;
         size_t len = last - first;
-        size_t idx = first - begin();
+        iterator end = this->end();
 
-        for (size_t i = 0; i < _size; i++){
-            if (i >= idx && i <= idx + len)
-                _alloc.destroy(_array + i);
+        while(last != end){
+            *first = *last;
+            ++first; ++last;
         }
-        _size -= len;
-        for (; idx < _size; idx++)
-            _array[idx] = *last++;
+        while(len-- > 0)
+            _alloc.destroy(&_array[--_size]);
         return (ret);
     }
     
@@ -337,17 +337,10 @@ public:
     }
 
     void swap (vector& x) {
-        T* startTmp = _array;
-        size_t sizeTmp = size();
-        size_t capacityTmp = _allocSize;
-
-        _array = x._array;
-        _size = x.size();
-        _allocSize = x._allocSize;
-
-        x._array = startTmp;
-        x._size = sizeTmp;
-        x._allocSize = capacityTmp;
+        std::swap(_alloc, x._alloc);
+		std::swap(_size, x._size);
+		std::swap(_allocSize, x._allocSize);
+		std::swap(_array, x._array);
     }
 
     }; // end of vector class
@@ -394,9 +387,7 @@ bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 
 template <class T, class Alloc>
 void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y){
-    ft::vector<T> tmp = x;
-    x = y;
-    y = tmp;
+    x.swap(y);
 }
 
 }; //end of ft namespace
