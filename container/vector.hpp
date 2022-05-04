@@ -149,6 +149,7 @@ public:
             T *newArr = _alloc.allocate(new_cap + 1);
             while (++y <= new_cap && y < size()) {
                 _alloc.construct(&newArr[y], _array[y]);
+                _alloc.destroy(_array + y);
             }
             _alloc.deallocate(_array, size());
             _allocSize = new_cap;
