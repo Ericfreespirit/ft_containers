@@ -1,7 +1,7 @@
 #ifndef STACK_HPP
 #define STACK_HPP
 
-#include "./vector.hpp"
+#include "vector.hpp"
 #include <cstddef>
 
 namespace ft {
@@ -44,34 +44,40 @@ class stack
 
 
 template <class T, class Container>
+bool operator==(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+{
+	return (lhs.c == rhs.c);
+}
+
+template <class T, class Container>
 bool operator!=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
 {
 	return (lhs.c != rhs.c);
 }
 
-// template <class T, class Container>
-// bool operator<(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-// {
-// 	return (lhs.c < rhs.c);
-// }
+template <class T, class Container>
+bool operator<(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+{
+	return (lhs.c < rhs.c);
+}
 
-// template <class T, class Container>
-// bool operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-// {
-// 	return (lhs.c <= rhs.c);
-// }
+template <class T, class Container>
+bool operator<=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+{
+	return (lhs.c <= rhs.c);
+}
 
-// template <class T, class Container>
-// bool operator>(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-// {
-// 	return (lhs.c > rhs.c);
-// }
+template <class T, class Container>
+bool operator>(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+{
+	return (lhs.c > rhs.c);
+}
 
-// template <class T, class Container>
-// bool operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
-// {
-// 	return (lhs.c >= rhs.c);
-// }
+template <class T, class Container>
+bool operator>=(const stack<T,Container>& lhs, const stack<T,Container>& rhs)
+{
+	return (lhs.c >= rhs.c);
+}
 
 }
 

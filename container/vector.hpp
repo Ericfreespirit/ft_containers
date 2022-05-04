@@ -350,7 +350,6 @@ public:
     }
 
     }; // end of vector class
-}; //end of ft namespace
 
 
 /*======================
@@ -399,5 +398,6 @@ void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y){
     y = tmp;
 }
 
+}; //end of ft namespace
 
 #endif
