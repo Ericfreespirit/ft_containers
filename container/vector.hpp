@@ -170,9 +170,6 @@ public:
     }
 
     iterator erase (iterator pos){
-        // iterator ret = pos;
-        // erase(pos, pos + 1);
-        // return (ret);
         return (erase(pos, pos +1));
     }
 
@@ -196,7 +193,6 @@ public:
         if (empty())
             return ;
         erase(begin(),end());
-        // delete _array;
     }
 
     iterator insert(iterator pos, const T &value)
@@ -250,7 +246,14 @@ public:
 
 
     void push_back (const value_type& val) {
-        insert(end(), val);
+        if (_size + 1 > _allocSize){
+            if (_size > 0)
+                reserve(_size * 2);
+            else
+                reserve(1);
+        }
+        _alloc.construct(&_array[_size], val);
+        _size++;
     }
 
     void resize (size_type size, T val = value_type()) {

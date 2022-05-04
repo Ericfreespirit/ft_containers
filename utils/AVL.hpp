@@ -17,7 +17,8 @@ public:
 
     AVL():
     _head(NULL), 
-    _size(0){};
+    _size(0){
+    };
 
     AVL(const AVL &ref){
         *this = ref;
@@ -175,9 +176,8 @@ public:
     }
 
     Node<T> *minValNode(Node<T> *node)const{
-        Node<T> *curr = node;
-
-        while(curr->_left != NULL && curr->_left != _dummyNode)
+        Node<T> *curr = node;        
+        while(curr->_left && curr->_left != _dummyNode)
             curr = curr->_left;
         return (curr);
     }
@@ -322,7 +322,7 @@ public:
         _left = ref._left;
         _right = ref._right;
         _height = ref._height;
-				// _pair = ref._pair;
+		// _pair = ref._pair;
         return (*this);
     }
     ~Node(){};
