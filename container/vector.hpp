@@ -231,21 +231,28 @@ public:
 	void insert(ft::iterator_vector<T> position, InputIT first,
 	typename ft::enable_if<is_iterator<InputIT>::value, InputIT>::type last)
     {
-		size_type		len = position - this->begin();
-		size_type		n = 0;
+		size_type len = position - this->begin();
+		size_type n = 0;
 		for (InputIT tmp = first ; tmp != last && n <= this->max_size() ; tmp++)
 			n++;
 
+        std::cout << "size: " << _size << std::endl;
 		if (_size + n > _allocSize)
 		{
-			if (_size + n > _allocSize * 2)
+			if (_size + n > _allocSize * 2){
+                std::cout << "(1)" << std::endl;
 				this->reserve(_size + n);
-			else if (_size > 0)
+            }
+			else if (_size > 0){
+                std::cout << "(2)" << std::endl;
 				this->reserve(_size * 2);
-			else
+            }
+			else{
+                std::cout << "(3)" << std::endl;
 				this->reserve(1);
+            }
 		}
-
+        std::cout << "capacity: " << capacity() << std::endl;
 		for (size_type i = 0 ; i < n ; i++)
 			_alloc.construct(_array + _size + i, *first);
 		for (int i = _size - 1 ; i >= 0 && i >= (int)len ; i--)
@@ -288,7 +295,7 @@ public:
 			this->reserve(size);
 		while (this->_size < size)
 			this->_alloc.construct(&this->_array[this->_size++], val);
-	}
+	    }
     }
 
     template <class InputIterator>
