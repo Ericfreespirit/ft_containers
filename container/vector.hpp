@@ -203,20 +203,27 @@ public:
 	}
 
     void  insert(iterator position, size_t n, const T &val) {
-  	    difference_type const	idx = position - begin();
-	    difference_type const	ide1 = end() - begin();
-	    iterator				end1;
-        iterator                end2;
+		size_type		len = position - this->begin();
 
-        resize(_size + n);
+		if (_size + n > _allocSize)
+		{
+			if (_size + n > _allocSize * 2)
+				this->reserve(_size + n);
+			else if (_size > 0)
+				this->reserve(_size * 2);
+			else
+				this->reserve(1);
+		}
 
-	    end2 = this->end();
-	    position = begin() + idx;
-	    end1 = begin() + ide1;
-	    while (end1 != position)
-	    	*--end2 = *--end1;
-	    while (n-- > 0)
-	    	*position++ = val;
+		for (size_type i = 0 ; i < n ; i++)
+			_alloc.construct(_array + _size + i, val);
+		for (int i = _size - 1 ; i >= 0 && i >= (int)len ; i--){
+			_array[i + n] = _array[i];
+		}
+		for (size_type i = len ; i < len + n ; i++){
+			_array[i] = val;
+		}
+		_size = _size + n;
     }
 
 
@@ -224,21 +231,28 @@ public:
 	void insert(ft::iterator_vector<T> position, InputIT first,
 	typename ft::enable_if<is_iterator<InputIT>::value, InputIT>::type last)
     {
-  	    difference_type const	idx = position - begin();
-	    difference_type const	ide1 = end() - begin();
-	    iterator				end1;
-        iterator                end2;
+		size_type		len = position - this->begin();
+		size_type		n = 0;
+		for (InputIT tmp = first ; tmp != last && n <= this->max_size() ; tmp++)
+			n++;
 
-        resize(_size +(ft::distance(first, last)));
+		if (_size + n > _allocSize)
+		{
+			if (_size + n > _allocSize * 2)
+				this->reserve(_size + n);
+			else if (_size > 0)
+				this->reserve(_size * 2);
+			else
+				this->reserve(1);
+		}
 
-	    end2 = this->end();
-	    position = begin() + idx;
-	    end1 = begin() + ide1;
-	    while (end1 != position)
-	    	*--end2 = *--end1;
-	    while (first != last)
-	    	*position++ = *first++;
-
+		for (size_type i = 0 ; i < n ; i++)
+			_alloc.construct(_array + _size + i, *first);
+		for (int i = _size - 1 ; i >= 0 && i >= (int)len ; i--)
+			_array[i + n] = _array[i];
+		for (size_type i = len ; i < len + n ; i++)
+			_array[i] = *first++;
+		_size = _size + n;
     }
 
     void pop_back() {
@@ -257,14 +271,14 @@ public:
     }
 
     void resize (size_type size, T val = value_type()) {
-	if (size < this->_size)
-	{
-		while (size < this->_size)
-			this->_alloc.destroy(&this->_array[--this->_size]);
-	}
-	else
-	{
-		size_type const &tmp = this->_size;
+		if (size < this->_size)
+		{
+			while (size < this->_size)
+				this->_alloc.destroy(&this->_array[--this->_size]);
+		}
+		else
+		{
+			size_type const &tmp = this->_size;
 
 		if (size <= this->_allocSize)
 			;
