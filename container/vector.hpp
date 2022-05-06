@@ -209,8 +209,11 @@ public:
 		{
 			if (_size + n > _allocSize * 2)
 				this->reserve(_size + n);
-			else if (_size > 0)
+			else if (_size > 0){
+                if (_size == 0)
+                    reserve(n);
 				this->reserve(_size * 2);
+            }
 			else
 				this->reserve(1);
 		}
@@ -236,23 +239,20 @@ public:
 		for (InputIT tmp = first ; tmp != last && n <= this->max_size() ; tmp++)
 			n++;
 
-        std::cout << "size: " << _size << std::endl;
 		if (_size + n > _allocSize)
 		{
 			if (_size + n > _allocSize * 2){
-                std::cout << "(1)" << std::endl;
 				this->reserve(_size + n);
             }
-			else if (_size > 0){
-                std::cout << "(2)" << std::endl;
+			else if (_size >= 0){
+                if (_size == 0)
+                    reserve(n);
 				this->reserve(_size * 2);
             }
 			else{
-                std::cout << "(3)" << std::endl;
 				this->reserve(1);
             }
 		}
-        std::cout << "capacity: " << capacity() << std::endl;
 		for (size_type i = 0 ; i < n ; i++)
 			_alloc.construct(_array + _size + i, *first);
 		for (int i = _size - 1 ; i >= 0 && i >= (int)len ; i--)
