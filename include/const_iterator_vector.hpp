@@ -12,12 +12,10 @@ namespace ft {
     public:
         typedef const_iterator_vector<T> _it;
 
-      typedef std::ptrdiff_t difference_type;
+      	typedef std::ptrdiff_t difference_type;
 	    typedef const T value_type;
 	    typedef	const T*  pointer;
-			typedef const T& reference;
-        // typedef const T& const_reference;
-        // typedef const T* const_pointer;
+		typedef const T& reference;
 		typedef ft::random_access_iterator_tag iterator_category;
 
 
@@ -46,9 +44,8 @@ namespace ft {
 	    _it &operator+=(difference_type p) {this->_ptr += p; return(*this);}; // _ptr += p
 	    _it &operator-=(difference_type p) {this->_ptr -= p; return(*this);}; // _ptr -= p
 
-	    // pointer operator->() {return(this->_ptr);}; // _ptr->p
 	    pointer operator->() const {return (this->_ptr);};	
-      reference operator*() const {return (*this->_ptr);}; // *_ptr
+     	reference operator*() const {return (*this->_ptr);}; // *_ptr
 	    reference operator[](difference_type p) const {return (*(this->_ptr + p));}; // _ptr[]
 
     }; //end of iterator_vector definition class

@@ -208,7 +208,6 @@ public:
                  0 child  
                 */
                 if (!tmp){
-                // std::cout << "0 child" << std::endl;
                     tmp = node;
                     node = NULL;
                 }
@@ -216,7 +215,6 @@ public:
                  1 child  
                 */
                 else{
-                // std::cout << "1 child" << std::endl;
                     tmp->_parent = node->_parent;
                     if (node->_parent && node->_parent->_left == node){
                         tmp->_parent->_left = tmp;
@@ -322,7 +320,6 @@ public:
         _left = ref._left;
         _right = ref._right;
         _height = ref._height;
-		// _pair = ref._pair;
         return (*this);
     }
     ~Node(){};

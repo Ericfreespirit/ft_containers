@@ -75,9 +75,6 @@ namespace ft{
 			return (_current[-n -1]);
 		};
 		difference_type		operator-(const reverse_iterator<Iterator> &u) { return u.base().operator-(_current); };
-		
-		// friend reverse_iterator	operator+(difference_type n, const reverse_iterator &rhs)
-		// 		{ return rhs.operator+(n); };
 
     }; //end of reverse iterator definition class
 

@@ -53,7 +53,6 @@ namespace ft{
 		reference operator *() {return (*this->_ptr);}; // *_ptr
         reference operator *() const {return (*this->_ptr);}; // *_ptr
 	    reference operator [](difference_type p) const {return (this->_ptr[p]);}; // _ptr[]
-		// reference operator [](difference_type p) { return (*(this->_ptr + p)); };
 
     }; //end of iterator_vector definition class
 	template <class T>

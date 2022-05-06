@@ -22,9 +22,7 @@ namespace ft{
     /*================
     |   OP DEFERENCE  |
     ==================*/
-    reference operator*() const {return (*this->_ptr);}; // *_ptr
-	// const_reference operator[](difference_type p) const {return (*(this->_ptr + p));}; // _ptr[]
-	// reference operator [](difference_type p) { return (*(this->_ptr + p)); };	
+    reference operator*() const {return (*this->_ptr);}; // *_ptr	
     pointer operator ->() {return(this->_ptr);}; // _ptr->p
 
     /*=============

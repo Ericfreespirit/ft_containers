@@ -21,11 +21,8 @@ namespace ft{
 
 
         tree_iterator(){};
-        // tree_iterator(const tree_iterator &ref){
-        //     _avlIt = ref._avlIt;
-        // };
-       tree_iterator(const tree_iterator &ref):_avlIt(ref._avlIt){
-            // _avlIt = ref._avlIt;
+
+        tree_iterator(const tree_iterator &ref):_avlIt(ref._avlIt){
         };
 
         const tree_iterator &operator=(const tree_iterator &rhs){
